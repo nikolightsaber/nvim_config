@@ -1,0 +1,5 @@
+require('keybindings')
+require('options')
+require('plugins')
+require('treesitter')
+require('colors')
