@@ -42,26 +42,26 @@ keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
-vim.g.count = 0
+local count = 0
 function _G.Inc()
-    vim.g.count = vim.g.count + 1
-    print(vim.g.count)
+    count = count + 1
+    print(count)
     return ""
 end
 
 function _G.Dec()
-    vim.g.count = vim.g.count - 1
-    print(vim.g.count)
+    count = count - 1
+    print(count)
     return ""
 end
 
 function _G.Res()
-    vim.g.count = 0
-    print(vim.g.count)
+    count = 0
+    print(count)
     return ""
 end
 
-keymap("n", "<A-u>", "v:lua.Inc()", { noremap = true, expr = true })
-keymap("n", "<A-d>", "v:lua.Dec()", { noremap = true, expr = true })
-keymap("n", "<A-r>", "v:lua.Res()", { noremap = true, expr = true })
+keymap("n", "<A-PageUp>", "v:lua.Inc()", { noremap = true, expr = true })
+keymap("n", "<A-PageDown>", "v:lua.Dec()", { noremap = true, expr = true })
+keymap("n", "<A-\>", "v:lua.Res()", { noremap = true, expr = true })
 
