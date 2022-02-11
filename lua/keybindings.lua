@@ -63,5 +63,5 @@ end
 
 keymap("n", "<A-PageUp>", "v:lua.Inc()", { noremap = true, expr = true })
 keymap("n", "<A-PageDown>", "v:lua.Dec()", { noremap = true, expr = true })
-keymap("n", "<A-\>", "v:lua.Res()", { noremap = true, expr = true })
+keymap("n", "<A-\\>", "v:lua.Res()", { noremap = true, expr = true })
 
