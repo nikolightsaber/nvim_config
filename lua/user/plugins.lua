@@ -43,6 +43,9 @@ packer.startup(function()
     use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
 
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use "p00f/nvim-ts-rainbow"
+    use 'nvim-treesitter/playground'
+
     use "Mofiqul/dracula.nvim"
 
     use "hrsh7th/nvim-cmp"  -- The completion plugin
