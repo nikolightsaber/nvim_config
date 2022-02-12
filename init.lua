@@ -1,5 +1,6 @@
 require('user.keybindings')
 require('user.options')
 require('user.plugins')
+require('user.cmp')
 require('user.treesitter')
 require('user.colors')
