@@ -52,9 +52,9 @@ M.setup = function()
     return opts
   end
 
-  vim.cmd[[ highlight! link LspReferenceText IncSearch ]]
-  vim.cmd[[ highlight! link LspReferenceRead IncSearch ]]
-  vim.cmd[[ highlight! link LspReferenceWrite IncSearch ]]
+  vim.cmd[[ highlight! LspReferenceText cterm=bold gui=bold ]]
+  vim.cmd[[ highlight! LspReferenceRead cterm=bold gui=bold ]]
+  vim.cmd[[ highlight! LspReferenceWrite cterm=bold gui=bold ]]
 end
 
 local function lsp_highlight_document(client)
@@ -66,6 +66,7 @@ local function lsp_highlight_document(client)
         autocmd! * <buffer>
         autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
         autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+        autocmd InsertEnter <buffer> lua vim.lsp.buf.clear_references()
       augroup END
     ]],
       false
