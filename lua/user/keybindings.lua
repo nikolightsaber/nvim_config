@@ -1,6 +1,11 @@
 local opts = { noremap = true }
 local keymap = vim.api.nvim_set_keymap
 
+--Remap space as leader key
+keymap("", "<Space>", "<Nop>", opts)
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 keymap("n", "<Enter>", "o<Esc>", opts)
 
 keymap("n", "n", "nzz", opts)
@@ -64,4 +69,3 @@ end
 keymap("n", "<A-PageUp>", "v:lua.Inc()", { noremap = true, expr = true })
 keymap("n", "<A-PageDown>", "v:lua.Dec()", { noremap = true, expr = true })
 keymap("n", "<A-\\>", "v:lua.Res()", { noremap = true, expr = true })
-
