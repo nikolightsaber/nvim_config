@@ -15,6 +15,7 @@ vim.o.cursorline = false            -- hl current line
 vim.o.backup = false
 vim.o.fileencoding = "utf-8"
 vim.o.showmode = false
-vim.o.undofile = true  
+vim.o.undofile = true
 vim.o.sidescrolloff = 8
+vim.o.updatetime = 1000             -- CursorHold time less long (also swapfile but this is unused)
 
