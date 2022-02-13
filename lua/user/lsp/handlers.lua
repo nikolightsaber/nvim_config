@@ -51,10 +51,6 @@ M.setup = function()
     opts.border = 'rounded'
     return opts
   end
-
-  vim.cmd[[ highlight! LspReferenceText cterm=bold gui=bold ]]
-  vim.cmd[[ highlight! LspReferenceRead cterm=bold gui=bold ]]
-  vim.cmd[[ highlight! LspReferenceWrite cterm=bold gui=bold ]]
 end
 
 local function lsp_highlight_document(client)
@@ -64,7 +60,7 @@ local function lsp_highlight_document(client)
       [[
       augroup lsp_document_highlight
         autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorHold <buffer> lua DocumentHighlight()
         autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
         autocmd InsertEnter <buffer> lua vim.lsp.buf.clear_references()
       augroup END
@@ -72,6 +68,22 @@ local function lsp_highlight_document(client)
       false
     )
   end
+end
+
+function _G.DocumentHighlight()
+    local hl = require("user.utils").get_higlight()
+    if hl == "" then
+        hl = "Normal"
+    end
+    local list = { "LspReferenceText", "LspReferenceRead", "LspReferenceWrite" }
+    local rgb = vim.api.nvim_get_hl_by_name("Normal", true)
+    local fg = rgb["foreground"]
+    local bg = rgb["background"]
+    for _,i in ipairs(list) do
+        local b = string.format("highlight %s guifg=%d guibg=%d cterm=bold gui=bold", i, fg, bg)
+        vim.cmd(b)
+    end
+    vim.lsp.buf.document_highlight()
 end
 
 local function lsp_keymaps(bufnr)
