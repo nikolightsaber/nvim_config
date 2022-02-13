@@ -62,4 +62,11 @@ packer.startup(function()
     use "neovim/nvim-lspconfig"
     use "williamboman/nvim-lsp-installer" -- simple to use language server installer
 
+    use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
+
+    -- Automatically set up your configuration after cloning packer.nvim
+    -- Put this at the end after all plugins
+    if PACKER_BOOTSTRAP then
+    require("packer").sync()
+    end
 end)
