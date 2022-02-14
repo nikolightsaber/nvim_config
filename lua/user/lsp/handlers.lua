@@ -71,7 +71,7 @@ local function lsp_highlight_document(client)
 end
 
 function _G.DocumentHighlight()
-    local hl = require("user.utils").get_higlight()
+    local hl = require("user.utils").get_highlight()
     if hl == "" then
         hl = "Normal"
     end

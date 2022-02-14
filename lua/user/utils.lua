@@ -11,7 +11,7 @@ M.split = function(inputstr, sep)
 end
 
 
-M.get_higlight = function()
+M.get_highlight = function()
     local status_ok, playground = pcall(require, 'nvim-treesitter-playground.hl-info')
     if not status_ok then
         return ""
