@@ -28,4 +28,8 @@ M.get_highlight = function()
     return highlight
 end
 
+M.get_word_under_cursor = function()
+    return ""
+end
+
 return M
