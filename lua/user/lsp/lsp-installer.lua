@@ -17,9 +17,24 @@ lsp_installer.on_server_ready(function(server)
 	 	opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
 	 end
 
+	 if server.name == "angularls" then
+	 	local angularls_opts = require("user.lsp.settings.angularls")
+	 	opts = vim.tbl_deep_extend("force", angularls_opts, opts)
+	 end
+
 	 if server.name == "pyright" then
 	 	local pyright_opts = require("user.lsp.settings.pyright")
 	 	opts = vim.tbl_deep_extend("force", pyright_opts, opts)
+	 end
+
+	 if server.name == "omnisharp" then
+	 	local omnisharp_opts = require("user.lsp.settings.omnisharp")
+	 	opts = vim.tbl_deep_extend("force", omnisharp_opts, opts)
+	 end
+
+	 if server.name == "csharp_ls" then
+	 	local csharp_ls_opts = require("user.lsp.settings.csharp_ls")
+	 	opts = vim.tbl_deep_extend("force", csharp_ls_opts, opts)
 	 end
 
 	-- This setup() function is exactly the same as lspconfig's setup function.
