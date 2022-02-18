@@ -39,6 +39,12 @@ M.setup = function()
     border = "rounded",
   })
 
+  local status_ok, telescope = pcall(require, "telescope.builtin")
+  if status_ok then
+      vim.lsp.handlers["textDocument/references"] = telescope.lsp_references
+      vim.lsp.handlers["textDocument/definition"] = telescope.lsp_definitions
+  end
+
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
     border = "rounded",
   })
@@ -121,10 +127,9 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-if not status_ok then
-  return
+if status_ok then
+    M.capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
 end
 
-M.capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
 
 return M

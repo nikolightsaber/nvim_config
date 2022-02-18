@@ -7,7 +7,7 @@ end
 
 vim.api.nvim_set_keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>Telescope live_grep<cr>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>require('telescope.builtin').live_grep()<cr>require('user.utils').get_word_under_cursor()", { noremap = true })
+--vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>require('telescope.builtin').live_grep()<cr>require('user.utils').get_word_under_cursor()", { noremap = true })
 
 local actions = require "telescope.actions"
 
