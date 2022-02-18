@@ -44,7 +44,7 @@ packer.startup(function()
 
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
     use "p00f/nvim-ts-rainbow"
-    use 'nvim-treesitter/playground'
+    use { 'nvim-treesitter/playground', commit = "787a7a8d4444e58467d6b3d4b88a497e7d494643" }
 
     use "Mofiqul/dracula.nvim"
 
