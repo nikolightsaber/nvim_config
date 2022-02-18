@@ -39,10 +39,10 @@ M.setup = function()
     border = "rounded",
   })
 
-  local status_ok, telescope = pcall(require, "telescope.builtin")
+  local status_ok,_ = pcall(require, "telescope.builtin")
   if status_ok then
-      vim.lsp.handlers["textDocument/references"] = telescope.lsp_references
-      vim.lsp.handlers["textDocument/definition"] = telescope.lsp_definitions
+      vim.lsp.handlers["textDocument/references"] = require('user.telescope').references
+      vim.lsp.handlers["textDocument/definition"] = require('user.telescope').definitions
   end
 
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {

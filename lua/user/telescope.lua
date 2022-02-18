@@ -1,22 +1,18 @@
+M = {}
 local status_ok, telescope = pcall(require, "telescope")
 if not status_ok then
   print("telescope not working")
-  return
+  return M
 end
-
-
-vim.api.nvim_set_keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>Telescope live_grep<cr>", { noremap = true })
---vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>require('telescope.builtin').live_grep()<cr>require('user.utils').get_word_under_cursor()", { noremap = true })
 
 local actions = require "telescope.actions"
 
-telescope.setup {
+local setup = {
   defaults = {
 
     prompt_prefix = " ",
     selection_caret = " ",
-    path_display = { "smart" },
+    path_display = { "absolute" },
 
     mappings = {
       i = {
@@ -84,12 +80,78 @@ telescope.setup {
     },
   },
   pickers = {
-    -- Default configuration for builtin pickers goes here:
-    -- picker_name = {
-    --   picker_config_key = value,
-    --   ...
-    -- }
-    -- Now the picker_config_key will be applied every time you call this
-    -- builtin picker
-  },
+    live_grep = {
+      only_sort_text = true
+    }
+  }
 }
+telescope.setup(setup)
+
+local path_mode = "absolute"
+
+M.set_path_mode = function(mode)
+    if(mode ~= path_mode)then
+        path_mode = mode
+        setup.defaults.path_display = { path_mode }
+        telescope.setup(setup)
+    end
+end
+
+M.files = function()
+    require('user.telescope').set_path_mode("absolute")
+    require('telescope.builtin').find_files({ previewer = false })
+    return ""
+end
+
+M.grep_live = function()
+    require('user.telescope').set_path_mode("truncate")
+    require('telescope.builtin').live_grep()
+    return ""
+end
+
+M.grep_word = function(word)
+    vim.fn.setreg("/", word, "c")
+    vim.o.hlsearch = true
+    require('user.telescope').set_path_mode("truncate")
+    require('telescope.builtin').grep_string({
+        prompt_title = 'Search selection',
+        search = word,
+    })
+    return ""
+end
+
+M.buffers = function()
+    require('user.telescope').set_path_mode("absolute")
+    require('telescope.builtin').buffers(require('telescope.themes').get_dropdown({ previewer = false }))
+    return ""
+end
+
+M.references = function()
+    require('user.telescope').set_path_mode("tail")
+    require('telescope.builtin').lsp_references()
+    return ""
+end
+
+M.definitions = function()
+    require('user.telescope').set_path_mode("tail")
+    require('telescope.builtin').lsp_definitions()
+    return ""
+end
+
+function _G.TelescopeCurrentWord()
+    local word = require('user.utils').get_word_under_cursor()
+    return require('user.telescope').grep_word(word)
+end
+
+function _G.TelescopeVisual()
+    local word = vim.fn.getreg("x")
+    return require('user.telescope').grep_word(word)
+end
+
+vim.api.nvim_set_keymap("n", "<leader>f", "<cmd>lua require('user.telescope').files()<cr>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua require('user.telescope').grep_live()<cr>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>b", "<cmd>lua require('user.telescope').buffers()<cr>", { noremap = true })
+vim.api.nvim_set_keymap("n", "gt", "<cmd>lua TelescopeCurrentWord()<cr>", { noremap = true })
+vim.api.nvim_set_keymap("v", "gt", '"xy<cmd>lua TelescopeVisual()<cr>', { noremap = true })
+
+return M

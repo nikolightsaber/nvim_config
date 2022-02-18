@@ -29,7 +29,20 @@ M.get_highlight = function()
 end
 
 M.get_word_under_cursor = function()
-    return ""
+    return vim.fn.expand("<cword>")
+end
+
+M.dump = function (o)
+   if type(o) == 'table' then
+      local s = '{ '
+      for k,v in pairs(o) do
+         if type(k) ~= 'number' then k = '"'..k..'"' end
+         s = s .. '['..k..'] = ' .. M.dump(v) .. ','
+      end
+      return s .. '} '
+   else
+      return tostring(o)
+   end
 end
 
 return M
