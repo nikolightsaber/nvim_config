@@ -4,20 +4,13 @@ if not status_ok then
     return;
 end
 
-vim.cmd[[
-    function! DisableST()
-      return " "
-    endfunction
-    au BufEnter NvimTree setlocal statusline=%!DisableST()
-]]
-
 lualine.setup({
   options = {
     icons_enabled = true,
     theme = 'auto',
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
-    disabled_filetypes = {},
+    disabled_filetypes = { "dashboard", "NvimTree", "Outline" },
     always_divide_middle = true,
   },
   sections = {
