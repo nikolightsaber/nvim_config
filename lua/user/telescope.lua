@@ -83,7 +83,7 @@ local setup = {
     live_grep = {
       only_sort_text = true
     }
-  }
+  },
 }
 telescope.setup(setup)
 
