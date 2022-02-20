@@ -19,7 +19,7 @@ M.get_highlight = function()
     local highlight = ""
     local weight = 0
     for _, v in ipairs(playground.get_treesitter_hl()) do
-        local _,w,hl = unpack(M.split(v, "->"))
+        local _,w,hl = unpack(require("user.utils").split(v, "->"))
         if tonumber(w) > weight then
             weight = tonumber(w)
             highlight = hl:gsub("*", ""):gsub(" ", "")

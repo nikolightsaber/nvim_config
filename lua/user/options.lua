@@ -18,6 +18,42 @@ vim.o.showmode = false
 vim.o.undofile = true
 vim.o.sidescrolloff = 8
 vim.o.updatetime = 1000             -- CursorHold time less long (also swapfile but this is unused)
-vim.o.exrc = true
-vim.o.secure = true                 -- project sepcific settings
+
+local current_dir = require("user.utils").split(vim.fn.getcwd(), "/")
+local current_repo = current_dir[#current_dir]
+local noabexpand_dirs = {
+  "c_fib",
+  "odintomqtt",
+}
+
+for _, dir in ipairs(noabexpand_dirs) do
+  if(dir == current_repo) then
+    vim.o.expandtab = false
+  end
+end
+
+local tab8_dirs = {
+  "c_fib",
+  "odintomqtt",
+}
+
+for _, dir in ipairs(tab8_dirs) do
+  if(dir == current_repo) then
+    vim.o.shiftwidth = 8
+    vim.o.tabstop = 8
+    vim.o.softtabstop = 8
+  end
+end
+
+local tab2_dirs = {
+  "nvim",
+}
+
+for _, dir in ipairs(tab2_dirs) do
+  if(dir == current_repo) then
+    vim.o.shiftwidth = 2
+    vim.o.tabstop = 2
+    vim.o.softtabstop = 2
+  end
+end
 
