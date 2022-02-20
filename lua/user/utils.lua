@@ -45,4 +45,31 @@ M.dump = function (o)
   end
 end
 
+M.highlight_log = function()
+  vim.cmd[[
+    set syntax=messages
+    hi AddTask guifg=#00CD00
+    hi RemoveTask guifg=#CD0000
+    hi AddAsyncTask guifg=#CDCD00
+    normal gg
+    call sign_define("plus", { "linehl" : "AddTask"})
+    while search(" + MainTask", 'W') > 0
+        let line = line('.')
+        call sign_place(1, '', 'plus', @%, {'lnum' : line})
+    endwhile
+    normal gg
+    call sign_define("async", { "linehl" : "AddAsyncTask"})
+    while search(" +A MainTask", 'W') > 0
+        let line = line('.')
+        call sign_place(1, '', 'async', @%, {'lnum' : line})
+    endwhile
+    normal gg
+    call sign_define("minus", { "linehl" : "RemoveTask"})
+    while search(' \~ MainTask', 'W') > 0
+        let line = line('.')
+        call sign_place(1, '', 'minus', @%, {'lnum' : line})
+    endwhile
+  ]]
+  return ""
+end
 return M
