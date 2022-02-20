@@ -49,21 +49,21 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 local count = 0
 function _G.Inc()
-    count = count + 1
-    print(count)
-    return ""
+  count = count + 1
+  print(count)
+  return ""
 end
 
 function _G.Dec()
-    count = count - 1
-    print(count)
-    return ""
+  count = count - 1
+  print(count)
+  return ""
 end
 
 function _G.Res()
-    count = 0
-    print(count)
-    return ""
+  count = 0
+  print(count)
+  return ""
 end
 
 keymap("n", "<A-PageUp>", "v:lua.Inc()", { noremap = true, expr = true })
@@ -71,17 +71,17 @@ keymap("n", "<A-PageDown>", "v:lua.Dec()", { noremap = true, expr = true })
 keymap("n", "<A-\\>", "v:lua.Res()", { noremap = true, expr = true })
 
 function _G.ReplaceWithRegister(type)
-    if(type == nil) then
-        vim.o.operatorfunc = "v:lua.ReplaceWithRegister"
-        return "g@"
-    end
+  if(type == nil) then
+    vim.o.operatorfunc = "v:lua.ReplaceWithRegister"
+    return "g@"
+  end
 
-    local start = vim.api.nvim_buf_get_mark(0, "[")[2]
-    local stop = vim.api.nvim_buf_get_mark(0, "]")[2]
-    local line = vim.api.nvim_get_current_line()
-    local new = vim.fn.getreg("+")
-    line = line:sub(1, start) .. new .. line:sub(stop + 2, -1)
-    vim.api.nvim_set_current_line(line)
+  local start = vim.api.nvim_buf_get_mark(0, "[")[2]
+  local stop = vim.api.nvim_buf_get_mark(0, "]")[2]
+  local line = vim.api.nvim_get_current_line()
+  local new = vim.fn.getreg("+")
+  line = line:sub(1, start) .. new .. line:sub(stop + 2, -1)
+  vim.api.nvim_set_current_line(line)
 end
 
 keymap("n", "gr", "v:lua.ReplaceWithRegister()", { noremap = true, expr = true })

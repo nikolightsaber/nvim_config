@@ -90,62 +90,62 @@ telescope.setup(setup)
 local path_mode = "absolute"
 
 M.set_path_mode = function(mode)
-    if(mode ~= path_mode)then
-        path_mode = mode
-        setup.defaults.path_display = { path_mode }
-        telescope.setup(setup)
-    end
+  if(mode ~= path_mode)then
+    path_mode = mode
+    setup.defaults.path_display = { path_mode }
+    telescope.setup(setup)
+  end
 end
 
 M.files = function()
-    require('user.telescope').set_path_mode("absolute")
-    require('telescope.builtin').find_files({ previewer = false })
-    return ""
+  require('user.telescope').set_path_mode("absolute")
+  require('telescope.builtin').find_files({ previewer = false })
+  return ""
 end
 
 M.grep_live = function()
-    require('user.telescope').set_path_mode("truncate")
-    require('telescope.builtin').live_grep()
-    return ""
+  require('user.telescope').set_path_mode("truncate")
+  require('telescope.builtin').live_grep()
+  return ""
 end
 
 M.grep_word = function(word)
-    vim.fn.setreg("/", word, "c")
-    vim.o.hlsearch = true
-    require('user.telescope').set_path_mode("truncate")
-    require('telescope.builtin').grep_string({
-        prompt_title = 'Search selection',
-        search = word,
-    })
-    return ""
+  vim.fn.setreg("/", word, "c")
+  vim.o.hlsearch = true
+  require('user.telescope').set_path_mode("truncate")
+  require('telescope.builtin').grep_string({
+    prompt_title = 'Search selection',
+    search = word,
+  })
+  return ""
 end
 
 M.buffers = function()
-    require('user.telescope').set_path_mode("absolute")
-    require('telescope.builtin').buffers(require('telescope.themes').get_dropdown({ previewer = false }))
-    return ""
+  require('user.telescope').set_path_mode("absolute")
+  require('telescope.builtin').buffers(require('telescope.themes').get_dropdown({ previewer = false }))
+  return ""
 end
 
 M.references = function()
-    require('user.telescope').set_path_mode("tail")
-    require('telescope.builtin').lsp_references()
-    return ""
+  require('user.telescope').set_path_mode("tail")
+  require('telescope.builtin').lsp_references()
+  return ""
 end
 
 M.definitions = function()
-    require('user.telescope').set_path_mode("tail")
-    require('telescope.builtin').lsp_definitions()
-    return ""
+  require('user.telescope').set_path_mode("tail")
+  require('telescope.builtin').lsp_definitions()
+  return ""
 end
 
 function _G.TelescopeCurrentWord()
-    local word = require('user.utils').get_word_under_cursor()
-    return require('user.telescope').grep_word(word)
+  local word = require('user.utils').get_word_under_cursor()
+  return require('user.telescope').grep_word(word)
 end
 
 function _G.TelescopeVisual()
-    local word = vim.fn.getreg("x")
-    return require('user.telescope').grep_word(word)
+  local word = vim.fn.getreg("x")
+  return require('user.telescope').grep_word(word)
 end
 
 vim.api.nvim_set_keymap("n", "<leader>f", "<cmd>lua require('user.telescope').files()<cr>", { noremap = true })

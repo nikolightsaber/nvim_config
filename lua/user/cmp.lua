@@ -78,9 +78,9 @@ cmp.setup {
         fallback()
       end
     end, {
-      "i",
-      "s",
-    }),
+        "i",
+        "s",
+      }),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
@@ -90,9 +90,9 @@ cmp.setup {
         fallback()
       end
     end, {
-      "i",
-      "s",
-    }),
+        "i",
+        "s",
+      }),
   },
   formatting = {
     fields = { "kind", "abbr", "menu" },
@@ -111,11 +111,11 @@ cmp.setup {
     end,
   },
   sources = {
-    { name = "nvim_lsp" },
-    { name = "nvim_lua" },
-    { name = "luasnip" },
-    { name = "buffer" },
-    { name = "path" },
+  { name = "nvim_lsp" },
+  { name = "nvim_lua" },
+  { name = "luasnip" },
+  { name = "buffer" },
+  { name = "path" },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,

@@ -3,10 +3,10 @@ local M = {}
 -- TODO: backfill this to template
 M.setup = function()
   local signs = {
-    { name = "DiagnosticSignError", text = "" },
-    { name = "DiagnosticSignWarn", text = "" },
-    { name = "DiagnosticSignHint", text = "" },
-    { name = "DiagnosticSignInfo", text = "" },
+  { name = "DiagnosticSignError", text = "" },
+  { name = "DiagnosticSignWarn", text = "" },
+  { name = "DiagnosticSignHint", text = "" },
+  { name = "DiagnosticSignInfo", text = "" },
   }
 
   for _, sign in ipairs(signs) do
@@ -41,8 +41,8 @@ M.setup = function()
 
   local status_ok,_ = pcall(require, "telescope.builtin")
   if status_ok then
-      vim.lsp.handlers["textDocument/references"] = require('user.telescope').references
-      vim.lsp.handlers["textDocument/definition"] = require('user.telescope').definitions
+    vim.lsp.handlers["textDocument/references"] = require('user.telescope').references
+    vim.lsp.handlers["textDocument/definition"] = require('user.telescope').definitions
   end
 
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
@@ -65,31 +65,31 @@ local function lsp_highlight_document(client)
     vim.api.nvim_exec(
       [[
       augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua DocumentHighlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-        autocmd InsertEnter <buffer> lua vim.lsp.buf.clear_references()
+      autocmd! * <buffer>
+      autocmd CursorHold <buffer> lua DocumentHighlight()
+      autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      autocmd InsertEnter <buffer> lua vim.lsp.buf.clear_references()
       augroup END
-    ]],
+      ]],
       false
     )
   end
 end
 
 function _G.DocumentHighlight()
-    local hl = require("user.utils").get_highlight()
-    if hl == "" then
-        hl = "Normal"
-    end
-    local list = { "LspReferenceText", "LspReferenceRead", "LspReferenceWrite" }
-    local rgb = vim.api.nvim_get_hl_by_name("Normal", true)
-    local fg = rgb["foreground"]
-    local bg = rgb["background"]
-    for _,i in ipairs(list) do
-        local b = string.format("highlight %s guifg=%d guibg=%d cterm=bold gui=bold", i, fg, bg)
-        vim.cmd(b)
-    end
-    vim.lsp.buf.document_highlight()
+  local hl = require("user.utils").get_highlight()
+  if hl == "" then
+    hl = "Normal"
+  end
+  local list = { "LspReferenceText", "LspReferenceRead", "LspReferenceWrite" }
+  local rgb = vim.api.nvim_get_hl_by_name("Normal", true)
+  local fg = rgb["foreground"]
+  local bg = rgb["background"]
+  for _,i in ipairs(list) do
+    local b = string.format("highlight %s guifg=%d guibg=%d cterm=bold gui=bold", i, fg, bg)
+    vim.cmd(b)
+  end
+  vim.lsp.buf.document_highlight()
 end
 
 local function lsp_keymaps(bufnr)
@@ -118,7 +118,7 @@ end
 
 M.on_attach = function(client, bufnr)
   -- if client.name == "tsserver" then
-    -- client.resolved_capabilities.document_formatting = true
+  -- client.resolved_capabilities.document_formatting = true
   -- end
   lsp_keymaps(bufnr)
   lsp_highlight_document(client)
@@ -128,7 +128,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if status_ok then
-    M.capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+  M.capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
 end
 
 

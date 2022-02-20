@@ -1,7 +1,7 @@
 M = {
-	settings = {
-        cs = { }
-    }
+  settings = {
+    cs = { }
+  }
 }
 
 local cmd = { "/home/nikolai/code/omnisharp/run", "--languageserver" , "--hostPID", tostring(vim.fn.getpid()) }
