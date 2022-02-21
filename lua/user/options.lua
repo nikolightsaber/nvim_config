@@ -19,8 +19,7 @@ vim.o.undofile = true
 vim.o.sidescrolloff = 8
 vim.o.updatetime = 1000             -- CursorHold time less long (also swapfile but this is unused)
 
-local current_dir = require("user.utils").split(vim.fn.getcwd(), "/")
-local current_repo = current_dir[#current_dir]
+local current_repo =require("user.utils").current_repo()
 local noabexpand_dirs = {
   "c_fib",
   "odintomqtt",

@@ -99,7 +99,12 @@ end
 
 M.files = function()
   require('user.telescope').set_path_mode("absolute")
-  require('telescope.builtin').find_files({ previewer = false })
+  local current_repo =require("user.utils").current_repo()
+  local opts = { previewer = false }
+  if current_repo == "navigation" then
+    opts.no_ignore = true
+  end
+  require('telescope.builtin').find_files(opts)
   return ""
 end
 
