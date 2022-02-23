@@ -1,3 +1,4 @@
+M = {}
 vim.o.clipboard = "unnamedplus"
 vim.o.expandtab = true
 vim.o.shiftwidth = 4
@@ -49,11 +50,16 @@ local tab2_dirs = {
   "nvim",
 }
 
+M.set2tab = function()
+  vim.o.shiftwidth = 2
+  vim.o.tabstop = 2
+  vim.o.softtabstop = 2
+end
+
 for _, dir in ipairs(tab2_dirs) do
   if(dir == current_repo) then
-    vim.o.shiftwidth = 2
-    vim.o.tabstop = 2
-    vim.o.softtabstop = 2
+    M.set2tab()
   end
 end
 
+return M
