@@ -131,5 +131,4 @@ if status_ok then
   M.capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
 end
 
-
 return M
