@@ -18,6 +18,12 @@ bufferline.setup({
     show_tab_indicators = false,
     persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
 
+    name_formatter = function(buf)
+      if(buf.name:len() > 15) then
+        return buf.name:sub(buf.name:len() - 15)
+      end
+    end,
+
     separator_style = "slant", -- | "thick" | "thin" | { 'any', 'any' },
     enforce_regular_tabs = true,
     always_show_bufferline = true,
