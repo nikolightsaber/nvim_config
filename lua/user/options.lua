@@ -20,6 +20,7 @@ vim.o.undofile = true
 vim.o.sidescrolloff = 8
 vim.o.updatetime = 1000             -- CursorHold time less long (also swapfile but this is unused)
 vim.o.cursorline = true
+vim.cmd [[set iskeyword+=-]]
 
 local current_repo =require("user.utils").current_repo()
 local noabexpand_dirs = {
