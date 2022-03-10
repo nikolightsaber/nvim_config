@@ -24,7 +24,7 @@ gitsigns.setup {
   current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
   current_line_blame_opts = {
     virt_text = true,
-    virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
+    virt_text_pos = "right_align", -- 'eol' | 'overlay' | 'right_align'
     delay = 0,
     ignore_whitespace = false,
   },
@@ -49,3 +49,5 @@ gitsigns.setup {
 }
 vim.api.nvim_set_keymap("n", "<leader>w", "<cmd>lua require('gitsigns.actions').blame_line()<cr>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>ts", "<cmd>lua require('gitsigns.actions').toggle_signs()<cr>", { noremap = true })
+vim.cmd[[hi GitSignsCurrentLineBlame guifg=#6c7993]]
+vim.api.nvim_set_keymap("n", "<leader>tb", "<cmd>lua require('gitsigns.actions').toggle_current_line_blame()<cr>", { noremap = true })
