@@ -73,6 +73,19 @@ M.highlight_log = function()
   return ""
 end
 
+M.test_data= function()
+  vim.cmd[[
+    while search("data name=", 'W') > 0
+        let l = line('.')
+        normal 3w*
+        if l != line('.')
+            echo l
+            normal datn
+        endif
+    endwhile
+  ]]
+  return ""
+end
 
 M.current_repo = function()
   local current_dir = require("user.utils").split(vim.fn.getcwd(), "/")
