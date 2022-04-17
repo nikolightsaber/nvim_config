@@ -73,7 +73,7 @@ M.highlight_log = function()
   return ""
 end
 
-M.test_data= function()
+M.test_data = function()
   vim.cmd[[
     while search("data name=", 'W') > 0
         let l = line('.')

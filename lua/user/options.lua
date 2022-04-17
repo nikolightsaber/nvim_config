@@ -20,47 +20,6 @@ vim.o.undofile = true
 vim.o.sidescrolloff = 8
 vim.o.updatetime = 1000             -- CursorHold time less long (also swapfile but this is unused)
 vim.o.cursorline = true
-vim.cmd [[set iskeyword+=-]]
-
-local current_repo =require("user.utils").current_repo()
-local noabexpand_dirs = {
-  "c_fib",
-  "odintomqtt",
-}
-
-for _, dir in ipairs(noabexpand_dirs) do
-  if(dir == current_repo) then
-    vim.o.expandtab = false
-  end
-end
-
-local tab8_dirs = {
-  "c_fib",
-  "odintomqtt",
-}
-
-for _, dir in ipairs(tab8_dirs) do
-  if(dir == current_repo) then
-    vim.o.shiftwidth = 8
-    vim.o.tabstop = 8
-    vim.o.softtabstop = 8
-  end
-end
-
-local tab2_dirs = {
-  "nvim",
-}
-
-M.set2tab = function()
-  vim.o.shiftwidth = 2
-  vim.o.tabstop = 2
-  vim.o.softtabstop = 2
-end
-
-for _, dir in ipairs(tab2_dirs) do
-  if(dir == current_repo) then
-    M.set2tab()
-  end
-end
+vim.o.iskeyword = vim.o.iskeyword .. ",-"
 
 return M

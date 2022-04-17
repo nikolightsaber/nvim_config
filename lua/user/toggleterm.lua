@@ -37,4 +37,5 @@ function _G.set_terminal_keymaps()
   vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', [[<C-\><C-n><C-W>l]], opts)
 end
 
-vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+local group = vim.api.nvim_create_augroup("term", { clear=true })
+vim.api.nvim_create_autocmd("TermOpen", { group=group, pattern="term://*", callback=set_terminal_keymaps })

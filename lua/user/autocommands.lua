@@ -1,28 +1,37 @@
+local set_2_tab = function()
+  vim.o.shiftwidth = 2
+  vim.o.tabstop = 2
+  vim.o.softtabstop = 2
+end
+
+local group = vim.api.nvim_create_augroup("2indet", { clear=true })
+vim.api.nvim_create_autocmd("FileType", { group=group, pattern={ "lua", "typescript" ,"html", "css" }, callback=set_2_tab })
+
+local set_tabexpand_off = function()
+  vim.o.expandtab = false
+end
+
+group = vim.api.nvim_create_augroup("tabexpand", { clear=true })
+vim.api.nvim_create_autocmd("BufEnter", { group=group, pattern={ "odintomqtt.c" }, callback=set_tabexpand_off })
+
+local set_spel = function ()
+  vim.b.wrap = true
+  vim.b.spell = true
+end
+
+group = vim.api.nvim_create_augroup("spell", { clear=true })
+vim.api.nvim_create_autocmd("FileType", { group=group, pattern={ "gitcommit" ,"markdown", "latex" }, callback=set_spel })
+
 vim.cmd [[
-  augroup _2indet
-    autocmd!
-    autocmd FileType typescript,html lua require("user.options").set2tab()
-  augroup end
-
-  augroup _git
-    autocmd!
-    autocmd FileType gitcommit setlocal wrap
-    autocmd FileType gitcommit setlocal spell
-  augroup end
-
-  augroup _markdown
-    autocmd!
-    autocmd FileType markdown setlocal wrap
-    autocmd FileType markdown setlocal spell
-  augroup end
-
   highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-  autocmd ColorScheme * highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
   " Show trailing whitespace and spaces before a tab:
   match ExtraWhitespace /\s\+$\| \+\ze\t/
   " Show tabs that are not at the start of a line:
   match ExtraWhitespace /[^\t]\zs\t\+/
   " Show trailing whitespaces when not in insert mode:
-  au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-  au InsertLeave * match ExtraWhitespace /\s\+$/
 ]]
+
+group = vim.api.nvim_create_augroup("", { clear=true })
+vim.api.nvim_create_autocmd("ColorScheme", { group=group, pattern="*", command=[[highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen]] })
+vim.api.nvim_create_autocmd("InsertEnter", { group=group, pattern="*", command=[[match ExtraWhitespace /\s\+\%#\@<!$/]] })
+vim.api.nvim_create_autocmd("InsertLeave", { group=group, pattern="*", command=[[match ExtraWhitespace /\s\+$/]] })
