@@ -69,7 +69,7 @@ packer.startup(function()
 
   use "nvim-telescope/telescope.nvim"
 
-  use "akinsho/bufferline.nvim"
+  use { "akinsho/bufferline.nvim", branch="main" }
   use "moll/vim-bbye"
 
   use 'kyazdani42/nvim-tree.lua'
@@ -80,7 +80,7 @@ packer.startup(function()
 
   use "AckslD/nvim-neoclip.lua"
 
-  use "akinsho/toggleterm.nvim"
+  use { "akinsho/toggleterm.nvim", branch="main" }
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
