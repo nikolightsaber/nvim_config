@@ -89,7 +89,7 @@ telescope.setup(setup)
 
 local path_mode = "absolute"
 
-M.set_path_mode = function(mode)
+local set_path_mode = function(mode)
   if(mode ~= path_mode)then
     path_mode = mode
     setup.defaults.path_display = { path_mode }
@@ -98,7 +98,7 @@ M.set_path_mode = function(mode)
 end
 
 M.files = function()
-  require('user.telescope').set_path_mode("absolute")
+  set_path_mode("absolute")
   local current_repo =require("user.utils").current_repo()
   local opts = { previewer = false }
   if current_repo == "navigation" then
@@ -109,7 +109,7 @@ M.files = function()
 end
 
 M.grep_live = function()
-  require('user.telescope').set_path_mode("truncate")
+  set_path_mode("truncate")
   require('telescope.builtin').live_grep()
   return ""
 end
@@ -117,7 +117,7 @@ end
 M.grep_word = function(word)
   vim.fn.setreg("/", word, "c")
   vim.o.hlsearch = true
-  require('user.telescope').set_path_mode("truncate")
+  set_path_mode("truncate")
   require('telescope.builtin').grep_string({
     prompt_title = 'Search selection',
     search = word,
@@ -126,19 +126,19 @@ M.grep_word = function(word)
 end
 
 M.buffers = function()
-  require('user.telescope').set_path_mode("absolute")
+  set_path_mode("absolute")
   require('telescope.builtin').buffers(require('telescope.themes').get_dropdown({ previewer = false }))
   return ""
 end
 
 M.references = function()
-  require('user.telescope').set_path_mode("tail")
+  set_path_mode("tail")
   require('telescope.builtin').lsp_references()
   return ""
 end
 
 M.definitions = function()
-  require('user.telescope').set_path_mode("tail")
+  set_path_mode("tail")
   require('telescope.builtin').lsp_definitions()
   return ""
 end
@@ -153,9 +153,15 @@ M.current_word_visual = function ()
   return require('user.telescope').grep_word(word)
 end
 
+M.grep_current_file = function ()
+  set_path_mode("hidden")
+  return require('telescope.builtin').live_grep({ search_dirs={vim.api.nvim_buf_get_name(0) } })
+end
+
 vim.api.nvim_set_keymap("n", "<leader>f", "<cmd>lua require('user.telescope').files()<cr>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua require('user.telescope').grep_live()<cr>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>b", "<cmd>lua require('user.telescope').buffers()<cr>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>/", "<cmd>lua require('user.telescope').grep_current_file()<cr>", { noremap = true })
 vim.api.nvim_set_keymap("n", "gt", "<cmd>lua require('user.telescope').current_word()<cr>", { noremap = true })
 vim.api.nvim_set_keymap("v", "gt", '"xy<cmd>lua require("user.telescope").current_word_visual()<cr>', { noremap = true })
 
