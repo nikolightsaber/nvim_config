@@ -28,10 +28,6 @@ M.get_highlight = function()
   return highlight
 end
 
-M.get_word_under_cursor = function()
-  return vim.fn.expand("<cword>")
-end
-
 M.dump = function (o)
   if type(o) == 'table' then
     local s = '{ '

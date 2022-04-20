@@ -47,29 +47,6 @@ keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
-local count = 0
-function _G.Inc()
-  count = count + 1
-  print(count)
-  return ""
-end
-
-function _G.Dec()
-  count = count - 1
-  print(count)
-  return ""
-end
-
-function _G.Res()
-  count = 0
-  print(count)
-  return ""
-end
-
-keymap("n", "<A-PageUp>", "v:lua.Inc()", { noremap = true, expr = true })
-keymap("n", "<A-PageDown>", "v:lua.Dec()", { noremap = true, expr = true })
-keymap("n", "<A-\\>", "v:lua.Res()", { noremap = true, expr = true })
-
 function _G.ReplaceWithRegister(type)
   if(type == nil) then
     vim.o.operatorfunc = "v:lua.ReplaceWithRegister"

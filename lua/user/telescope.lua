@@ -143,12 +143,12 @@ M.definitions = function()
   return ""
 end
 
-function _G.TelescopeCurrentWord()
-  local word = require('user.utils').get_word_under_cursor()
+M.current_word = function ()
+  local word = vim.fn.expand("<cword>")
   return require('user.telescope').grep_word(word)
 end
 
-function _G.TelescopeVisual()
+M.current_word_visual = function ()
   local word = vim.fn.getreg("x")
   return require('user.telescope').grep_word(word)
 end
@@ -156,7 +156,7 @@ end
 vim.api.nvim_set_keymap("n", "<leader>f", "<cmd>lua require('user.telescope').files()<cr>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua require('user.telescope').grep_live()<cr>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>b", "<cmd>lua require('user.telescope').buffers()<cr>", { noremap = true })
-vim.api.nvim_set_keymap("n", "gt", "<cmd>lua TelescopeCurrentWord()<cr>", { noremap = true })
-vim.api.nvim_set_keymap("v", "gt", '"xy<cmd>lua TelescopeVisual()<cr>', { noremap = true })
+vim.api.nvim_set_keymap("n", "gt", "<cmd>lua require('user.telescope').current_word()<cr>", { noremap = true })
+vim.api.nvim_set_keymap("v", "gt", '"xy<cmd>lua require("user.telescope").current_word_visual()<cr>', { noremap = true })
 
 return M
