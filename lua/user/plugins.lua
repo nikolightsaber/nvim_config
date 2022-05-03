@@ -76,6 +76,8 @@ packer.startup(function()
 
   use "AckslD/nvim-neoclip.lua"
 
+  use 'davidgranstrom/nvim-markdown-preview'
+
   use { "akinsho/toggleterm.nvim", branch="main" }
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
