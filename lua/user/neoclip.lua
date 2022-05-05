@@ -1,5 +1,4 @@
-local status_ok, neoclip = pcall(require, "neoclip")
-if not status_ok then
+local status_ok, neoclip = pcall(require, "neoclip") if not status_ok then
   print("Error no neoclip")
   return
 end
@@ -47,4 +46,5 @@ if not status then
   return
 end
 telescope.load_extension('neoclip')
-vim.api.nvim_set_keymap("n", "<c-p>", "<cmd>lua require('telescope').extensions.neoclip.neoclip({initial_mode='normal'})<cr>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<c-p>", "", {noremap = true,
+                                           callback = function () return require('telescope').extensions.neoclip.neoclip({initial_mode='normal'}) end })

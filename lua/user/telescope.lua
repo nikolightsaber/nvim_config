@@ -6,6 +6,8 @@ if not status_ok then
 end
 
 local actions = require "telescope.actions"
+local builtin = require "telescope.builtin"
+local themes = require "telescope.themes"
 
 local setup = {
   defaults = {
@@ -97,72 +99,72 @@ local set_path_mode = function(mode)
   end
 end
 
-M.files = function()
+local files = function()
   set_path_mode("absolute")
   local current_repo =require("user.utils").current_repo()
   local opts = { previewer = false }
   if current_repo == "navigation" then
     opts.no_ignore = true
   end
-  require('telescope.builtin').find_files(opts)
+  builtin.find_files(opts)
   return ""
 end
 
-M.grep_live = function()
+local grep_live = function()
   set_path_mode("truncate")
-  require('telescope.builtin').live_grep()
+  builtin.live_grep()
   return ""
 end
 
-M.grep_word = function(word)
+local grep_word = function(word)
   vim.fn.setreg("/", word, "c")
   vim.o.hlsearch = true
   set_path_mode("truncate")
-  require('telescope.builtin').grep_string({
+  builtin.grep_string({
     prompt_title = 'Search selection',
     search = word,
   })
   return ""
 end
 
-M.buffers = function()
+local buffers = function()
   set_path_mode("absolute")
-  require('telescope.builtin').buffers(require('telescope.themes').get_dropdown({ previewer = false }))
+  builtin.buffers(themes.get_dropdown({ previewer = false }))
   return ""
 end
 
 M.references = function()
   set_path_mode("tail")
-  require('telescope.builtin').lsp_references()
+  builtin.lsp_references()
   return ""
 end
 
 M.definitions = function()
   set_path_mode("tail")
-  require('telescope.builtin').lsp_definitions()
+  builtin.lsp_definitions()
   return ""
 end
 
-M.current_word = function ()
+local current_word = function ()
   local word = vim.fn.expand("<cword>")
-  return require('user.telescope').grep_word(word)
+  return grep_word(word)
 end
 
 M.current_word_visual = function ()
   local word = vim.fn.getreg("x")
-  return require('user.telescope').grep_word(word)
+  return grep_word(word)
 end
 
-M.grep_current_file = function ()
+local grep_current_file = function ()
   set_path_mode("hidden")
-  return require('telescope.builtin').live_grep({ search_dirs={vim.api.nvim_buf_get_name(0) } })
+  return builtin.live_grep({ search_dirs={vim.api.nvim_buf_get_name(0) } })
 end
 
-vim.api.nvim_set_keymap("n", "<leader>f", "<cmd>lua require('user.telescope').files()<cr>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua require('user.telescope').grep_live()<cr>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>b", "<cmd>lua require('user.telescope').buffers()<cr>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>/", "<cmd>lua require('user.telescope').grep_current_file()<cr>", { noremap = true })
-vim.api.nvim_set_keymap("n", "gt", "<cmd>lua require('user.telescope').current_word()<cr>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>f", "", { noremap = true, callback = files })
+vim.api.nvim_set_keymap("n", "<leader>g", "", { noremap = true, callback = grep_live })
+vim.api.nvim_set_keymap("n", "<leader>b", "", { noremap = true, callback = buffers })
+vim.api.nvim_set_keymap("n", "<leader>/", "", { noremap = true, callback = grep_current_file })
+vim.api.nvim_set_keymap("n", "gt", "", { noremap = true, callback = current_word })
 vim.api.nvim_set_keymap("v", "gt", '"xy<cmd>lua require("user.telescope").current_word_visual()<cr>', { noremap = true })
 
 return M
