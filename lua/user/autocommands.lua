@@ -27,7 +27,7 @@ local set_spel = function ()
 end
 
 group = vim.api.nvim_create_augroup("spell", { clear=true })
-vim.api.nvim_create_autocmd("FileType", { group=group, pattern={ "gitcommit" ,"markdown", "latex" }, callback=set_spel })
+vim.api.nvim_create_autocmd("FileType", { group=group, pattern={ "gitcommit" ,"markdown", "latex", "md" }, callback=set_spel })
 
 vim.cmd [[
   highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
