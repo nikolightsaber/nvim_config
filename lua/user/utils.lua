@@ -12,20 +12,15 @@ end
 
 
 M.get_highlight = function()
-  local status_ok, playground = pcall(require, 'nvim-treesitter-playground.hl-info')
+  local status_ok, playground = pcall(require, 'nvim-treesitter-playground.utils')
   if not status_ok then
     return ""
   end
-  local highlight = ""
-  local weight = 0
-  for _, v in ipairs(playground.get_treesitter_hl()) do
-    local _,w,hl = unpack(require("user.utils").split(v, "->"))
-    if tonumber(w) > weight then
-      weight = tonumber(w)
-      highlight = hl:gsub("*", ""):gsub(" ", "")
-    end
-  end
-  return highlight
+  local bufnr = vim.api.nvim_get_current_buf()
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  row = row - 1
+  local results = playground.get_hl_groups_at_position(bufnr, row, col)
+  return results.general
 end
 
 M.dump = function (o)
