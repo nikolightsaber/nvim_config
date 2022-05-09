@@ -64,4 +64,4 @@ end
 keymap("n", "gr", "v:lua.ReplaceWithRegister()", { noremap = true, expr = true })
 keymap("n", "grr", "v:lua.ReplaceWithRegister()", { noremap = true, expr = true })
 
-keymap("n", "<F7>", ':lua require("user.utils").highlight_log()<cr>', { noremap = true })
+keymap("n", "<F7>", '', { noremap = true, callback = require("user.utils").highlight_log })
