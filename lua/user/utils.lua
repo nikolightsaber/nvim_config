@@ -20,7 +20,11 @@ M.get_highlight = function()
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   row = row - 1
   local results = playground.get_hl_groups_at_position(bufnr, row, col)
-  return results.general
+  if(#results > 0) then
+    return results[#results].general
+  else
+    return ""
+  end
 end
 
 M.dump = function (o)

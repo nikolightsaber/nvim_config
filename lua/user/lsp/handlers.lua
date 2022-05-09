@@ -1,6 +1,5 @@
 local M = {}
 
--- TODO: backfill this to template
 M.setup = function()
   local signs = {
   { name = "DiagnosticSignError", text = "" },
@@ -65,12 +64,11 @@ local document_highlight = function ()
     hl = "Normal"
   end
   local list = { "LspReferenceText", "LspReferenceRead", "LspReferenceWrite" }
-  local rgb = vim.api.nvim_get_hl_by_name("Normal", true)
+  local rgb = vim.api.nvim_get_hl_by_name(hl, true)
   local fg = rgb["foreground"]
   local bg = rgb["background"]
-  for _,i in ipairs(list) do
-    local b = string.format("highlight %s guifg=%d guibg=%d cterm=bold gui=bold", i, fg, bg)
-    vim.cmd(b)
+  for _,hi in ipairs(list) do
+    vim.api.nvim_set_hl(0, hi, { fg = fg, bg = bg, bold = true } )
   end
   vim.lsp.buf.document_highlight()
 end
