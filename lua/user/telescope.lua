@@ -14,7 +14,6 @@ local setup = {
 
     prompt_prefix = " ",
     selection_caret = " ",
-    path_display = { "absolute" },
 
     mappings = {
       i = {
@@ -90,66 +89,45 @@ local setup = {
   },
   pickers = {
     live_grep = {
-      only_sort_text = true
+      only_sort_text = true,
     }
   },
 }
 telescope.setup(setup)
 
-local path_mode = "absolute"
-
-local set_path_mode = function(mode)
-  if(mode ~= path_mode)then
-    path_mode = mode
-    setup.defaults.path_display = { path_mode }
-    telescope.setup(setup)
-  end
-end
-
 local files = function()
-  set_path_mode("absolute")
-  local current_repo =require("user.utils").current_repo()
-  local opts = { previewer = false }
+  local current_repo = require("user.utils").current_repo()
+  local opts = { previewer = false, path_display = { "absolute" } }
   if current_repo == "navigation" then
     opts.no_ignore = true
   end
-  builtin.find_files(opts)
-  return ""
+  return builtin.find_files(opts)
 end
 
 local grep_live = function()
-  set_path_mode("truncate")
-  builtin.live_grep()
-  return ""
+  return builtin.live_grep( { path_display = { "truncate" } })
 end
 
 local grep_word = function(word)
   vim.fn.setreg("/", word, "c")
   vim.o.hlsearch = true
-  set_path_mode("truncate")
-  builtin.grep_string({
+  return builtin.grep_string({
     prompt_title = 'Search selection',
     search = word,
+    path_display = { "truncate" },
   })
-  return ""
 end
 
 local buffers = function()
-  set_path_mode("absolute")
-  builtin.buffers(themes.get_dropdown({ previewer = false }))
-  return ""
+  return builtin.buffers(themes.get_dropdown({ previewer = false, path_display = { "absolute" } }))
 end
 
 M.references = function()
-  set_path_mode("tail")
-  builtin.lsp_references()
-  return ""
+  return builtin.lsp_references({ path_display = { "tail" } })
 end
 
 M.definitions = function()
-  set_path_mode("tail")
-  builtin.lsp_definitions()
-  return ""
+  return builtin.lsp_definitions({ path_display = { "tail" } })
 end
 
 local current_word = function ()
@@ -163,8 +141,7 @@ M.current_word_visual = function ()
 end
 
 local grep_current_file = function ()
-  set_path_mode("hidden")
-  return builtin.live_grep({ search_dirs={vim.api.nvim_buf_get_name(0) } })
+  return builtin.live_grep({ search_dirs = { vim.api.nvim_buf_get_name(0), path_display = { "hidden" } } })
 end
 
 vim.api.nvim_set_keymap("n", "<leader>f", "", { noremap = true, callback = files })
