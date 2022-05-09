@@ -80,6 +80,11 @@ local setup = {
         ["?"] = actions.which_key,
       },
     },
+    layout_config = {
+      horizontal = {
+        preview_width = 0.7,
+      }
+    }
   },
   pickers = {
     live_grep = {
