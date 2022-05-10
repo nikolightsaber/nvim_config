@@ -66,7 +66,6 @@ packer.startup(function()
   use "nvim-telescope/telescope.nvim"
 
   use { "akinsho/bufferline.nvim", branch="main" }
-  use "moll/vim-bbye"
 
   use 'kyazdani42/nvim-tree.lua'
 
