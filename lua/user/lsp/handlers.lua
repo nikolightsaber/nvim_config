@@ -58,27 +58,31 @@ M.setup = function()
   end
 end
 
-local document_highlight = function ()
-  local hl = require("user.utils").get_highlight()
-  if hl == "" then
-    hl = "Normal"
-  end
-  local list = { "LspReferenceText", "LspReferenceRead", "LspReferenceWrite" }
-  local rgb = vim.api.nvim_get_hl_by_name(hl, true)
-  local fg = rgb["foreground"]
-  local bg = rgb["background"]
-  for _,hi in ipairs(list) do
-    vim.api.nvim_set_hl(0, hi, { fg = fg, bg = bg, bold = true } )
-  end
-  vim.lsp.buf.document_highlight()
-end
+-- local document_highlight = function ()
+  -- local hl = require("user.utils").get_highlight()
+  -- if hl == "" then
+  --   hl = "Normal"
+  -- end
+  -- local rgb = vim.api.nvim_get_hl_by_name(hl, true)
+  -- local fg = rgb["foreground"]
+  -- local bg = rgb["background"]
+  -- local list = { "LspReferenceText", "LspReferenceRead", "LspReferenceWrite" }
+  -- for _,hi in ipairs(list) do
+  --   vim.api.nvim_set_hl(0, hi, { bold = true } )
+  -- end
+  -- vim.lsp.buf.document_highlight()
+-- end
 
 local function lsp_highlight_document(client)
   -- Set autocommands conditional on server_capabilities
   if client.server_capabilities.documentHighlightProvider == true then
     local group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear=true })
-    vim.api.nvim_create_autocmd("CursorHold", { group=group, pattern="<buffer>", callback=document_highlight })
+    vim.api.nvim_create_autocmd("CursorHold", { group=group, pattern="<buffer>", callback=vim.lsp.buf.document_highlight })
     vim.api.nvim_create_autocmd({ "CursorMoved", "InsertEnter" }, { group=group, pattern="<buffer>", callback=vim.lsp.buf.clear_references })
+    local list = { "LspReferenceText", "LspReferenceRead", "LspReferenceWrite" }
+    for _,hi in ipairs(list) do
+      vim.api.nvim_set_hl(0, hi, { bold = true } )
+    end
   end
 end
 
