@@ -97,7 +97,7 @@ telescope.setup(setup)
 
 local files = function()
   local current_repo = require("user.utils").current_repo()
-  local opts = { previewer = false, path_display = { "absolute" } }
+  local opts = { previewer = false, path_display = { "absolute" }, no_ignore = false }
   if current_repo == "navigation" then
     opts.no_ignore = true
   end
