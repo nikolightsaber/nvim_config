@@ -19,7 +19,6 @@ vim.o.undofile = true
 vim.o.sidescrolloff = 8
 vim.o.updatetime = 1000             -- CursorHold time less long (also swapfile but this is unused)
 vim.o.cursorline = true
-vim.o.iskeyword = vim.o.iskeyword .. ",-"
 vim.o.laststatus = 3
 
 return M
