@@ -50,4 +50,5 @@ gitsigns.setup {
 vim.api.nvim_set_keymap("n", "<leader>w", "", { noremap = true, callback = require('gitsigns.actions').blame_line })
 vim.api.nvim_set_keymap("n", "<leader>ts", "<cmd>lua ()<cr>", { noremap = true, callback= require('gitsigns.actions').toggle_signs })
 vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg="#6c7993" })
-vim.api.nvim_set_keymap("n", "<leader>tb", "", { noremap = true, callback = require('gitsigns.actions').toggle_current_line_blame })
+vim.api.nvim_set_keymap("n", "<leader>j", "", { noremap = true, callback = require('gitsigns.actions').next_hunk })
+vim.api.nvim_set_keymap("n", "<leader>k", "", { noremap = true, callback = require('gitsigns.actions').prev_hunk })
