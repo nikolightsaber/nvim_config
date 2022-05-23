@@ -23,11 +23,11 @@ vim.api.nvim_create_autocmd("BufEnter", { group=group, pattern={ "odintomqtt.c" 
 
 local set_spel = function ()
   vim.b.wrap = true
-  vim.b.spell = true
+  vim.o.spell = true
 end
 
 group = vim.api.nvim_create_augroup("spell", { clear=true })
-vim.api.nvim_create_autocmd("FileType", { group=group, pattern={ "gitcommit" ,"markdown", "latex", "md" }, callback=set_spel })
+vim.api.nvim_create_autocmd("FileType", { group=group, pattern={ "gitcommit", "latex", "markdown" }, callback=set_spel })
 
 vim.cmd [[
   highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
