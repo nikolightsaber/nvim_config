@@ -45,6 +45,7 @@ packer.startup(function()
   use 'nvim-treesitter/playground'
 
   use "Mofiqul/dracula.nvim"
+  use 'folke/tokyonight.nvim'
 
   use "hrsh7th/nvim-cmp"  -- The completion plugin
   use "hrsh7th/cmp-buffer" -- buffer completions
