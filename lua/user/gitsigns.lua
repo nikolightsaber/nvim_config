@@ -47,7 +47,7 @@ gitsigns.setup {
     enable = false,
   },
 }
-vim.api.nvim_set_keymap("n", "<leader>w", "", { noremap = true, callback = require('gitsigns.actions').blame_line })
+vim.api.nvim_set_keymap("n", "<leader>w", "", { noremap = true, callback = function () require('gitsigns.actions').blame_line({ full = true, ignore_whitespace = true }) end})
 vim.api.nvim_set_keymap("n", "<leader>ts", "", { noremap = true, callback= require('gitsigns.actions').toggle_signs })
 vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg="#6c7993" })
 vim.api.nvim_set_keymap("n", "<leader>tb", "", { noremap = true, callback= require('gitsigns.actions').toggle_current_line_blame })
