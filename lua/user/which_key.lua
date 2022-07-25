@@ -90,6 +90,7 @@ local mappings = {
     ts = "Toggle Signs",
     tb = "Toggle Blame Line",
     ca = "LSP Code Actions",
+    sh = "Search help",
   }
 }
 which_key.register(mappings, {});

@@ -144,10 +144,15 @@ local grep_current_file = function ()
   return builtin.live_grep({ search_dirs = { vim.api.nvim_buf_get_name(0), path_display = { "hidden" } } })
 end
 
+local help_tags = function ()
+  return builtin.help_tags({ path_display = { "tail" } })
+end
+
 vim.api.nvim_set_keymap("n", "<leader>f", "", { noremap = true, callback = files })
 vim.api.nvim_set_keymap("n", "<leader>g", "", { noremap = true, callback = grep_live })
 vim.api.nvim_set_keymap("n", "<leader>b", "", { noremap = true, callback = buffers })
 vim.api.nvim_set_keymap("n", "<leader>/", "", { noremap = true, callback = grep_current_file })
+vim.api.nvim_set_keymap("n", "<leader>sh", "", { noremap = true, callback = help_tags })
 vim.api.nvim_set_keymap("n", "gt", "", { noremap = true, callback = current_word })
 vim.api.nvim_set_keymap("v", "gt", '"xy<cmd>lua require("user.telescope").current_word_visual()<cr>', { noremap = true })
 
