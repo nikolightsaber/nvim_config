@@ -153,6 +153,7 @@ vim.api.nvim_set_keymap("n", "<leader>g", "", { noremap = true, callback = grep_
 vim.api.nvim_set_keymap("n", "<leader>b", "", { noremap = true, callback = buffers })
 vim.api.nvim_set_keymap("n", "<leader>/", "", { noremap = true, callback = grep_current_file })
 vim.api.nvim_set_keymap("n", "<leader>sh", "", { noremap = true, callback = help_tags })
+vim.api.nvim_set_keymap("n", "<leader>tr", "", { noremap = true, callback = builtin.resume })
 vim.api.nvim_set_keymap("n", "z=", "", { noremap = true, callback = builtin.spell_suggest })
 vim.api.nvim_set_keymap("n", "gt", "", { noremap = true, callback = current_word })
 vim.api.nvim_set_keymap("v", "gt", '"xy<cmd>lua require("user.telescope").current_word_visual()<cr>', { noremap = true })

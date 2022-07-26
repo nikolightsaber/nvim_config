@@ -87,6 +87,7 @@ local mappings = {
     r = "LSP See References",
     s = "LSP Signature Help",
     w = "GIT Blame",
+    tr = "Resume telescope",
     ts = "Toggle Signs",
     tb = "Toggle Blame Line",
     ca = "LSP Code Actions",
