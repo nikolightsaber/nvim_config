@@ -27,15 +27,15 @@ bufferline.setup({
     separator_style = "slant", -- | "thick" | "thin" | { 'any', 'any' },
     enforce_regular_tabs = true,
     always_show_bufferline = true,
-  },
-  highlight = {
-    background = {
-      guifg = { attribute = "fg", highlight = "TabLine" },
-      guibg = { attribute = "bg", highlight = "TabLine" },
-    },
-    fill = {
-      guifg = { attribute = "fg", highlight = "#ff0000" },
-      guibg = { attribute = "bg", highlight = "TabLine" },
+    highlight = {
+      background = {
+        guifg = { attribute = "fg", highlight = "TabLine" },
+        guibg = { attribute = "bg", highlight = "TabLine" },
+      },
+      fill = {
+        guifg = { attribute = "fg", highlight = "#ff0000" },
+        guibg = { attribute = "bg", highlight = "TabLine" },
+      },
     },
   },
 })
