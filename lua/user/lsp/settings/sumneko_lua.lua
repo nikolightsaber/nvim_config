@@ -6,6 +6,7 @@ return {
         globals = { "vim", "use" },
       },
       workspace = {
+        checkThirdParty = false,
         library = {
           [vim.fn.expand("$VIMRUNTIME/lua")] = true,
           [vim.fn.expand("$HOME/.local/share/nvim/site/pack/packer")] = true,
