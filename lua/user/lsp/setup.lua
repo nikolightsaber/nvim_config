@@ -1,23 +1,39 @@
-local status_ok, lsp_installer = pcall(require, "nvim-lsp-installer")
+local status_ok, lspconfig = pcall(require, "lspconfig")
 if not status_ok then
-  print("lsp installer not working")
+  print("lsp not ok")
   return
 end
 
--- Register a handler that will be called for all installed servers.
--- Alternatively, you may also register handlers on specific server instances instead (see example below).
-lsp_installer.on_server_ready(function(server)
-  local opts = {
-    on_attach = require("user.lsp.handlers").on_attach,
-    capabilities = require("user.lsp.handlers").capabilities,
-  }
+local base_opts = {
+  on_attach = require("user.lsp.handlers").on_attach,
+  capabilities = require("user.lsp.handlers").capabilities,
+}
 
-  if server.name == "sumneko_lua" then
-    local sumneko_opts = require("user.lsp.settings.sumneko_lua")
-    opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
-  end
+--------------------------------------------------------------------------
+-- SUMNEKO
+-- install:
+local sumneko_opts = {
+  settings = {
 
-  if server.name == "angularls" then
+    Lua = {
+      diagnostics = {
+        globals = { "vim", "use" },
+      },
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+          [vim.fn.expand("$HOME/.local/share/nvim/site/pack/packer")] = true,
+          [vim.fn.expand("/usr/share/awesome/lib")] = true,
+        },
+      },
+    },
+  },
+}
+lspconfig.sumneko_lua.setup(vim.tbl_deep_extend("force", sumneko_opts, base_opts))
+--------------------------------------------------------------------------
+
+  --[[ if server.name == "angularls" then
     local angularls_opts = require("user.lsp.settings.angularls")
     opts = vim.tbl_deep_extend("force", angularls_opts, opts)
   end
@@ -50,9 +66,4 @@ lsp_installer.on_server_ready(function(server)
   if server.name == "rust_analyzer" then
     local rust_analyzer_opts = require("user.lsp.settings.rls")
     opts = vim.tbl_deep_extend("force", rust_analyzer_opts, opts)
-  end
-
-  -- This setup() function is exactly the same as lspconfig's setup function.
-  -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-  server:setup(opts)
-end)
+  end ]]
