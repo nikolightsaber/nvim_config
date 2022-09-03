@@ -61,7 +61,6 @@ packer.startup(function()
   use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
 
   use "neovim/nvim-lspconfig"
-  use "williamboman/nvim-lsp-installer" -- simple to use language server installer
 
   use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
 
