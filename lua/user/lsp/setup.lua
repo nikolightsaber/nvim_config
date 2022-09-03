@@ -11,10 +11,16 @@ local base_opts = {
 
 --------------------------------------------------------------------------
 -- SUMNEKO
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
 -- install:
+-- in ~/.local/share/nvim/lsp_servers/lua-language-server
+-- git clone https://github.com/sumneko/lua-language-server
+-- build instructions
+-- https://github.com/sumneko/lua-language-server/wiki/Getting-Started#build
+-- in ~/.local/bin
+-- ln -s ../share/nvim/lsp_servers/lua-language-server/bin/lua-language-server lua-language-server
 local sumneko_opts = {
   settings = {
-
     Lua = {
       diagnostics = {
         globals = { "vim", "use" },
@@ -22,7 +28,7 @@ local sumneko_opts = {
       workspace = {
         checkThirdParty = false,
         library = {
-          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+          vim.api.nvim_get_runtime_file("", true),
           [vim.fn.expand("$HOME/.local/share/nvim/site/pack/packer")] = true,
           [vim.fn.expand("/usr/share/awesome/lib")] = true,
         },
@@ -31,39 +37,58 @@ local sumneko_opts = {
   },
 }
 lspconfig.sumneko_lua.setup(vim.tbl_deep_extend("force", sumneko_opts, base_opts))
+
 --------------------------------------------------------------------------
+-- PYRIGHT
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pyright
+-- install
+-- pip install pyright
+local pyright_opts = {
+  settings = {
+    python = {
+      analysis = {
+        typeCheckingMode = "off"
+      }
+    }
+  },
+}
+lspconfig.pyright.setup(vim.tbl_deep_extend("force", pyright_opts, base_opts))
 
-  --[[ if server.name == "angularls" then
-    local angularls_opts = require("user.lsp.settings.angularls")
-    opts = vim.tbl_deep_extend("force", angularls_opts, opts)
-  end
+--------------------------------------------------------------------------
+-- CSHARP_LS
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#csharp_ls
+-- normal install
+-- dotnet tool install --global csharp-ls
+local csharp_ls_opts = {
+  cmd = { "CSharpLanguageServer" }
+}
+lspconfig.csharp_ls.setup(vim.tbl_deep_extend("force", csharp_ls_opts, base_opts))
 
-  if server.name == "pyright" then
-    local pyright_opts = require("user.lsp.settings.pyright")
-    opts = vim.tbl_deep_extend("force", pyright_opts, opts)
-  end
+--------------------------------------------------------------------------
+-- TSSERVER
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tsserver
+-- install
+-- sudo npm install -g typescript-language-server typescript
+local tsserver_opts = {
+}
+lspconfig.tsserver.setup(vim.tbl_deep_extend("force", tsserver_opts, base_opts))
 
-  if server.name == "omnisharp" then
-    local omnisharp_opts = require("user.lsp.settings.omnisharp")
-    opts = vim.tbl_deep_extend("force", omnisharp_opts, opts)
-  end
+-- CLANGD
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#clangd
+-- install
+-- download https://github.com/clangd/clangd/releases/
+-- unzip to ~/.local/bin
+local clangd_opts = {
+  -- cmd = { "clangd", "--enable-config", "--clang-tidy"}
+}
+lspconfig.clangd.setup(vim.tbl_deep_extend("force", clangd_opts, base_opts))
 
-  if server.name == "csharp_ls" then
-    local csharp_ls_opts = require("user.lsp.settings.csharp_ls")
-    opts = vim.tbl_deep_extend("force", csharp_ls_opts, opts)
-  end
+-- RUST_ANALYZER
+  --[[ settings = {
+    rust = {
+      unstable_features = true,
+      build_on_save = false,
+      all_features = true,
+    },
+  }, ]]
 
-  if server.name == "tsserver" then
-    local tsserver_ls_opts = require("user.lsp.settings.tsserver")
-    opts = vim.tbl_deep_extend("force", tsserver_ls_opts, opts)
-  end
-
-  if server.name == "clangd" then
-    local clangd_ls_opts = require("user.lsp.settings.clangd")
-    opts = vim.tbl_deep_extend("force", clangd_ls_opts, opts)
-  end
-
-  if server.name == "rust_analyzer" then
-    local rust_analyzer_opts = require("user.lsp.settings.rls")
-    opts = vim.tbl_deep_extend("force", rust_analyzer_opts, opts)
-  end ]]
