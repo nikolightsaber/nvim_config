@@ -12,6 +12,9 @@ keymap("n", "n", "nzz", opts)
 keymap("n", "N", "Nzz", opts)
 keymap("n", "*", "*zz", opts)
 
+keymap("n", "<C-d>", "<C-d>zz", opts)
+keymap("n", "<C-u>", "<C-u>zz", opts)
+
 keymap("n", "<C-PageUp>", ":bp<CR>", opts)
 keymap("n", "<C-PageDown>", ":bn<CR>", opts)
 
