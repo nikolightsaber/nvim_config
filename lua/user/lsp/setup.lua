@@ -60,7 +60,6 @@ lspconfig.pyright.setup(vim.tbl_deep_extend("force", pyright_opts, base_opts))
 -- normal install
 -- dotnet tool install --global csharp-ls
 local csharp_ls_opts = {
-  cmd = { "CSharpLanguageServer" }
 }
 lspconfig.csharp_ls.setup(vim.tbl_deep_extend("force", csharp_ls_opts, base_opts))
 
