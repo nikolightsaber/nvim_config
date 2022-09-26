@@ -82,8 +82,6 @@ packer.startup(function()
 
   use 'numToStr/Comment.nvim'
 
-  use 'SmiteshP/nvim-gps'
-
   use "folke/which-key.nvim"
 
   -- Automatically set up your configuration after cloning packer.nvim

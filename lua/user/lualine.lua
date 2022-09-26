@@ -41,12 +41,6 @@ local spaces = function()
   return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
 end
 
-local gps_status, gps = pcall(require, 'nvim-gps')
-local get_gps = {}
-if gps_status then
-  get_gps = { gps.get_location, cond = gps.is_available }
-end
-
 lualine.setup({
   options = {
     icons_enabled = true,
@@ -59,7 +53,7 @@ lualine.setup({
   sections = {
     lualine_a = { { 'mode', fmt = function(str) return str:sub(1,1) end } },
     lualine_b = { branch },
-    lualine_c = { { 'filename', file_status = true, path = 1 }, get_gps },
+    lualine_c = { 'filename', file_status = true, path = 1 },
     lualine_x = { diff, spaces, "encoding", filetype },
     lualine_y = { 'progress' },
     lualine_z = { 'location' }

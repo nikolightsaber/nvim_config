@@ -17,7 +17,7 @@ M.get_highlight = function()
     return ""
   end
   local bufnr = vim.api.nvim_get_current_buf()
-  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local row, col = vim.api.nvim_win_get_cursor(0)
   row = row - 1
   local results = playground.get_hl_groups_at_position(bufnr, row, col)
   if(#results > 0) then
