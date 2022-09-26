@@ -44,6 +44,8 @@ packer.startup(function()
   use "p00f/nvim-ts-rainbow"
   use 'nvim-treesitter/playground'
 
+  use 'nvim-treesitter/nvim-treesitter-context'
+
   use "Mofiqul/dracula.nvim"
   use 'folke/tokyonight.nvim'
   use 'tiagovla/tokyodark.nvim'
