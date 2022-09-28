@@ -60,7 +60,11 @@ lspconfig.pyright.setup(vim.tbl_deep_extend("force", pyright_opts, base_opts))
 -- normal install
 -- dotnet tool install --global csharp-ls
 local csharp_ls_opts = {
+  -- root_dir = function ()
+  --   return "/home/nikolai/code/navigation/Apps/BR.Mower.Brain"
+  -- end
 }
+
 lspconfig.csharp_ls.setup(vim.tbl_deep_extend("force", csharp_ls_opts, base_opts))
 
 --------------------------------------------------------------------------
@@ -78,7 +82,7 @@ lspconfig.tsserver.setup(vim.tbl_deep_extend("force", tsserver_opts, base_opts))
 -- download https://github.com/clangd/clangd/releases/
 -- unzip to ~/.local/bin
 local clangd_opts = {
-  -- cmd = { "clangd", "--enable-config", "--clang-tidy"}
+  cmd = { "clangd", "--enable-config", "--clang-tidy"}
 }
 lspconfig.clangd.setup(vim.tbl_deep_extend("force", clangd_opts, base_opts))
 

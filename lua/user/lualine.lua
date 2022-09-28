@@ -53,7 +53,7 @@ lualine.setup({
   sections = {
     lualine_a = { { 'mode', fmt = function(str) return str:sub(1,1) end } },
     lualine_b = { branch },
-    lualine_c = { 'filename', file_status = true, path = 1 },
+    lualine_c = { { 'filename', file_status = true, path = 1 } },
     lualine_x = { diff, spaces, "encoding", filetype },
     lualine_y = { 'progress' },
     lualine_z = { 'location' }

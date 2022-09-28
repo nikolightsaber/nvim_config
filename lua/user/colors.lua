@@ -8,4 +8,4 @@ if not status_ok then
   return
 end
 vim.api.nvim_set_hl(0, "CursorLine", { bg = "#2f3243" })
-vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
