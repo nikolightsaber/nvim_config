@@ -88,7 +88,7 @@ M.current_repo = function()
 end
 
 M.dotnet_build_diag =  function ()
-  print("jobstart")
+  print("Build Start")
   vim.fn.jobstart({ "dotnet", "build", "Libraries/BR.Mower/", "--no-restore", "--nologo", "-v", "q" }, {
     stdout_buffered = true,
     on_stdout = function (_, data)
@@ -115,6 +115,7 @@ M.dotnet_build_diag =  function ()
         end
       end
       vim.diagnostic.set(vim.api.nvim_create_namespace("DotNet Build"), 0, errors, {})
+      print("Done")
     end,
   })
 end
