@@ -89,7 +89,7 @@ end
 
 M.dotnet_build_diag =  function ()
   print("Build Start")
-  vim.fn.jobstart({ "dotnet", "build", "Libraries/BR.Mower/", "--no-restore", "--nologo", "-v", "q" }, {
+  vim.fn.jobstart({ "dotnet", "build", "Libraries/BR.Mower/", "-o", "Libraries/BR.Mower/bin/temp", "--nologo", "-v", "q" }, {
     stdout_buffered = true,
     on_stdout = function (_, data)
       local errors = {}
