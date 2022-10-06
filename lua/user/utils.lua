@@ -115,7 +115,11 @@ M.dotnet_build_diag =  function ()
         end
       end
       vim.diagnostic.set(vim.api.nvim_create_namespace("DotNet Build"), 0, errors, {})
-      print("Done")
+      if (#errors == 0) then
+        print("Done: Succes !")
+      else
+        print("Done: Fail !")
+      end
     end,
   })
 end
