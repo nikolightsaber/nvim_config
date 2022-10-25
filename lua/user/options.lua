@@ -12,6 +12,7 @@ vim.o.smartindent = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.incsearch = true
+vim.o.wrapscan = false
 vim.o.backup = false
 vim.o.fileencoding = "utf-8"
 vim.o.showmode = false
