@@ -49,6 +49,7 @@ packer.startup(function()
   use "Mofiqul/dracula.nvim"
   use 'folke/tokyonight.nvim'
   use 'tiagovla/tokyodark.nvim'
+  use { 'rose-pine/neovim', as='rose-pine' }
 
   use "hrsh7th/nvim-cmp"  -- The completion plugin
   use "hrsh7th/cmp-buffer" -- buffer completions
