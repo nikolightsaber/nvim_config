@@ -77,12 +77,9 @@ local tsserver_opts = {
 lspconfig.tsserver.setup(vim.tbl_deep_extend("force", tsserver_opts, base_opts))
 
 -- CLANGD
--- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#clangd
--- install
--- download https://github.com/clangd/clangd/releases/
--- unzip to ~/.local/bin
+-- sudo apt install clangd-12
 local clangd_opts = {
-  cmd = { "clangd", "--enable-config", "--clang-tidy"}
+  cmd = { "clangd-12", "--enable-config", "--clang-tidy"}
 }
 lspconfig.clangd.setup(vim.tbl_deep_extend("force", clangd_opts, base_opts))
 
