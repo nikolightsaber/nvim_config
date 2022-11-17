@@ -1,8 +1,8 @@
 local colorscheme = "dracula"
 -- colorscheme = "tokyonight"
 -- colorscheme = "tokyodark"
-require('rose-pine').setup({ dark_variant = "moon" })
-colorscheme = "rose-pine"
+-- require('rose-pine').setup({ dark_variant = "moon" })
+-- colorscheme = "rose-pine"
 
 local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 if not status_ok then
