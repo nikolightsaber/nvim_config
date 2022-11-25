@@ -46,6 +46,7 @@ M.highlight_log = function()
     hi AddTask guifg=#00CD00
     hi RemoveTask guifg=#CD0000
     hi AddAsyncTask guifg=#CDCD00
+    hi SuspendTask guifg=#FF0000
     normal gg
     call sign_define("plus", { "linehl" : "AddTask"})
     while search(" + MainTask", 'W') > 0
@@ -59,8 +60,14 @@ M.highlight_log = function()
         call sign_place(1, '', 'async', @%, {'lnum' : line})
     endwhile
     normal gg
-    call sign_define("minus", { "linehl" : "RemoveTask"})
+    call sign_define("susp", { "linehl" : "SuspendTask"})
     while search(' \~ MainTask', 'W') > 0
+        let line = line('.')
+        call sign_place(1, '', 'susp', @%, {'lnum' : line})
+    endwhile
+    normal gg
+    call sign_define("minus", { "linehl" : "RemoveTask"})
+    while search(' - MainTask', 'W') > 0
         let line = line('.')
         call sign_place(1, '', 'minus', @%, {'lnum' : line})
     endwhile
