@@ -86,10 +86,9 @@ lspconfig.clangd.setup(vim.tbl_deep_extend("force", clangd_opts, base_opts))
 -- RUST_ANALYZER
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 -- install
--- https://rust-analyzer.github.io/manual.html#rust-analyzer-language-server-binary
--- curl -L https://github.com/rust-lang/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer
--- chmod +x ~/.local/bin/rust-analyzer
+-- rustup add component rust-analyzer
 local rust_analyzer_opts = {
+  cmd = { "rustup", "run", "stable", "rust-analyzer"},
   rust = {
     unstable_features = true,
     build_on_save = false,
