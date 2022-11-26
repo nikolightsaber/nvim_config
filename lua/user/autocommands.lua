@@ -19,7 +19,17 @@ local set_tabexpand_off = function()
 end
 
 group = vim.api.nvim_create_augroup("tabexpand", { clear=true })
-vim.api.nvim_create_autocmd("BufEnter", { group=group, pattern={ "odintomqtt.c" }, callback=set_tabexpand_off })
+vim.api.nvim_create_autocmd("BufEnter", { group=group, pattern={ "odintomqtt.c", "brsysglue.sh", "rc.main", "rc.ublox" }, callback=set_tabexpand_off })
+
+group = vim.api.nvim_create_augroup("rustfmt", { clear=true })
+vim.api.nvim_create_autocmd("BufWritePost", { group=group, pattern={ "*.rs" }, callback=function ()
+  vim.fn.jobstart({ "cargo-fmt", "--", vim.api.nvim_buf_get_name(0) }, {
+    stdout_buffered = true,
+    on_stdout = function (_, _)
+      vim.cmd.edit()
+    end
+  })
+end })
 
 local set_spel = function ()
   vim.b.wrap = true
