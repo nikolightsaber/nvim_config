@@ -47,6 +47,7 @@ packer.startup(function()
   use 'nvim-treesitter/nvim-treesitter-context'
 
   use "Mofiqul/dracula.nvim"
+  use 'luisiacc/gruvbox-baby'
   use 'folke/tokyonight.nvim'
   use 'tiagovla/tokyodark.nvim'
   use { 'rose-pine/neovim', as='rose-pine' }
