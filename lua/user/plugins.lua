@@ -18,7 +18,7 @@ end
 local group = vim.api.nvim_create_augroup("packer_user_config", { clear=true })
 vim.api.nvim_create_autocmd("BufWritePost", { group=group, pattern="plugins.lua", command="source <afile> | PackerSync" })
 
--- Use a protected call so we don't error out on first use
+-- Use a protected call so we don"t error out on first use
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
   print("Error no packer")
@@ -35,22 +35,22 @@ packer.init {
 }
 packer.startup(function()
   -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
+  use "wbthomason/packer.nvim"
   use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
   use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
   use "kyazdani42/nvim-web-devicons"
 
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
   use "p00f/nvim-ts-rainbow"
-  use 'nvim-treesitter/playground'
+  use "nvim-treesitter/playground"
 
-  use 'nvim-treesitter/nvim-treesitter-context'
+  use "nvim-treesitter/nvim-treesitter-context"
 
   use "Mofiqul/dracula.nvim"
-  use 'luisiacc/gruvbox-baby'
-  use 'folke/tokyonight.nvim'
-  use 'tiagovla/tokyodark.nvim'
-  use { 'rose-pine/neovim', as='rose-pine' }
+  use "luisiacc/gruvbox-baby"
+  use "folke/tokyonight.nvim"
+  use "tiagovla/tokyodark.nvim"
+  use { "rose-pine/neovim", as="rose-pine" }
 
   use "hrsh7th/nvim-cmp"  -- The completion plugin
   use "hrsh7th/cmp-buffer" -- buffer completions
@@ -72,19 +72,21 @@ packer.startup(function()
 
   use { "akinsho/bufferline.nvim", branch="main" }
 
-  use 'kyazdani42/nvim-tree.lua'
+  use "kyazdani42/nvim-tree.lua"
 
-  use 'nvim-lualine/lualine.nvim'
+  use "nvim-lualine/lualine.nvim"
 
   use "lewis6991/gitsigns.nvim"
 
   use "AckslD/nvim-neoclip.lua"
 
-  use 'davidgranstrom/nvim-markdown-preview'
+  use "davidgranstrom/nvim-markdown-preview"
 
-  use 'numToStr/Comment.nvim'
+  use "numToStr/Comment.nvim"
 
   use "folke/which-key.nvim"
+
+  use "ThePrimeagen/vim-be-good"
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
