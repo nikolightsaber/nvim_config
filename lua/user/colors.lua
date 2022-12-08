@@ -2,7 +2,10 @@ local colorscheme = "dracula"
 -- colorscheme = "tokyonight"
 -- colorscheme = "tokyodark"
 colorscheme = "gruvbox-baby"
-require('rose-pine').setup({ dark_variant = "moon" })
+local status_ok, rose_pine = pcall(require, "rose-pine")
+if status_ok then
+  rose_pine.setup({ dark_variant = "moon" })
+end
 -- colorscheme = "rose-pine"
 vim.g.gruvbox_baby_background_color = "dark"
 vim.g.gruvbox_baby_highlights = {Search = {fg = "Black", bg = "Orange", style="underline"}}
