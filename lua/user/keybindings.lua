@@ -54,6 +54,10 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 keymap("n", "<Up>", "", opts)
 keymap("n", "<Down>", "", opts)
 
+-- replace scrolling
+keymap("n", "J", "5jzz", opts)
+keymap("n", "K", "5kzz", opts)
+
 function _G.ReplaceWithRegister(type)
   if(type == nil) then
     vim.o.operatorfunc = "v:lua.ReplaceWithRegister"
