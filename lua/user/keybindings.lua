@@ -55,8 +55,8 @@ keymap("n", "<Up>", "", opts)
 keymap("n", "<Down>", "", opts)
 
 -- replace scrolling
-keymap("n", "J", "5jzz", opts)
-keymap("n", "K", "5kzz", opts)
+keymap("n", "J", "5j", opts)
+keymap("n", "K", "5k", opts)
 
 function _G.ReplaceWithRegister(type)
   if(type == nil) then
