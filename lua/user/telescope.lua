@@ -135,7 +135,7 @@ local current_word = function ()
   return grep_word(word)
 end
 
-M.current_word_visual = function ()
+local current_word_visual = function ()
   local word = vim.fn.getreg("x")
   return grep_word(word)
 end
@@ -156,6 +156,6 @@ vim.api.nvim_set_keymap("n", "<leader>sh", "", { noremap = true, callback = help
 vim.api.nvim_set_keymap("n", "<leader>tr", "", { noremap = true, callback = builtin.resume })
 vim.api.nvim_set_keymap("n", "z=", "", { noremap = true, callback = builtin.spell_suggest })
 vim.api.nvim_set_keymap("n", "gt", "", { noremap = true, callback = current_word })
-vim.api.nvim_set_keymap("v", "gt", '"xy<cmd>lua require("user.telescope").current_word_visual()<cr>', { noremap = true })
+vim.api.nvim_set_keymap("v", "gt", "", { noremap = true, callback = current_word_visual})
 
 return M
