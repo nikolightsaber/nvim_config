@@ -67,6 +67,8 @@ packer.startup(function()
   use "neovim/nvim-lspconfig"
 
   use "nvim-telescope/telescope.nvim"
+  use "debugloop/telescope-undo.nvim"
+  use "AckslD/nvim-neoclip.lua"
 
   use { "akinsho/bufferline.nvim", branch="main" }
 
@@ -75,8 +77,6 @@ packer.startup(function()
   use "nvim-lualine/lualine.nvim"
 
   use "lewis6991/gitsigns.nvim"
-
-  use "AckslD/nvim-neoclip.lua"
 
   use "davidgranstrom/nvim-markdown-preview"
 
