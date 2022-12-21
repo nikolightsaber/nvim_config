@@ -66,8 +66,6 @@ packer.startup(function()
 
   use "neovim/nvim-lspconfig"
 
-  use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
-
   use "nvim-telescope/telescope.nvim"
 
   use { "akinsho/bufferline.nvim", branch="main" }
