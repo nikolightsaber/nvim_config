@@ -48,8 +48,13 @@ if not status then
   return
 end
 telescope.load_extension("neoclip")
-telescope.load_extension("undo")
 
 vim.api.nvim_set_keymap("n", "<c-p>", "", {noremap = true,
                                            callback = function () return telescope.extensions.neoclip.neoclip({initial_mode="normal"}) end })
-vim.api.nvim_set_keymap("n", "<leader>u", "", { noremap = true, callback = telescope.extensions.undo.undo })
+
+local status2, _ = pcall(telescope.load_extension, "undo")
+
+if status2 then
+    vim.api.nvim_set_keymap("n", "<leader>u", "", { noremap = true, callback = telescope.extensions.undo.undo })
+end
+
