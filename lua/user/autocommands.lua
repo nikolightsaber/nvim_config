@@ -23,12 +23,11 @@ vim.api.nvim_create_autocmd("BufEnter", { group=group, pattern={ "odintomqtt.c",
 
 group = vim.api.nvim_create_augroup("rustfmt", { clear=true })
 vim.api.nvim_create_autocmd("BufWritePost", { group=group, pattern={ "*.rs" }, callback=function ()
-  vim.fn.jobstart({ "cargo-fmt", "--", vim.api.nvim_buf_get_name(0) }, {
-    stdout_buffered = true,
-    on_stdout = function (_, _)
-      vim.cmd.edit()
-    end
-  })
+  local status, _ = pcall(require, "formatter")
+  if not status then
+    return
+  end
+  vim.cmd.FormatWrite()
 end })
 
 local set_spel = function ()

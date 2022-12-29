@@ -72,6 +72,8 @@ packer.startup(function()
 
   use { "akinsho/bufferline.nvim", branch="main" }
 
+  use "mhartington/formatter.nvim"
+
   use "kyazdani42/nvim-tree.lua"
 
   use "nvim-lualine/lualine.nvim"
