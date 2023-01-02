@@ -21,11 +21,8 @@ keymap("n", "<C-PageDown>", ":bn<CR>", opts)
 keymap("n", "<F5>", ":setlocal spell! spelllang=en_us<CR>", opts)
 keymap("n", "<F6>", ":setlocal spell! spelllang=nl<CR>", opts)
 
--- Better window navigation
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
+keymap("n", "<C-j>", "5j", opts)
+keymap("n", "<C-k>", "5k", opts)
 
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize +2<CR>", opts)
@@ -53,10 +50,6 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 -- stop scrolling
 keymap("n", "<Up>", "", opts)
 keymap("n", "<Down>", "", opts)
-
--- replace scrolling
-keymap("n", "J", "5j", opts)
-keymap("n", "K", "5k", opts)
 
 function _G.ReplaceWithRegister(type)
   if(type == nil) then
