@@ -82,8 +82,6 @@ local mappings = {
     g = "Live Grep",
     h = "LSP Hover",
     i = "LSP Go To Implementation",
-    j = "Go To Next Hunk",
-    k = "Go To Previous Hunk",
     r = "LSP See References",
     s = "LSP Signature Help",
     w = "GIT Blame",
@@ -92,6 +90,16 @@ local mappings = {
     tb = "Toggle Blame Line",
     ca = "LSP Code Actions",
     sh = "Search help",
+    j = {
+      "Next Prefix",
+      h = "Next Hunk",
+      d = "Next Diagnostic",
+    },
+    k = {
+      "Previous Prefix",
+      h = "Previous Hunk",
+      d = "Previous Diagnostic",
+    }
   }
 }
 which_key.register(mappings, {});
