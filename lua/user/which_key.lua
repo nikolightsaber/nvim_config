@@ -99,7 +99,8 @@ local mappings = {
       "Previous Prefix",
       h = "Previous Hunk",
       d = "Previous Diagnostic",
-    }
+    },
+    mir = "Make It Rain",
   }
 }
 which_key.register(mappings, {});

@@ -66,4 +66,4 @@ keymap("n", "grr", "v:lua.ReplaceWithRegister()", { noremap = true, expr = true 
 keymap("n", "<F7>", '', { noremap = true, callback = require("user.utils").highlight_log })
 
 
-keymap("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>", opts)
+keymap("n", "<leader>mir", "<cmd>CellularAutomaton make_it_rain<CR>", opts)
