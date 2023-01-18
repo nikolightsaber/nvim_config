@@ -83,6 +83,7 @@ local clangd_opts = {
 }
 lspconfig.clangd.setup(vim.tbl_deep_extend("force", clangd_opts, base_opts))
 
+--------------------------------------------------------------------------
 -- RUST_ANALYZER
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 -- install
@@ -96,3 +97,11 @@ local rust_analyzer_opts = {
   },
 }
 lspconfig.rust_analyzer.setup(vim.tbl_deep_extend("force", rust_analyzer_opts, base_opts))
+
+--------------------------------------------------------------------------
+-- BASHLS
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+-- install
+-- sudo npm i -g bash-language-server
+local bashls_opts = { }
+lspconfig.bashls.setup(vim.tbl_deep_extend("force", bashls_opts, base_opts))
