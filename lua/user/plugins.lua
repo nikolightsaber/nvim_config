@@ -77,6 +77,8 @@ packer.startup(function()
 
   use "nvim-lualine/lualine.nvim"
 
+  use "mfussenegger/nvim-dap"
+
   use "lewis6991/gitsigns.nvim"
 
   use "davidgranstrom/nvim-markdown-preview"
