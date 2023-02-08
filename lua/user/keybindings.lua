@@ -18,8 +18,8 @@ keymap("n", "<C-u>", "<C-u>zz", opts)
 keymap("n", "<C-PageUp>", ":bp<CR>", opts)
 keymap("n", "<C-PageDown>", ":bn<CR>", opts)
 
-keymap("n", "<F5>", ":setlocal spell! spelllang=en_us<CR>", opts)
-keymap("n", "<F6>", ":setlocal spell! spelllang=nl<CR>", opts)
+keymap("n", "<F6>", ":setlocal spell! spelllang=en_us<CR>", opts)
+--keymap("n", "<F6>", ":setlocal spell! spelllang=nl<CR>", opts)
 
 keymap("n", "<C-j>", "5j", opts)
 keymap("n", "<C-k>", "5k", opts)
