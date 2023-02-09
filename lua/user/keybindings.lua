@@ -65,5 +65,8 @@ end
 
 keymap("n", "<F7>", '', { noremap = true, callback = require("user.utils").highlight_log })
 
+-- Remove help key (to close to escape
+keymap("n", "<F1>", '', { })
+
 
 keymap("n", "<leader>mir", "<cmd>CellularAutomaton make_it_rain<CR>", opts)
