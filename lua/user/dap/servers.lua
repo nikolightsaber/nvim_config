@@ -7,9 +7,15 @@ end
 
 --------------------------------------------------------------------------
 -- NetCoreDbg
+-- https://github.com/Samsung/netcoredbg
+-- INSTALL
+-- clone, build, ln to .local/bin
+-- For build use cmake and clang
+-- do everything in build direcory
+-- ln -s /home/nikolai/code/github/netcoredbg/build/src/netcoredbg /home/nikolai/.local/bin/
 dap.adapters.coreclr = {
   type = "executable",
-  command = "/home/nikolai/code/github/netcoredbg/build/src/netcoredbg",
+  command = "netcoredbg",
   args = {"--interpreter=vscode"}
 }
 
@@ -27,9 +33,8 @@ dap.configurations.cs = {
 
 --------------------------------------------------------------------------
 -- Custom setups
-local M = {}
 
-M.pattern_run_debug = function ()
+local pattern_run_debug = function ()
   dap.run({
     type = "coreclr",
     name = "launch - netcoredbg",
@@ -39,4 +44,12 @@ M.pattern_run_debug = function ()
   })
 end
 
-return M
+local debug_navigation = function (_)
+  pattern_run_debug()
+end
+vim.api.nvim_create_user_command("DebugNavigation", debug_navigation, {
+  nargs="*",
+  complete = function(_, line)
+  end,
+})
+
