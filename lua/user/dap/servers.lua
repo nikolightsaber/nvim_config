@@ -32,6 +32,33 @@ dap.configurations.cs = {
 }
 
 --------------------------------------------------------------------------
+-- LLDB
+-- https://github.com/vadimcn/vscode-lldb
+-- INSTALL
+-- sudo apt install lldb
+-- lldb-vscode should be in /usr/bin/lldb-vscode-10
+dap.adapters.lldb = {
+  type = 'executable',
+  command = 'lldb-vscode-10',
+  name = 'lldb'
+}
+
+dap.configurations.cpp = {
+  {
+    name = 'Launch',
+    type = 'lldb',
+    request = 'launch',
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+    args = {},
+  },
+}
+dap.configurations.c = dap.configurations.cpp
+dap.configurations.rust = dap.configurations.cpp
+--------------------------------------------------------------------------
 -- Custom setups
 
 local pattern_run_debug = function (pattern)
