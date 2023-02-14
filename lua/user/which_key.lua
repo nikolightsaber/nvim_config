@@ -17,7 +17,7 @@ local mappings = {
     D = "LSP Go To Declaration",
     d = "LSP Go To Definition",
     i = "LSP Go To Implementation",
-    r = "LSP See References",
+    r = "Replace with register",
     b = "Block comment",
     c = "Line comment",
     t = "Grep current word",
@@ -36,6 +36,10 @@ local mappings = {
     tb = "Toggle Blame Line",
     ca = "LSP Code Actions",
     sh = "Search help",
+    r = {
+      f = "LSP See References",
+      n = "LSP Rename",
+    },
     j = {
       "Next Prefix",
       h = "Next Hunk",
