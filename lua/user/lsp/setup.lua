@@ -11,15 +11,15 @@ local base_opts = {
 
 --------------------------------------------------------------------------
 -- SUMNEKO
--- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#lua_ls
 -- install:
 -- in ~/.local/share/nvim/lsp_servers/lua-language-server
 -- git clone https://github.com/sumneko/lua-language-server
 -- build instructions
--- https://github.com/sumneko/lua-language-server/wiki/Getting-Started#build
+-- https://github.com/LuaLS/lua-language-server/wiki/Getting-Started#build
 -- in ~/.local/bin
 -- ln -s ../share/nvim/lsp_servers/lua-language-server/bin/lua-language-server lua-language-server
-local sumneko_opts = {
+local lua_ls_opts = {
   settings = {
     Lua = {
       diagnostics = {
@@ -36,7 +36,7 @@ local sumneko_opts = {
     },
   },
 }
-lspconfig.sumneko_lua.setup(vim.tbl_deep_extend("force", sumneko_opts, base_opts))
+lspconfig.lua_ls.setup(vim.tbl_deep_extend("force", lua_ls_opts, base_opts))
 
 --------------------------------------------------------------------------
 -- PYRIGHT
