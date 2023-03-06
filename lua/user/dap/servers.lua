@@ -34,20 +34,22 @@ dap.configurations.cs = {
 --------------------------------------------------------------------------
 -- Custom setups
 
-local pattern_run_debug = function ()
+local pattern_run_debug = function (pattern)
   dap.run({
     type = "coreclr",
     name = "launch - netcoredbg",
     request = "launch",
     program = vim.fn.getcwd() .. "/Apps/BR.PatternCmdline/bin/Debug/net6.0/BR.PatternCmdline.dll",
-    args = { "pattern", "Apps/BR.Mower.BasicUnitTests/PatternGenerator/patterninputfile_golfnaxhelet549.txt", "out.txt" },
+    args = { "pattern", pattern, "out.txt" },
   })
 end
 
+local last_pattern = "Apps/BR.Mower.BasicUnitTests/PatternGenerator/patterninputfile_multipleoverlaps.txt";
 local debug_navigation = function (_)
-  pattern_run_debug()
+  -- vim.fn.jobstart({ "dotnet", "build", "Libraries/BR.Mower/", "-o", "bin", "--nologo", "-v", "q" })
+  pattern_run_debug(last_pattern)
 end
-vim.api.nvim_create_user_command("DebugNavigation", debug_navigation, {
+vim.api.nvim_create_user_command("DebugPatternCmdline", debug_navigation, {
   nargs="*",
   complete = function(_, line)
   end,
