@@ -7,12 +7,6 @@ end
 local group = vim.api.nvim_create_augroup("2indet", { clear=true })
 vim.api.nvim_create_autocmd("FileType", { group=group, pattern={ "lua", "typescript" ,"html", "css" }, callback=set_2_tab })
 
-local remove_diagnostics = function()
-  vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
-end
-
-group = vim.api.nvim_create_augroup("lspoff", { clear=true })
-vim.api.nvim_create_autocmd("FileType", { group=group, pattern={ "cs" }, callback=remove_diagnostics })
 
 local set_tabexpand_off = function()
   vim.o.expandtab = false
