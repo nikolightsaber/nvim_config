@@ -40,7 +40,7 @@ local pattern_run_debug = function (pattern)
     name = "launch - netcoredbg",
     request = "launch",
     program = vim.fn.getcwd() .. "/Apps/BR.PatternCmdline/bin/Debug/net6.0/BR.PatternCmdline.dll",
-    args = { "pattern", pattern, "out.txt" },
+    args = { "patternwithgraph", pattern, "out.txt" },
   })
 end
 
@@ -54,4 +54,3 @@ vim.api.nvim_create_user_command("DebugPatternCmdline", debug_navigation, {
   complete = function(_, line)
   end,
 })
-
