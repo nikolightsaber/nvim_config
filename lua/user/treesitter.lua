@@ -21,3 +21,5 @@ treesitter.setup {
     -- termcolors = {} -- table of colour name strings
   }
 }
+
+require('user.treesitter-context')
