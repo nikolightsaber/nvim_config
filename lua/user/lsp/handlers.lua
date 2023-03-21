@@ -38,7 +38,7 @@ M.setup = function()
     border = "rounded",
   })
 
-  local status_ok,_ = pcall(require, "telescope.builtin")
+  local status_ok, _ = pcall(require, "telescope.builtin")
   if status_ok then
     vim.lsp.handlers["textDocument/references"] = require('user.telescope').references
     vim.lsp.handlers["textDocument/definition"] = require('user.telescope').definitions
@@ -49,12 +49,14 @@ M.setup = function()
   })
 
   -- info window Lspinfo
-  local win = require('lspconfig.ui.windows')
-  local _default_opts = win.default_opts
-  win.default_opts = function(options)
-    local opts = _default_opts(options)
-    opts.border = 'rounded'
-    return opts
+  local lspconfig_status, win = pcall(require, 'lspconfig.ui.windows')
+  if lspconfig_status then
+    local _default_opts = win.default_opts
+    win.default_opts = function(options)
+      local opts = _default_opts(options)
+      opts.border = 'rounded'
+      return opts
+    end
   end
 end
 
