@@ -42,7 +42,6 @@ packer.startup(function()
 
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
   use "nvim-treesitter/playground"
-
   use "nvim-treesitter/nvim-treesitter-context"
   use "HiPhish/nvim-ts-rainbow2"
 
@@ -61,18 +60,19 @@ packer.startup(function()
   use "hrsh7th/cmp-nvim-lua"
   use "hrsh7th/cmp-nvim-lsp-signature-help"
 
-  use "L3MON4D3/LuaSnip" --snippet engine
-  use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
+  use "L3MON4D3/LuaSnip"
+  use "rafamadriz/friendly-snippets"
 
   use "neovim/nvim-lspconfig"
 
   use "nvim-telescope/telescope.nvim"
   use "debugloop/telescope-undo.nvim"
-  use "AckslD/nvim-neoclip.lua"
 
-  use { "akinsho/bufferline.nvim", branch="main" }
+  use "AckslD/nvim-neoclip.lua" -- Save old yanks
 
-  use "mhartington/formatter.nvim"
+  use { "akinsho/bufferline.nvim", branch = "main" }
+
+  use "mhartington/formatter.nvim" -- save in rust
 
   use "kyazdani42/nvim-tree.lua"
 
@@ -90,7 +90,7 @@ packer.startup(function()
 
   use "ThePrimeagen/vim-be-good"
 
-  use "eandrju/cellular-automaton.nvim"
+  use "eandrju/cellular-automaton.nvim" -- make it rain
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
