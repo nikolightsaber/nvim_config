@@ -1,7 +1,7 @@
 local dap_status, dap = pcall(require, "dap")
 
 if not dap_status then
-  print("dap not working")
+  vim.notify("dap not working")
   return;
 end
 
@@ -31,8 +31,9 @@ end)
 
 local dap_ui_status, dapui = pcall(require, "dapui")
 
+
+-- not installed at the moment
 if not dap_ui_status then
-  print("dap not working")
   return;
 end
 
