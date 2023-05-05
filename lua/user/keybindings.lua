@@ -10,7 +10,8 @@ keymap("n", "<Enter>", "o<Esc>", opts)
 
 keymap("n", "n", "nzz", opts)
 keymap("n", "N", "Nzz", opts)
-keymap("n", "*", "*zz", opts)
+-- Don't go to next one yet
+keymap("n", "*", "*Nzz", opts)
 
 keymap("n", "<C-d>", "<C-d>zz", opts)
 keymap("n", "<C-u>", "<C-u>zz", opts)
