@@ -100,6 +100,7 @@ local function lsp_keymaps(bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>e", "", { noremap = true, callback = vim.diagnostic.open_float })
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>jd", "", { noremap = true, callback = vim.diagnostic.goto_next })
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>kd", "", { noremap = true, callback = vim.diagnostic.goto_prev })
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>th", "", { noremap = true, callback = function () vim.lsp.buf.inlay_hint(bufnr) end })
 end
 
 M.on_attach = function(client, bufnr)
