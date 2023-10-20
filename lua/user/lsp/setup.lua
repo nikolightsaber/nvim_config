@@ -20,21 +20,34 @@ local base_opts = {
 -- in ~/.local/bin
 -- ln -s ../share/nvim/lsp_servers/lua-language-server/bin/lua-language-server lua-language-server
 local lua_ls_opts = {
-  settings = {
-    Lua = {
-      diagnostics = {
-        globals = { "vim", "use" },
-      },
-      workspace = {
-        checkThirdParty = false,
-        library = {
-          vim.api.nvim_get_runtime_file("", true),
-          [vim.fn.expand("$HOME/.local/share/nvim/site/pack/packer")] = true,
-          [vim.fn.expand("/usr/share/awesome/lib")] = true,
-        },
-      },
-    },
-  },
+  on_init = function(client)
+    local path = client.workspace_folders[1].name
+    if not vim.loop.fs_stat(path..'/.luarc.json') and not vim.loop.fs_stat(path..'/.luarc.jsonc') then
+      client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
+        Lua = {
+          runtime = {
+            -- Tell the language server which version of Lua you're using
+            -- (most likely LuaJIT in the case of Neovim)
+            version = 'LuaJIT'
+          },
+          -- Make the server aware of Neovim runtime files
+          workspace = {
+            checkThirdParty = false,
+            library = {
+              vim.env.VIMRUNTIME
+              -- "${3rd}/luv/library"
+              -- "${3rd}/busted/library",
+            }
+            -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+            -- library = vim.api.nvim_get_runtime_file("", true)
+          }
+        }
+      })
+
+      client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+    end
+    return true
+  end
 }
 lspconfig.lua_ls.setup(vim.tbl_deep_extend("force", lua_ls_opts, base_opts))
 
