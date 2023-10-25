@@ -3,7 +3,7 @@ if not ts_context_status_ok then
   return
 end
 ts_context.setup({
-  enable = false,
+  enable = true,
 })
 
 
