@@ -80,6 +80,8 @@ packer.startup(function()
 
   use "mfussenegger/nvim-dap"
 
+  use "m4xshen/hardtime.nvim"
+
   use "lewis6991/gitsigns.nvim"
 
   use "davidgranstrom/nvim-markdown-preview"
