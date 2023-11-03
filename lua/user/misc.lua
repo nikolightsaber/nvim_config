@@ -17,7 +17,7 @@ end
 
 status, hardtime = pcall(require, "hardtime")
 if status then
-  hardtime.setup()
+  hardtime.setup({ enable = false })
 end
 
 
