@@ -84,7 +84,7 @@ packer.startup(function()
 
   use "lewis6991/gitsigns.nvim"
 
-  use "davidgranstrom/nvim-markdown-preview"
+  use "iamcco/markdown-preview.nvim"
 
   use "numToStr/Comment.nvim"
 
