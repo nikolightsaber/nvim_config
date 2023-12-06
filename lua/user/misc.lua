@@ -21,10 +21,11 @@ if status then
 end
 
 
-status, comment = pcall(require, 'Comment')
+status, comment = pcall(require, "Comment")
 if status then
   comment.setup()
 end
 
+-- Markdown preview
 vim.g.mkdp_auto_close = 0
-vim.g.mkdp_theme = 'light'
+vim.g.mkdp_theme = "light"

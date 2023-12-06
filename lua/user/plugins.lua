@@ -43,7 +43,6 @@ packer.startup(function()
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
   use "nvim-treesitter/playground"
   use "nvim-treesitter/nvim-treesitter-context"
-  -- use "HiPhish/rainbow-delimiters.nvim"
 
   use "Mofiqul/dracula.nvim"
   use "luisiacc/gruvbox-baby"
