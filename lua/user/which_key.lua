@@ -12,7 +12,6 @@ which_key.setup({
 
 local mappings = {
   K = "LSP Hover",
-  ["<C-k>"] = "Signature help",
   g = {
     D = "LSP Go To Declaration",
     d = "LSP Go To Definition",

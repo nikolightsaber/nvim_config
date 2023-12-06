@@ -22,9 +22,6 @@ keymap("n", "<C-PageDown>", ":bn<CR>", opts)
 keymap("n", "<F6>", ":setlocal spell! spelllang=en_us<CR>", opts)
 --keymap("n", "<F6>", ":setlocal spell! spelllang=nl<CR>", opts)
 
-keymap("n", "<C-j>", "5j", opts)
-keymap("n", "<C-k>", "5k", opts)
-
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize +2<CR>", opts)
 keymap("n", "<C-Down>", ":resize -2<CR>", opts)

@@ -70,7 +70,7 @@ packer.startup(function()
 
   use "AckslD/nvim-neoclip.lua" -- Save old yanks
 
-  use { "akinsho/bufferline.nvim", branch = "main" }
+  use { "ThePrimeagen/harpoon", branch = "harpoon2" }
 
   use "mhartington/formatter.nvim" -- save in rust
 
