@@ -4,7 +4,8 @@ status, formatter = pcall(require, "formatter")
 if status then
   formatter.setup({
     filetype = {
-      rust = require("formatter.filetypes.rust").rustfmt
+      rust = require("formatter.filetypes.rust").rustfmt,
+      typescript = require("formatter.filetypes.typescript").prettier
     }
   })
 end

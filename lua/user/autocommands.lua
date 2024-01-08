@@ -15,14 +15,18 @@ end
 group = vim.api.nvim_create_augroup("tabexpand", { clear=true })
 vim.api.nvim_create_autocmd("BufEnter", { group=group, pattern={ "odintomqtt.c", "brsysglue.sh", "rc.main", "rc.ublox" }, callback=set_tabexpand_off })
 
-group = vim.api.nvim_create_augroup("rustfmt", { clear=true })
-vim.api.nvim_create_autocmd("BufWritePost", { group=group, pattern={ "*.rs" }, callback=function ()
+local format_safe= function ()
   local status, _ = pcall(require, "formatter")
   if not status then
     return
   end
   vim.cmd.FormatWrite()
-end })
+end
+group = vim.api.nvim_create_augroup("rustfmt", { clear=true })
+vim.api.nvim_create_autocmd("BufWritePost", { group=group, pattern={ "*.rs" }, callback=format_safe })
+
+group = vim.api.nvim_create_augroup("prettier", { clear=true })
+vim.api.nvim_create_autocmd("BufWritePost", { group=group, pattern={ "*/cockpit-app/*.ts" }, callback=format_safe })
 
 local set_spel = function ()
   vim.b.wrap = true
