@@ -118,3 +118,18 @@ lspconfig.rust_analyzer.setup(vim.tbl_deep_extend("force", rust_analyzer_opts, b
 -- sudo npm i -g bash-language-server
 local bashls_opts = { }
 lspconfig.bashls.setup(vim.tbl_deep_extend("force", bashls_opts, base_opts))
+
+--------------------------------------------------------------------------
+-- ESLINT
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#eslint
+-- install
+-- sudo npm i -g vscode-langservers-extracted
+local eslint_opts = { }
+lspconfig.eslint.setup(vim.tbl_deep_extend("force", eslint_opts, base_opts))
+--------------------------------------------------------------------------
+-- HTML
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#html
+-- install
+-- sudo npm i -g vscode-langservers-extracted
+local html_opts = { }
+lspconfig.html.setup(vim.tbl_deep_extend("force", html_opts, base_opts))
