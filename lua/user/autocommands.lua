@@ -26,7 +26,11 @@ group = vim.api.nvim_create_augroup("rustfmt", { clear=true })
 vim.api.nvim_create_autocmd("BufWritePost", { group=group, pattern={ "*.rs" }, callback=format_safe })
 
 group = vim.api.nvim_create_augroup("prettier", { clear=true })
-vim.api.nvim_create_autocmd("BufWritePost", { group=group, pattern={ "*/cockpit-app/*.ts" }, callback=format_safe })
+vim.api.nvim_create_autocmd("BufWritePost",
+  { group=group,
+    pattern={ "*/cockpit-app/*.ts", "*/cockpit-app/*.html", "*/cockpit-app/*.css", "*/cockpit-app/*.css" },
+    callback=format_safe
+  })
 
 local set_spel = function ()
   vim.b.wrap = true

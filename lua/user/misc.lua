@@ -5,7 +5,10 @@ if status then
   formatter.setup({
     filetype = {
       rust = require("formatter.filetypes.rust").rustfmt,
-      typescript = require("formatter.filetypes.typescript").prettier
+      typescript = require("formatter.filetypes.typescript").prettier,
+      html = require("formatter.filetypes.html").prettier,
+      css = require("formatter.filetypes.css").prettier,
+      scss = require("formatter.filetypes.html").prettier,
     }
   })
 end
