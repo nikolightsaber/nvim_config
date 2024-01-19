@@ -3,6 +3,7 @@ return {
   event = "VeryLazy",
   dependencies = {
     "nvim-lua/plenary.nvim",
+    "AckslD/nvim-neoclip.lua",
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
@@ -12,6 +13,10 @@ return {
     local telescope = require("telescope")
     telescope.setup()
     pcall(telescope.load_extension, "fzf")
+
+    require("neoclip").setup()
+    pcall(telescope.load_extension, "neoclip")
+    vim.keymap.set("n", "<c-p>", function () return telescope.extensions.neoclip.neoclip({initial_mode="normal"}) end)
 
     local builtin = require("telescope.builtin")
     local themes = require("telescope.themes")
