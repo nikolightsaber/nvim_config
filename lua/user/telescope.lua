@@ -1,0 +1,82 @@
+return {
+  "nvim-telescope/telescope.nvim",
+  event = "VeryLazy",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      build = "make",
+    },
+  },
+  config = function()
+    local telescope = require("telescope")
+    telescope.setup()
+    pcall(telescope.load_extension, "fzf")
+
+    local builtin = require("telescope.builtin")
+    local themes = require("telescope.themes")
+
+    local files = function()
+      local current_repo = require("user.utils").current_repo()
+      local opts = { previewer = false, path_display = { "absolute" }, no_ignore = false }
+      if current_repo == "navigation" or current_repo == "dupnavi" then
+        opts.no_ignore = true
+      end
+      return builtin.find_files(opts)
+    end
+
+    local grep_live = function()
+      return builtin.live_grep( { path_display = { "truncate" } })
+    end
+
+    local grep_word = function(word)
+      vim.fn.setreg("/", word, "c")
+      vim.o.hlsearch = true
+      return builtin.grep_string({
+        prompt_title = "Search selection",
+        search = word,
+        path_display = { "truncate" },
+      })
+    end
+
+    local buffers = function()
+      return builtin.buffers(themes.get_dropdown({ previewer = false, path_display = { "absolute" } }))
+    end
+    -- TODO
+    -- M.references = function()
+    --   return builtin.lsp_references({ path_display = { "tail" } })
+    -- end
+    --
+    -- M.definitions = function()
+    --   return builtin.lsp_definitions({ path_display = { "tail" } })
+    -- end
+
+    local current_word = function ()
+      local word = vim.fn.expand("<cword>")
+      return grep_word(word)
+    end
+
+    local current_word_visual = function ()
+      local word = vim.fn.getreg("x")
+      return grep_word(word)
+    end
+
+    local grep_current_file = function ()
+      return builtin.current_buffer_fuzzy_find({ path_display = { "hidden" } })
+    end
+
+    local help_tags = function ()
+      return builtin.help_tags({ path_display = { "tail" } })
+    end
+
+    vim.keymap.set("n", "<leader>f", files)
+    vim.keymap.set("n", "<leader>g", grep_live)
+    vim.keymap.set("n", "<leader>/", grep_current_file)
+    vim.keymap.set("n", "<leader>sh", help_tags)
+    vim.keymap.set("n", "<leader>b", buffers)
+    vim.keymap.set("n", "<leader>tr", builtin.resume)
+    vim.keymap.set("n", "z=", builtin.spell_suggest)
+    vim.keymap.set("n", "gt", current_word)
+    vim.keymap.set("v", "gt", current_word_visual)
+  end,
+}
