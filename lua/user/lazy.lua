@@ -40,4 +40,5 @@ require("lazy").setup({
     opts = {},
     event = "VeryLazy",
   },
+  require("user.gitsigns"),
 }, {})
