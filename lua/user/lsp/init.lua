@@ -1,5 +1,5 @@
 return {
-  'neovim/nvim-lspconfig',
+  "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     -- "hrsh7th/cmp-nvim-lsp",
@@ -20,7 +20,7 @@ return {
     end
 
     local config = {
-      virtual_text = true,
+      virtual_text = false,
       signs = {
         active = signs,
       },
@@ -45,8 +45,8 @@ return {
 
     local status_ok, _ = pcall(require, "telescope.builtin")
     if status_ok then
-      vim.lsp.handlers["textDocument/references"] = require('user.telescope').references
-      vim.lsp.handlers["textDocument/definition"] = require('user.telescope').definitions
+      vim.lsp.handlers["textDocument/references"] = require("user.telescope").references
+      vim.lsp.handlers["textDocument/definition"] = require("user.telescope").definitions
     end
   end,
 }

@@ -34,4 +34,5 @@ require("lazy").setup({
   require("user.harpoon"),
   require("user.telescope"),
   require("user.lsp"),
+  require("user.cmp"),
 }, {})
