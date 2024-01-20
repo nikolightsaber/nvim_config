@@ -18,4 +18,4 @@ return {
     vim.keymap.set("n", "<C-\\>", function() harpoon:list():select(6) end)
 
   end,
-},
+}

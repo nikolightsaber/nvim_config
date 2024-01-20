@@ -1,4 +1,3 @@
-M = {}
 vim.o.clipboard = "unnamedplus"
 vim.o.expandtab = true
 vim.o.shiftwidth = 4
@@ -25,5 +24,3 @@ vim.o.mouse = ''
 vim.o.wrap = false
 
 vim.api.nvim_create_user_command("DotNetBuildDiag", require("user.utils").dotnet_build_diag, {})
-
-return M
