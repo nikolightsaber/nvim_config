@@ -35,4 +35,9 @@ require("lazy").setup({
   require("user.telescope"),
   require("user.lsp"),
   require("user.cmp"),
+  {
+    'numToStr/Comment.nvim',
+    opts = {},
+    event = "VeryLazy",
+  },
 }, {})
