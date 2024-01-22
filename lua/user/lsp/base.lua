@@ -36,7 +36,7 @@ M.on_attach = function(client, bufnr)
   -- end
   lsp_keymaps(bufnr)
   lsp_highlight_document(client)
-  if client.server_capabilities.documentFormattingProvider then
+  if client.server_capabilities.documentFormattingProvider == true then
     local group = vim.api.nvim_create_augroup("lsp_formatter", { clear = true })
     vim.api.nvim_create_autocmd("BufWritePost",
       {
