@@ -16,7 +16,7 @@ return {
       {
         group = group,
         pattern = { "*/cockpit-app/*.ts", "*/cockpit-app/*.html", "*/cockpit-app/*.css", "*/cockpit-app/*.css" },
-        callback = vim.cmd.FormatWrite
+        callback = function() vim.cmd.FormatWrite() end
       })
   end
 }
