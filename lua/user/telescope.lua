@@ -12,9 +12,10 @@ return {
   config = function()
     local telescope = require("telescope")
     telescope.setup()
+
     pcall(telescope.load_extension, "fzf")
 
-    require("neoclip").setup()
+    require("neoclip").setup({ default_register = "+" })
     pcall(telescope.load_extension, "neoclip")
     vim.keymap.set("n", "<c-p>", function() return telescope.extensions.neoclip.neoclip({ initial_mode = "normal" }) end)
 
