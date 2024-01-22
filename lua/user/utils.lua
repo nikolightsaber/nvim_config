@@ -3,8 +3,8 @@ M.split = function(inputstr, sep)
   if sep == nil then
     sep = "%s"
   end
-  local t={}
-  for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+  local t = {}
+  for str in string.gmatch(inputstr, "([^" .. sep .. "]+)") do
     table.insert(t, str)
   end
   return t
@@ -20,19 +20,19 @@ M.get_highlight = function()
   local row, col = vim.api.nvim_win_get_cursor(0)
   row = row - 1
   local results = playground.get_hl_groups_at_position(bufnr, row, col)
-  if(#results > 0) then
+  if (#results > 0) then
     return results[#results].general
   else
     return ""
   end
 end
 
-M.dump = function (o)
+M.dump = function(o)
   if type(o) == 'table' then
     local s = '{ '
-    for k,v in pairs(o) do
-      if type(k) ~= 'number' then k = '"'..k..'"' end
-      s = s .. '['..k..'] = ' .. M.dump(v) .. ','
+    for k, v in pairs(o) do
+      if type(k) ~= 'number' then k = '"' .. k .. '"' end
+      s = s .. '[' .. k .. '] = ' .. M.dump(v) .. ','
     end
     return s .. '} '
   else
@@ -41,7 +41,7 @@ M.dump = function (o)
 end
 
 M.highlight_log = function()
-  vim.cmd[[
+  vim.cmd [[
     set syntax=messages
     hi AddTask guifg=#00CD00
     hi RemoveTask guifg=#CD0000
@@ -76,7 +76,7 @@ M.highlight_log = function()
 end
 
 M.test_data = function()
-  vim.cmd[[
+  vim.cmd [[
     while search("data name=", 'W') > 0
         let l = line('.')
         normal 3w*
@@ -94,11 +94,11 @@ M.current_repo = function()
   return current_dir[#current_dir]
 end
 
-M.dotnet_build_diag =  function ()
+M.dotnet_build_diag = function()
   print("Build Start")
   vim.fn.jobstart({ "dotnet", "build", "Libraries/BR.Mower/", "-o", "bin", "--nologo", "-v", "q" }, {
     stdout_buffered = true,
-    on_stdout = function (_, data)
+    on_stdout = function(_, data)
       local errors = {}
       for _, x in pairs(data) do
         local error_split = require("user.utils").split(x, ":")
@@ -110,7 +110,7 @@ M.dotnet_build_diag =  function ()
               table.insert(errors, {
                 bufnr = 0,
                 lnum = tonumber(line_split[1]) - 1,
-                col = tonumber(line_split[2]:sub(1,-2)) - 1,
+                col = tonumber(line_split[2]:sub(1, -2)) - 1,
                 severity = vim.diagnostic.severity.ERROR,
                 source = "dotnet build",
                 message = error_split[2] .. ": " .. require("user.utils").split(error_split[3], "[")[1]

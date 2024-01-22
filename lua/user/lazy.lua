@@ -16,7 +16,7 @@ require("lazy").setup({
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
-      require"nvim-treesitter.configs".setup({
+      require "nvim-treesitter.configs".setup({
         ensure_installed = "all",
         highlight = { enable = true },
         indent = { enable = true },
@@ -46,9 +46,10 @@ require("lazy").setup({
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     ft = { "markdown" },
-    config = function ()
+    config = function()
       vim.g.mkdp_auto_close = 0
       vim.g.mkdp_theme = "light"
     end
   },
+  require("user.formatting")
 }, {})

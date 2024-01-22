@@ -1,4 +1,3 @@
-
 local base_opts = {
   on_attach = require("user.lsp.base").on_attach,
   capabilities = require("user.lsp.base").capabilities,
@@ -19,7 +18,7 @@ local lspconfig = require("lspconfig")
 local lua_ls_opts = {
   on_init = function(client)
     local path = client.workspace_folders[1].name
-    if not vim.loop.fs_stat(path..'/.luarc.json') and not vim.loop.fs_stat(path..'/.luarc.jsonc') then
+    if not vim.loop.fs_stat(path .. '/.luarc.json') and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
       client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
         Lua = {
           runtime = {
@@ -89,7 +88,7 @@ lspconfig.tsserver.setup(vim.tbl_deep_extend("force", tsserver_opts, base_opts))
 -- CLANGD
 -- sudo apt install clangd-12
 local clangd_opts = {
-  cmd = { "clangd-12", "--enable-config", "--clang-tidy"}
+  cmd = { "clangd-12", "--enable-config", "--clang-tidy" }
 }
 lspconfig.clangd.setup(vim.tbl_deep_extend("force", clangd_opts, base_opts))
 
@@ -99,7 +98,7 @@ lspconfig.clangd.setup(vim.tbl_deep_extend("force", clangd_opts, base_opts))
 -- install
 -- rustup add component rust-analyzer
 local rust_analyzer_opts = {
-  cmd = { "rustup", "run", "stable", "rust-analyzer"},
+  cmd = { "rustup", "run", "stable", "rust-analyzer" },
   rust = {
     unstable_features = true,
     build_on_save = false,
@@ -113,7 +112,7 @@ lspconfig.rust_analyzer.setup(vim.tbl_deep_extend("force", rust_analyzer_opts, b
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 -- install
 -- sudo npm i -g bash-language-server
-local bashls_opts = { }
+local bashls_opts = {}
 lspconfig.bashls.setup(vim.tbl_deep_extend("force", bashls_opts, base_opts))
 
 --------------------------------------------------------------------------
@@ -121,7 +120,7 @@ lspconfig.bashls.setup(vim.tbl_deep_extend("force", bashls_opts, base_opts))
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#eslint
 -- install
 -- sudo npm i -g vscode-langservers-extracted
-local eslint_opts = { }
+local eslint_opts = {}
 lspconfig.eslint.setup(vim.tbl_deep_extend("force", eslint_opts, base_opts))
 
 --------------------------------------------------------------------------
@@ -129,5 +128,5 @@ lspconfig.eslint.setup(vim.tbl_deep_extend("force", eslint_opts, base_opts))
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#html
 -- install
 -- sudo npm i -g vscode-langservers-extracted
-local html_opts = { }
+local html_opts = {}
 lspconfig.html.setup(vim.tbl_deep_extend("force", html_opts, base_opts))

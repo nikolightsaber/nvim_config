@@ -45,7 +45,7 @@ keymap("n", "<Up>", "", opts)
 keymap("n", "<Down>", "", opts)
 
 function _G.ReplaceWithRegister(type)
-  if(type == nil) then
+  if (type == nil) then
     vim.o.operatorfunc = "v:lua.ReplaceWithRegister"
     return "g@"
   end
@@ -64,7 +64,7 @@ keymap("n", "gr", "v:lua.ReplaceWithRegister()", { noremap = true, expr = true }
 keymap("n", "<F7>", '', { noremap = true, callback = require("user.utils").highlight_log })
 
 -- Remove help key (to close to escape
-keymap("n", "<F1>", '', { })
+keymap("n", "<F1>", '', {})
 
 keymap("n", "<leader>mir", "<cmd>CellularAutomaton make_it_rain<CR>", opts)
 

@@ -42,7 +42,7 @@ return {
     local cmp = require("cmp")
     local luasnip = require("luasnip")
     require("luasnip/loaders/from_vscode").lazy_load()
-    cmp.setup ({
+    cmp.setup({
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
@@ -69,9 +69,9 @@ return {
             fallback()
           end
         end, {
-            "i",
-            "s",
-          }),
+          "i",
+          "s",
+        }),
       }),
       formatting = {
         fields = { "kind", "abbr", "menu" },

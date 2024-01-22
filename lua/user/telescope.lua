@@ -16,7 +16,7 @@ return {
 
     require("neoclip").setup()
     pcall(telescope.load_extension, "neoclip")
-    vim.keymap.set("n", "<c-p>", function () return telescope.extensions.neoclip.neoclip({initial_mode="normal"}) end)
+    vim.keymap.set("n", "<c-p>", function() return telescope.extensions.neoclip.neoclip({ initial_mode = "normal" }) end)
 
     local builtin = require("telescope.builtin")
     local themes = require("telescope.themes")
@@ -31,7 +31,7 @@ return {
     end
 
     local grep_live = function()
-      return builtin.live_grep( { path_display = { "truncate" } })
+      return builtin.live_grep({ path_display = { "truncate" } })
     end
 
     local grep_word = function(word)
@@ -56,21 +56,21 @@ return {
     --   return builtin.lsp_definitions({ path_display = { "tail" } })
     -- end
 
-    local current_word = function ()
+    local current_word = function()
       local word = vim.fn.expand("<cword>")
       return grep_word(word)
     end
 
-    local current_word_visual = function ()
+    local current_word_visual = function()
       local word = vim.fn.getreg("x")
       return grep_word(word)
     end
 
-    local grep_current_file = function ()
+    local grep_current_file = function()
       return builtin.current_buffer_fuzzy_find({ path_display = { "hidden" } })
     end
 
-    local help_tags = function ()
+    local help_tags = function()
       return builtin.help_tags({ path_display = { "tail" } })
     end
 
