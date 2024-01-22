@@ -43,9 +43,18 @@ local lua_ls_opts = {
       client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
     end
     return true
-  end
+  end,
+  on_attach = function(client, bufnr)
+    require("user.lsp.base").on_attach(client, bufnr)
+    local group = vim.api.nvim_create_augroup("lsp_formatter", { clear = true })
+    vim.api.nvim_create_autocmd("BufWritePost",
+      {
+        group = group,
+        callback = function() vim.lsp.buf.format() end
+      })
+  end,
 }
-lspconfig.lua_ls.setup(vim.tbl_deep_extend("force", lua_ls_opts, base_opts))
+lspconfig.lua_ls.setup(vim.tbl_deep_extend("force", base_opts, lua_ls_opts))
 
 --------------------------------------------------------------------------
 -- PYRIGHT

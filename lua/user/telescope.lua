@@ -47,15 +47,6 @@ return {
     local buffers = function()
       return builtin.buffers(themes.get_dropdown({ previewer = false, path_display = { "absolute" } }))
     end
-    -- TODO
-    -- M.references = function()
-    --   return builtin.lsp_references({ path_display = { "tail" } })
-    -- end
-    --
-    -- M.definitions = function()
-    --   return builtin.lsp_definitions({ path_display = { "tail" } })
-    -- end
-
     local current_word = function()
       local word = vim.fn.expand("<cword>")
       return grep_word(word)

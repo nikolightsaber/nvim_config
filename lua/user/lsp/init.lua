@@ -43,10 +43,10 @@ return {
       border = "rounded",
     })
 
-    local status_ok, _ = pcall(require, "telescope.builtin")
+    local status_ok, builtin = pcall(require, "telescope.builtin")
     if status_ok then
-      vim.lsp.handlers["textDocument/references"] = require("user.telescope").references
-      vim.lsp.handlers["textDocument/definition"] = require("user.telescope").definitions
+      vim.lsp.handlers["textDocument/references"] = function() builtin.lsp_references({ path_display = { "tail" } }) end
+      vim.lsp.handlers["textDocument/definition"] = function() builtin.lsp_definitions({ path_display = { "tail" } }) end
     end
   end,
 }

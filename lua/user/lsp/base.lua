@@ -31,19 +31,8 @@ local function lsp_keymaps(bufnr)
 end
 
 M.on_attach = function(client, bufnr)
-  -- if client.name == "tsserver" then
-  -- client.resolved_capabilities.document_formatting = true
-  -- end
   lsp_keymaps(bufnr)
   lsp_highlight_document(client)
-  if client.server_capabilities.documentFormattingProvider == true then
-    local group = vim.api.nvim_create_augroup("lsp_formatter", { clear = true })
-    vim.api.nvim_create_autocmd("BufWritePost",
-      {
-        group = group,
-        callback = function() vim.lsp.buf.format() end
-      })
-  end
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
