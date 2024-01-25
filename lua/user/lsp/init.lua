@@ -1,8 +1,8 @@
 return {
   "neovim/nvim-lspconfig",
-  event = { "BufReadPre", "BufNewFile" },
+  event = "VeryLazy",
   dependencies = {
-    -- "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-nvim-lsp",
     "nvim-telescope/telescope.nvim",
   },
   config = function()
@@ -48,5 +48,7 @@ return {
       vim.lsp.handlers["textDocument/references"] = function() builtin.lsp_references({ path_display = { "tail" } }) end
       vim.lsp.handlers["textDocument/definition"] = function() builtin.lsp_definitions({ path_display = { "tail" } }) end
     end
+    -- lazy therefore start
+    vim.cmd.LspStart();
   end,
 }
