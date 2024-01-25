@@ -1,5 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-      if not vim.loop.fs_stat(lazypath) then
+if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
@@ -15,6 +15,7 @@ require("lazy").setup({
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+    event = "VeryLazy",
     config = function()
       require "nvim-treesitter.configs".setup({
         ensure_installed = "all",
@@ -22,6 +23,11 @@ require("lazy").setup({
         indent = { enable = true },
       })
     end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    event = "VeryLazy",
   },
   {
     "rose-pine/neovim",
