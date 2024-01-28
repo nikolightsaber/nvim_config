@@ -43,6 +43,8 @@ return {
       border = "rounded",
     })
 
+    require("lspconfig.ui.windows").default_options.border = "rounded";
+
     local status_ok, builtin = pcall(require, "telescope.builtin")
     if status_ok then
       vim.lsp.handlers["textDocument/references"] = function() builtin.lsp_references({ path_display = { "tail" } }) end
