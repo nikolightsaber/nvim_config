@@ -3,7 +3,7 @@ local base_opts = {
   capabilities = require("user.lsp.base").capabilities,
 }
 
-local lspconfig = require("lspconfig")
+      local lspconfig = require("lspconfig")
 
 --------------------------------------------------------------------------
 -- SUMNEKO
@@ -44,15 +44,7 @@ local lua_ls_opts = {
     end
     return true
   end,
-  on_attach = function(client, bufnr)
-    require("user.lsp.base").on_attach(client, bufnr)
-    local group = vim.api.nvim_create_augroup("lsp_formatter", { clear = true })
-    vim.api.nvim_create_autocmd("BufWritePost",
-      {
-        group = group,
-        callback = function() vim.lsp.buf.format() end
-      })
-  end,
+  on_attach = require("user.lsp.base").on_attach_format,
 }
 lspconfig.lua_ls.setup(vim.tbl_deep_extend("force", base_opts, lua_ls_opts))
 
@@ -113,8 +105,9 @@ local rust_analyzer_opts = {
     build_on_save = false,
     all_features = true,
   },
+  on_attach = require("user.lsp.base").on_attach_format,
 }
-lspconfig.rust_analyzer.setup(vim.tbl_deep_extend("force", rust_analyzer_opts, base_opts))
+lspconfig.rust_analyzer.setup(vim.tbl_deep_extend("force", base_opts, rust_analyzer_opts))
 
 --------------------------------------------------------------------------
 -- BASHLS
