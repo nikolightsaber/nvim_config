@@ -58,4 +58,4 @@ require("lazy").setup({
     end
   },
   require("user.formatting")
-}, {})
+}, { ui = { border = "rounded", }, })
