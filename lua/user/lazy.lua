@@ -34,7 +34,7 @@ require("lazy").setup({
     name = "rose-pine",
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme "rose-pine"
+      vim.cmd.colorscheme("rose-pine")
     end,
   },
   require("user.harpoon"),
@@ -58,4 +58,6 @@ require("lazy").setup({
     end
   },
   require("user.formatting")
-}, { ui = { border = "rounded", }, })
+}, {
+  ui = { border = "rounded", },
+})
