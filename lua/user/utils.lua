@@ -94,6 +94,26 @@ M.current_repo = function()
   return current_dir[#current_dir]
 end
 
+local current_git_branch = nil;
+
+M.current_branch = function()
+  if current_git_branch then
+    return current_git_branch
+  end
+
+  local f_head = io.open("./.git/HEAD")
+  if f_head then
+    local HEAD = f_head:read()
+    f_head:close()
+    local branch = HEAD:match('ref: refs/heads/(.+)$')
+    if branch then
+      current_git_branch = branch
+    end
+    return current_git_branch
+  end
+  return nil
+end
+
 M.dotnet_build_diag = function()
   print("Build Start")
   vim.fn.jobstart({ "dotnet", "build", "Libraries/BR.Mower/", "-o", "bin", "--nologo", "-v", "q" }, {

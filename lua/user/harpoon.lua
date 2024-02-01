@@ -5,7 +5,19 @@ return {
   event = "VeryLazy",
   config = function()
     local harpoon = require("harpoon")
-    harpoon:setup({ settings = { save_on_toggle = true } })
+    harpoon:setup({
+      settings = {
+        save_on_toggle = true,
+        key = function()
+          local cwd = vim.fn.getcwd()
+          local branch = require("user.utils").current_branch()
+          if branch then
+            return cwd .. ":" .. branch;
+          end
+          return cwd
+        end,
+      }
+    })
 
     vim.keymap.set("n", "<leader>a", function() harpoon:list():append() end)
     vim.keymap.set("n", "<C-h>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
