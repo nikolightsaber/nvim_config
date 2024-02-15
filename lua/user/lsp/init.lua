@@ -47,8 +47,8 @@ return {
 
     local status_ok, builtin = pcall(require, "telescope.builtin")
     if status_ok then
-      vim.lsp.handlers["textDocument/references"] = function() builtin.lsp_references({ path_display = { "tail" } }) end
-      vim.lsp.handlers["textDocument/definition"] = function() builtin.lsp_definitions({ path_display = { "tail" } }) end
+      vim.lsp.handlers["textDocument/references"] = function() builtin.lsp_references({ path_display = { "truncate" } }) end
+      vim.lsp.handlers["textDocument/definition"] = function() builtin.lsp_definitions({ path_display = { "truncate" } }) end
     end
     -- lazy therefore start
     vim.cmd.LspStart();
