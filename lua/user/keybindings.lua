@@ -44,28 +44,55 @@ keymap("x", "K", ":move '<-2<CR>gv=gv", opts)
 keymap("n", "<Up>", "", opts)
 keymap("n", "<Down>", "", opts)
 
-function _G.ReplaceWithRegister(type)
-  if (type == nil) then
+keymap("n", "<leader>y", "\"+y", opts)
+keymap("n", "<leader>Y", "\"+Y", opts)
+keymap("n", "<leader>p", "\"+p", opts)
+keymap("n", "<leader>P", "\"+P", opts)
+
+keymap("v", "<leader>y", "\"+y", opts)
+keymap("v", "<leader>Y", "\"+Y", opts)
+keymap("v", "<leader>p", "\"+p", opts)
+keymap("v", "<leader>P", "\"+P", opts)
+
+keymap("x", "<leader>y", "\"+y", opts)
+keymap("x", "<leader>Y", "\"+Y", opts)
+keymap("x", "<leader>p", "\"+p", opts)
+keymap("x", "<leader>P", "\"+P", opts)
+
+local _reg = ""
+function _G.ReplaceWithRegister(type, reg)
+  if (type == "") then
+    _reg = reg;
     vim.o.operatorfunc = "v:lua.ReplaceWithRegister"
     return "g@"
   end
+  if (type ~= "char") then
+    vim.notify("Multiline operation not supported");
+    return;
+  end
 
-  local start = vim.api.nvim_buf_get_mark(0, "[")[2]
-  local stop = vim.api.nvim_buf_get_mark(0, "]")[2]
+  local start = vim.api.nvim_buf_get_mark(0, "[")
+  local stop = vim.api.nvim_buf_get_mark(0, "]")
+  if (start[1] ~= stop[1]) then
+    vim.notify("Multiline operation not supported");
+    return;
+  end
   local line = vim.api.nvim_get_current_line()
-  local new = vim.fn.getreg("+")
-  line = line:sub(1, start) .. new .. line:sub(stop + 2, -1)
+  local new = vim.fn.getreg(_reg)
+  if (string.find(new, "\n")) then
+    vim.notify("Multiline operation not supported");
+    return;
+  end
+  line = line:sub(1, start[2]) .. new .. line:sub(stop[2] + 2, -1)
   vim.api.nvim_set_current_line(line)
 end
 
-keymap("n", "gr", "v:lua.ReplaceWithRegister()", { noremap = true, expr = true })
--- keymap("n", "grr", "v:lua.ReplaceWithRegister()", { noremap = true, expr = true })
+keymap("n", "gr", "v:lua.ReplaceWithRegister(\"\", \"\")", { noremap = true, expr = true })
+keymap("n", "<leader>gr", "v:lua.ReplaceWithRegister(\"\", \"+\")", { noremap = true, expr = true })
 
 keymap("n", "<F7>", '', { noremap = true, callback = require("user.utils").highlight_log })
 
 -- Remove help key (to close to escape
 keymap("n", "<F1>", '', {})
-
-keymap("n", "<leader>mir", "<cmd>CellularAutomaton make_it_rain<CR>", opts)
 
 keymap("n", "<leader> ", ":Ex<CR>", opts)
