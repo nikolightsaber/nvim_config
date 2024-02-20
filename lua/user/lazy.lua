@@ -17,7 +17,7 @@ require("lazy").setup({
     build = ":TSUpdate",
     event = "VeryLazy",
     config = function()
-      require "nvim-treesitter.configs".setup({
+      require("nvim-treesitter.configs").setup({
         ensure_installed = "all",
         highlight = { enable = true },
         indent = { enable = true },
@@ -49,6 +49,11 @@ require("lazy").setup({
   },
   require("user.harpoon"),
   require("user.telescope"),
+  {
+    "folke/neodev.nvim",
+    opts = {},
+    event = "VeryLazy",
+  },
   require("user.lsp"),
   require("user.cmp"),
   {

@@ -3,7 +3,7 @@ local base_opts = {
   capabilities = require("user.lsp.base").capabilities,
 }
 
-      local lspconfig = require("lspconfig")
+local lspconfig = require("lspconfig")
 
 --------------------------------------------------------------------------
 -- SUMNEKO
@@ -11,8 +11,6 @@ local base_opts = {
 -- install:
 -- in ~/.local/share/nvim/lsp_servers/lua-language-server
 -- git clone https://github.com/sumneko/lua-language-server
--- build instructions
--- https://github.com/LuaLS/lua-language-server/wiki/Getting-Started#build
 -- in ~/.local/bin
 -- ln -s ../share/nvim/lsp_servers/lua-language-server/bin/lua-language-server lua-language-server
 local lua_ls_opts = {
@@ -28,14 +26,7 @@ local lua_ls_opts = {
           },
           -- Make the server aware of Neovim runtime files
           workspace = {
-            checkThirdParty = false,
-            library = {
-              vim.env.VIMRUNTIME
-              -- "${3rd}/luv/library"
-              -- "${3rd}/busted/library",
-            }
-            -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-            -- library = vim.api.nvim_get_runtime_file("", true)
+            library = vim.env.VIMRUNTIME .. "/lua", --vim.api.nvim_get_runtime_file("", true),
           }
         }
       })

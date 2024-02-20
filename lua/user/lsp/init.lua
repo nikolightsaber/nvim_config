@@ -4,6 +4,7 @@ return {
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
     "nvim-telescope/telescope.nvim",
+    "folke/neodev.nvim",
   },
   config = function()
     require("user.lsp.servers")
