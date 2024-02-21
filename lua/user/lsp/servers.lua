@@ -20,13 +20,10 @@ local lua_ls_opts = {
       client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
         Lua = {
           runtime = {
-            -- Tell the language server which version of Lua you're using
-            -- (most likely LuaJIT in the case of Neovim)
             version = 'LuaJIT'
           },
-          -- Make the server aware of Neovim runtime files
           workspace = {
-            library = vim.env.VIMRUNTIME .. "/lua", --vim.api.nvim_get_runtime_file("", true),
+            checkThirdParty = false,
           }
         }
       })
