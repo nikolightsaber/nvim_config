@@ -17,6 +17,7 @@ require("lazy").setup({
     build = ":TSUpdate",
     event = "VeryLazy",
     config = function()
+      ---@diagnostic disable-next-line: missing-fields
       require("nvim-treesitter.configs").setup({
         ensure_installed = "all",
         highlight = { enable = true },
@@ -49,11 +50,6 @@ require("lazy").setup({
   },
   require("user.harpoon"),
   require("user.telescope"),
-  {
-    "folke/neodev.nvim",
-    opts = {},
-    event = "VeryLazy",
-  },
   require("user.lsp"),
   require("user.cmp"),
   {
