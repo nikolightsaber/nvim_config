@@ -6,14 +6,13 @@ return {
     "nvim-telescope/telescope.nvim",
     {
       "folke/neodev.nvim",
-      event = "VeryLazy",
       opts = {},
       enabled = function()
         local cwd = vim.fn.getcwd()
         if (cwd == nil) then
           return false
         end
-        return string.find(cwd, "nvim") ~= nil or string.find(cwd, "neovim") ~= nil
+        return string.find(cwd, "nvim") ~= nil
       end,
     },
   },
