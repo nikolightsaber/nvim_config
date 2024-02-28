@@ -74,6 +74,7 @@ return {
           "s",
         }),
       }),
+      ---@diagnostic disable-next-line: missing-fields
       formatting = {
         fields = { "kind", "abbr", "menu" },
         format = function(entry, vim_item)
@@ -82,7 +83,6 @@ return {
           -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
           vim_item.menu = ({
             nvim_lsp = "[LSP]",
-            nvim_lua = "[NVIM_LUA]",
             luasnip = "[Snippet]",
             buffer = "[Buffer]",
             path = "[Path]",
@@ -92,10 +92,15 @@ return {
       },
       sources = {
         { name = "nvim_lsp" },
-        { name = "nvim_lua" },
         { name = "luasnip" },
-        { name = "buffer" },
-        { name = "path" },
+        {
+          name = "buffer",
+          max_item_count = 5,
+        },
+        {
+          name = "path",
+          max_item_count = 3
+        },
         { name = "nvim_lsp_signature_help" }
       },
       confirm_opts = {

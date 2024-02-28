@@ -1,13 +1,14 @@
 return {
   "mhartington/formatter.nvim",
-  event = "VeryLazy",
+  ft = { "ts", "html", "css" },
+  event = "BufWritePre",
   config = function()
     require("formatter").setup({
       filetype = {
         typescript = require("formatter.filetypes.typescript").prettier,
         html = require("formatter.filetypes.html").prettier,
         css = require("formatter.filetypes.css").prettier,
-        scss = require("formatter.filetypes.html").prettier,
+        scss = require("formatter.filetypes.css").prettier,
       }
     })
 
