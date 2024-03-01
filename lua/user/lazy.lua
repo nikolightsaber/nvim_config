@@ -62,6 +62,7 @@ require("lazy").setup({
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    lazy = true,
     ft = { "markdown" },
     config = function()
       vim.g.mkdp_auto_close = 0
