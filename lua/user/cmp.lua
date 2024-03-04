@@ -6,7 +6,7 @@ return {
     "saadparwaiz1/cmp_luasnip",
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-path",
-    "hrsh7th/cmp-cmdline",
+    "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-nvim-lsp-signature-help",
     "rafamadriz/friendly-snippets",
   },
@@ -50,29 +50,22 @@ return {
         end,
       },
       mapping = cmp.mapping.preset.insert({
-        ["<C-k>"] = cmp.mapping.select_prev_item(),
-        ["<C-j>"] = cmp.mapping.select_next_item(),
-        ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
-        ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-        ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-        ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-        ["<C-e>"] = cmp.mapping {
-          i = cmp.mapping.abort(),
-          c = cmp.mapping.close(),
-        },
-        -- Accept currently selected item. If none selected, `select` first item.
-        -- Set `select` to `false` to only confirm explicitly selected items.
-        ["<CR>"] = cmp.mapping.confirm { select = false },
-        ["<Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_next_item()
-          else
-            fallback()
+        ['<C-n>'] = cmp.mapping.select_next_item(),
+        ['<C-p>'] = cmp.mapping.select_prev_item(),
+
+        ['<C-y>'] = cmp.mapping.confirm { select = true },
+
+        ['<C-Space>'] = cmp.mapping.complete {},
+        ['<C-l>'] = cmp.mapping(function()
+          if luasnip.expand_or_locally_jumpable() then
+            luasnip.expand_or_jump()
           end
-        end, {
-          "i",
-          "s",
-        }),
+        end, { 'i', 's' }),
+        ['<C-h>'] = cmp.mapping(function()
+          if luasnip.locally_jumpable(-1) then
+            luasnip.jump(-1)
+          end
+        end, { 'i', 's' }),
       }),
       ---@diagnostic disable-next-line: missing-fields
       formatting = {
