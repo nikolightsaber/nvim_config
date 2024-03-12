@@ -27,7 +27,7 @@ M.highlight_log = function()
 end
 
 M.current_repo = function()
-  local current_dir = require("user.utils").split(vim.fn.getcwd(), "/")
+  local current_dir = vim.split(vim.fn.getcwd(), "/")
   return current_dir[#current_dir]
 end
 
