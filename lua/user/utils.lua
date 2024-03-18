@@ -12,6 +12,7 @@ local highlight_line = function(line, i, char, hi)
 end
 
 M.highlight_log = function()
+  vim.cmd.setfiletype("messages")
   vim.api.nvim_set_hl(0, "AddTask", { fg = "#00CD00" })
   vim.api.nvim_set_hl(0, "RemoveTask", { fg = "#CD0000" })
   vim.api.nvim_set_hl(0, "AddAsyncTask", { fg = "#CDCD00" })
