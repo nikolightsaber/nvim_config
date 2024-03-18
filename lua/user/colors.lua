@@ -18,11 +18,20 @@ return {
   },
   {
     "luisiacc/gruvbox-baby",
-    lazy = false,
+    lazy = true,
     priority = 1000,
     opts = {},
     config = function()
       vim.cmd.colorscheme("gruvbox-baby")
+    end,
+  },
+  {
+    "samharju/synthweave.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    config = function()
+      vim.cmd.colorscheme("synthweave")
     end,
   },
 }
