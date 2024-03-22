@@ -5,7 +5,7 @@ M = {};
 ---@param char string
 ---@param hi string
 local highlight_line = function(line, i, char, hi)
-  local s, _, _ = string.find(line, ": " .. char .. " MainTask ->", 1, true)
+  local s, _, _ = string.find(line, " " .. char .. " MainTask ->", 1, true)
   if (s ~= nil) then
     vim.api.nvim_buf_add_highlight(0, -1, hi, i, 0, -1)
   end
