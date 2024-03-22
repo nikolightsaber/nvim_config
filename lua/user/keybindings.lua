@@ -45,17 +45,15 @@ keymap("n", "<Up>", "", opts)
 keymap("n", "<Down>", "", opts)
 
 keymap("n", "<leader>y", "\"+y", opts)
-keymap("n", "<leader>Y", "\"+Y", opts)
+keymap("n", "<leader>Y", "\"+y$", opts)
 keymap("n", "<leader>p", "\"+p", opts)
 keymap("n", "<leader>P", "\"+P", opts)
 
 keymap("v", "<leader>y", "\"+y", opts)
-keymap("v", "<leader>Y", "\"+Y", opts)
 keymap("v", "<leader>p", "\"+p", opts)
 keymap("v", "<leader>P", "\"+P", opts)
 
 keymap("x", "<leader>y", "\"+y", opts)
-keymap("x", "<leader>Y", "\"+Y", opts)
 keymap("x", "<leader>p", "\"+p", opts)
 keymap("x", "<leader>P", "\"+P", opts)
 
