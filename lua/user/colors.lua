@@ -1,11 +1,11 @@
 return {
   {
     "rose-pine/neovim",
-    lazy = true,
+    lazy = false,
     name = "rose-pine",
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme("rose-pine")
+      vim.cmd.colorscheme("rose-pine-moon")
     end,
   },
   {
@@ -27,7 +27,7 @@ return {
   },
   {
     "Mofiqul/dracula.nvim",
-    lazy = false,
+    lazy = true,
     priority = 1000,
     opts = {},
     config = function()
