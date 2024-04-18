@@ -120,3 +120,18 @@ lspconfig.eslint.setup(vim.tbl_deep_extend("force", eslint_opts, base_opts))
 -- sudo npm i -g vscode-langservers-extracted
 local html_opts = {}
 lspconfig.html.setup(vim.tbl_deep_extend("force", html_opts, base_opts))
+--------------------------------------------------------------------------
+-- Anguarls
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#angularls
+-- install
+-- npm install -g @angular/language-server
+local project_library_path = "/usr/local/lib/node_modules/@angular/language-server/"
+local cmd = { "ngserver", "--stdio", "--tsProbeLocations", project_library_path, "--ngProbeLocations",
+  project_library_path }
+local angularls_opts = {
+  cmd = cmd,
+  on_new_config = function(new_config, new_root_dir)
+    new_config.cmd = cmd
+  end,
+}
+lspconfig.angularls.setup(vim.tbl_deep_extend("force", angularls_opts, base_opts))
