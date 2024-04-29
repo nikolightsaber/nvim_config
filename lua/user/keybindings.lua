@@ -57,6 +57,9 @@ keymap("x", "<leader>y", "\"+y", opts)
 keymap("x", "<leader>p", "\"+p", opts)
 keymap("x", "<leader>P", "\"+P", opts)
 
+keymap("n", "<leader>jc", ":cnext<CR>", opts)
+keymap("n", "<leader>kc", ":cprev<CR>", opts)
+
 local _reg = ""
 function _G.ReplaceWithRegister(type, reg)
   if (type == "") then
