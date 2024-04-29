@@ -135,3 +135,13 @@ local angularls_opts = {
   end,
 }
 lspconfig.angularls.setup(vim.tbl_deep_extend("force", angularls_opts, base_opts))
+-- gopls
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#gopls
+-- install
+-- npm install -g @angular/language-server
+local project_library_path = "/usr/local/lib/node_modules/@angular/language-server/"
+local cmd = { "/home/nikolai/go/bin/gopls" }
+local gopls_opts = {
+  cmd = cmd,
+}
+lspconfig.gopls.setup(vim.tbl_deep_extend("force", gopls_opts, base_opts))
