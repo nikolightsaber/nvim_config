@@ -10,7 +10,7 @@ return {
   },
   {
     "folke/tokyonight.nvim",
-    lazy = true,
+    enabled = false,
     priority = 1000,
     config = function()
       vim.cmd.colorscheme("tokyonight-night")
@@ -18,7 +18,7 @@ return {
   },
   {
     "luisiacc/gruvbox-baby",
-    lazy = true,
+    enabled = false,
     priority = 1000,
     opts = {},
     config = function()
@@ -27,7 +27,7 @@ return {
   },
   {
     "Mofiqul/dracula.nvim",
-    lazy = true,
+    enabled = false,
     priority = 1000,
     opts = {},
     config = function()
