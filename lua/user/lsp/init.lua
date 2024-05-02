@@ -7,7 +7,7 @@ return {
     {
       "folke/neodev.nvim",
       opts = {},
-      enabled = function()
+      cond = function()
         local cwd = vim.fn.getcwd()
         if (cwd == nil) then
           return false
