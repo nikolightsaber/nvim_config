@@ -30,6 +30,10 @@ require("lazy").setup({
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     event = "VeryLazy",
   },
+  {
+    "folke/neodev.nvim",
+    lazy = true,
+  },
   require("user.colors"),
   require("user.harpoon"),
   require("user.telescope"),

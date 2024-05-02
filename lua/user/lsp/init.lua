@@ -4,19 +4,12 @@ return {
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
     "nvim-telescope/telescope.nvim",
-    {
-      "folke/neodev.nvim",
-      opts = {},
-      cond = function()
-        local cwd = vim.fn.getcwd()
-        if (cwd == nil) then
-          return false
-        end
-        return string.find(cwd, "nvim") ~= nil
-      end,
-    },
   },
   config = function()
+    local cwd = vim.fn.getcwd() or "";
+    if string.find(cwd, "nvim") ~= nil then
+      require("neodev").setup()
+    end
     require("user.lsp.servers")
 
     local signs = {
