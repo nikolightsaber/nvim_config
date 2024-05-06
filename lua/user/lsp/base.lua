@@ -27,7 +27,7 @@ local function lsp_keymaps(bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>jd", "", { noremap = true, callback = vim.diagnostic.goto_next })
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>kd", "", { noremap = true, callback = vim.diagnostic.goto_prev })
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>th", "",
-    { noremap = true, callback = function() vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled(0)) end })
+    { noremap = true, callback = function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(0)) end })
 end
 
 M.on_attach = function(client, bufnr)

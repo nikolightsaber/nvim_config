@@ -130,7 +130,7 @@ local cmd = { "ngserver", "--stdio", "--tsProbeLocations", project_library_path,
   project_library_path }
 local angularls_opts = {
   cmd = cmd,
-  on_new_config = function(new_config, new_root_dir)
+  on_new_config = function(new_config, _)
     new_config.cmd = cmd
   end,
 }
