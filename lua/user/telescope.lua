@@ -11,7 +11,14 @@ return {
   },
   config = function()
     local telescope = require("telescope")
-    telescope.setup({})
+    telescope.setup({
+      defaults = {
+        mappings = {
+          n = { ["<Up>"] = function() end, ["<Down>"] = function() end },
+          i = { ["<Up>"] = function() end, ["<Down>"] = function() end },
+        }
+      }
+    })
 
     pcall(telescope.load_extension, "fzf")
 

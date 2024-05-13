@@ -51,6 +51,17 @@ require("lazy").setup({
       vim.g.mkdp_theme = "light"
     end
   },
+  {
+    "m4xshen/hardtime.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    event = "VeryLazy",
+    config = function()
+      require("hardtime").setup()
+      require("hardtime.config").config.max_count = 4
+      require("hardtime.config").config.restricted_keys["<C-P>"] = nil
+      require("hardtime.config").config.restricted_keys["<C-N>"] = nil
+    end,
+  },
   require("user.formatting")
 }, {
   ui = { border = "rounded", },
