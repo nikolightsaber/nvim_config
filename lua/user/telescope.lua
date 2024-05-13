@@ -15,7 +15,7 @@ return {
       defaults = {
         mappings = {
           n = { ["<Up>"] = function() end, ["<Down>"] = function() end },
-          i = { ["<Up>"] = function() end, ["<Down>"] = function() end },
+          i = { ["<Up>"] = function() end, ["<Down>"] = function() end, ["<C-y>"] = require("telescope.actions").select_default },
         }
       }
     })
