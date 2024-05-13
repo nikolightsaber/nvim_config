@@ -8,7 +8,7 @@ return {
       lualine_b = { { "branch", icons_enabled = true, icon = "", } },
       lualine_c = { { 'filename', file_status = true, path = 1 } },
       lualine_x = {
-        function() return "spaces: " .. vim.api.nvim_get_option_value("shiftwidth", {}) end,
+        "diagnostics",
         "encoding",
         { "filetype", icon_only = true, }
       },
