@@ -6,10 +6,6 @@ return {
     "nvim-telescope/telescope.nvim",
   },
   config = function()
-    local cwd = vim.fn.getcwd() or "";
-    if string.find(cwd, "nvim") ~= nil then
-      require("neodev").setup()
-    end
     require("user.lsp.servers")
 
     local config = {

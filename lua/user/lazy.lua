@@ -31,8 +31,10 @@ require("lazy").setup({
     event = "VeryLazy",
   },
   {
-    "folke/neodev.nvim",
+    "folke/lazydev.nvim",
     lazy = true,
+    ft = "lua",
+    opts = {},
   },
   require("user.colors"),
   require("user.harpoon"),
