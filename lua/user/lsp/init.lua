@@ -3,9 +3,12 @@ return {
   event = "VeryLazy",
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
-    "nvim-telescope/telescope.nvim",
   },
   config = function()
+    local cwd = vim.fn.getcwd() or "";
+    if string.find(cwd, "nvim") ~= nil then
+      require("lazydev").setup()
+    end
     require("user.lsp.servers")
 
     local config = {
@@ -40,11 +43,6 @@ return {
 
     require("lspconfig.ui.windows").default_options.border = "rounded";
 
-    local status_ok, builtin = pcall(require, "telescope.builtin")
-    if status_ok then
-      vim.lsp.handlers["textDocument/references"] = function() builtin.lsp_references({ path_display = { "truncate" } }) end
-      vim.lsp.handlers["textDocument/definition"] = function() builtin.lsp_definitions({ path_display = { "truncate" } }) end
-    end
     -- lazy therefore start
     vim.cmd.LspStart();
   end,

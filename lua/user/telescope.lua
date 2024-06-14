@@ -1,9 +1,11 @@
 return {
   "nvim-telescope/telescope.nvim",
-  event = "VeryLazy",
+  lazy = true,
+  keys = {
+    "<leader>f", "<leader>g", "<leader>/", "<leader>sh", "<leader>b", "<leader>tr", "z=", "gt", "grr", "gd"
+  },
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "AckslD/nvim-neoclip.lua",
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
@@ -22,12 +24,13 @@ return {
 
     pcall(telescope.load_extension, "fzf")
 
-    require("neoclip").setup({ default_register = { "+", "\"" } })
-    pcall(telescope.load_extension, "neoclip")
-    vim.keymap.set("n", "<c-p>", function() return telescope.extensions.neoclip.neoclip({ initial_mode = "normal" }) end)
+
 
     local builtin = require("telescope.builtin")
     local themes = require("telescope.themes")
+
+    vim.lsp.handlers["textDocument/references"] = function() builtin.lsp_references({ path_display = { "truncate" } }) end
+    vim.lsp.handlers["textDocument/definition"] = function() builtin.lsp_definitions({ path_display = { "truncate" } }) end
 
     local files = function()
       local current_repo = require("user.utils").current_repo()

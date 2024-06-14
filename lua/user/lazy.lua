@@ -33,12 +33,11 @@ require("lazy").setup({
   {
     "folke/lazydev.nvim",
     lazy = true,
-    ft = "lua",
-    opts = {},
   },
   require("user.colors"),
   require("user.harpoon"),
   require("user.telescope"),
+  require("user.neoclip"),
   require("user.lsp"),
   require("user.cmp"),
   require("user.gitsigns"),
