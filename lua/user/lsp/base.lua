@@ -18,6 +18,7 @@ end
 local function lsp_keymaps(bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "", { noremap = true, callback = vim.lsp.buf.declaration })
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "", { noremap = true, callback = vim.lsp.buf.definition })
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "grr", "", { noremap = true, callback = vim.lsp.buf.references })
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "", { noremap = true, callback = vim.lsp.buf.implementation })
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>e", "", { noremap = true, callback = vim.diagnostic.open_float })
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>th", "",

@@ -1,7 +1,7 @@
 return {
   "AckslD/nvim-neoclip.lua",
   lazy = true,
-  keys = "<leader><Enter>",
+  keys = { "<leader><Enter>", "y" },
   config = function()
     require("neoclip").setup({ default_register = { "+", "\"" } })
     local telescope = require("telescope")
