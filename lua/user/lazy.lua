@@ -37,7 +37,6 @@ require("lazy").setup({
   require("user.colors"),
   require("user.harpoon"),
   require("user.telescope"),
-  require("user.neoclip"),
   require("user.lsp"),
   require("user.cmp"),
   require("user.gitsigns"),
