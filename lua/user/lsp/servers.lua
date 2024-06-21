@@ -58,11 +58,10 @@ lspconfig.pyright.setup(vim.tbl_deep_extend("force", pyright_opts, base_opts))
 -- normal install
 -- dotnet tool install --global csharp-ls
 local csharp_ls_opts = {
-  -- root_dir = function ()
-  --   return "/home/nikolai/code/navigation/Apps/BR.Mower.Brain"
-  -- end
+  AutomaticWorkspaceInit = true
 }
 
+vim.lsp.set_log_level(vim.log.levels.DEBUG)
 lspconfig.csharp_ls.setup(vim.tbl_deep_extend("force", csharp_ls_opts, base_opts))
 
 --------------------------------------------------------------------------
