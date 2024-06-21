@@ -5,7 +5,6 @@ return {
     "L3MON4D3/LuaSnip",
     "saadparwaiz1/cmp_luasnip",
     "hrsh7th/cmp-nvim-lsp",
-    "hrsh7th/cmp-path",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-nvim-lsp-signature-help",
     "rafamadriz/friendly-snippets",
@@ -78,7 +77,6 @@ return {
             nvim_lsp = "[LSP]",
             luasnip = "[Snippet]",
             buffer = "[Buffer]",
-            path = "[Path]",
           })[entry.source.name]
           return vim_item
         end,
@@ -89,10 +87,6 @@ return {
         {
           name = "buffer",
           max_item_count = 5,
-        },
-        {
-          name = "path",
-          max_item_count = 3
         },
         { name = "nvim_lsp_signature_help" }
       },
