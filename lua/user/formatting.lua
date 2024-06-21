@@ -1,7 +1,12 @@
 return {
   "mhartington/formatter.nvim",
-  ft = { "ts", "html", "css" },
+  lazy = true,
   event = "BufWritePre",
+  cond = function()
+    local files = { "ts", "css", "html" }
+    local file = vim.filetype.match({ buf = 0 })
+    return vim.list_contains(files, file);
+  end,
   config = function()
     require("formatter").setup({
       filetype = {
