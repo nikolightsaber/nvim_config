@@ -7,7 +7,7 @@ return {
   config = function()
     local cwd = vim.fn.getcwd() or "";
     if string.find(cwd, "nvim") ~= nil then
-      require("lazydev").setup()
+      require("lazydev").setup({ integrations = { cmp = false } })
     end
     require("user.lsp.servers")
 
