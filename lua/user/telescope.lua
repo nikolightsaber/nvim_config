@@ -1,7 +1,7 @@
 return {
   "nvim-telescope/telescope.nvim",
   lazy = true,
-  keys = { "<leader>", "g" },
+  keys = { "<leader>", "g", "z=" },
   dependencies = {
     "nvim-lua/plenary.nvim",
     {
@@ -21,8 +21,6 @@ return {
     })
 
     pcall(telescope.load_extension, "fzf")
-
-
 
     local builtin = require("telescope.builtin")
     local themes = require("telescope.themes")
