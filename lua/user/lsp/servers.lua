@@ -10,7 +10,7 @@ local lspconfig = require("lspconfig")
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#lua_ls
 -- install:
 -- in ~/.local/share/nvim/lsp_servers/lua-language-server
--- git clone https://github.com/sumneko/lua-language-server
+-- git clone https://github.com/LuaLS/lua-language-server
 -- in ~/.local/bin
 -- ln -s ../share/nvim/lsp_servers/lua-language-server/bin/lua-language-server lua-language-server
 local lua_ls_opts = {
@@ -40,7 +40,7 @@ lspconfig.lua_ls.setup(vim.tbl_deep_extend("force", base_opts, lua_ls_opts))
 -- PYRIGHT
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pyright
 -- install
--- pip install pyright
+-- pipx install pyright
 local pyright_opts = {
   settings = {
     python = {
@@ -68,15 +68,15 @@ lspconfig.csharp_ls.setup(vim.tbl_deep_extend("force", csharp_ls_opts, base_opts
 -- TSSERVER
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tsserver
 -- install
--- sudo npm install -g typescript-language-server typescript
+-- npm install -g typescript-language-server typescript
 local tsserver_opts = {
 }
 lspconfig.tsserver.setup(vim.tbl_deep_extend("force", tsserver_opts, base_opts))
 
 -- CLANGD
--- sudo apt install clangd-12
+-- sudo apt install clangd-18
 local clangd_opts = {
-  cmd = { "clangd-12", "--enable-config", "--clang-tidy" }
+  cmd = { "clangd-18", "--enable-config", "--clang-tidy" }
 }
 lspconfig.clangd.setup(vim.tbl_deep_extend("force", clangd_opts, base_opts))
 
@@ -100,7 +100,7 @@ lspconfig.rust_analyzer.setup(vim.tbl_deep_extend("force", base_opts, rust_analy
 -- BASHLS
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 -- install
--- sudo npm i -g bash-language-server
+-- npm i -g bash-language-server
 local bashls_opts = {}
 lspconfig.bashls.setup(vim.tbl_deep_extend("force", bashls_opts, base_opts))
 
@@ -108,7 +108,7 @@ lspconfig.bashls.setup(vim.tbl_deep_extend("force", bashls_opts, base_opts))
 -- ESLINT
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#eslint
 -- install
--- sudo npm i -g vscode-langservers-extracted
+-- npm i -g vscode-langservers-extracted
 local eslint_opts = {}
 lspconfig.eslint.setup(vim.tbl_deep_extend("force", eslint_opts, base_opts))
 
@@ -116,7 +116,7 @@ lspconfig.eslint.setup(vim.tbl_deep_extend("force", eslint_opts, base_opts))
 -- HTML
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#html
 -- install
--- sudo npm i -g vscode-langservers-extracted
+-- npm i -g vscode-langservers-extracted
 local html_opts = {}
 lspconfig.html.setup(vim.tbl_deep_extend("force", html_opts, base_opts))
 --------------------------------------------------------------------------
@@ -124,7 +124,7 @@ lspconfig.html.setup(vim.tbl_deep_extend("force", html_opts, base_opts))
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#angularls
 -- install
 -- npm install -g @angular/language-server
-local project_library_path = "/usr/local/lib/node_modules/@angular/language-server/"
+local project_library_path = "/home/nikolai/.nvm/versions/node/v20.15.0/lib/node_modules/@angular/language-server"
 local cmd = { "ngserver", "--stdio", "--tsProbeLocations", project_library_path, "--ngProbeLocations",
   project_library_path }
 local angularls_opts = {
