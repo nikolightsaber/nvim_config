@@ -40,11 +40,6 @@ M.on_attach_format = function(client, bufnr)
     })
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-if status_ok then
-  M.capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
-end
+M.capabilities = vim.lsp.protocol.make_client_capabilities()
 
 return M

@@ -1,9 +1,6 @@
 return {
   "neovim/nvim-lspconfig",
   event = "VeryLazy",
-  dependencies = {
-    "hrsh7th/cmp-nvim-lsp",
-  },
   config = function()
     local cwd = vim.fn.getcwd() or "";
     if string.find(cwd, "nvim") ~= nil then
