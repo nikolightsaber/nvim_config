@@ -34,6 +34,14 @@ require("lazy").setup({
     "folke/lazydev.nvim",
     lazy = true,
   },
+  {
+    "echasnovski/mini.completion",
+    opts = {
+      lsp_completion = {
+        source_func = "omnifunc",
+      },
+    },
+  },
   require("user.colors"),
   require("user.harpoon"),
   require("user.telescope"),
