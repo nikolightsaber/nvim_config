@@ -45,7 +45,13 @@ require("lazy").setup({
   require("user.colors"),
   require("user.harpoon"),
   require("user.telescope"),
-  require("user.lsp"),
+  {
+    "neovim/nvim-lspconfig",
+    event = "VeryLazy",
+    config = function()
+      require("user.lsp").setup()
+    end,
+  },
   require("user.gitsigns"),
   require("user.lualine"),
   {
