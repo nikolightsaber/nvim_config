@@ -37,10 +37,16 @@ require("lazy").setup({
   },
   {
     "echasnovski/mini.completion",
+    event = "InsertEnter",
     opts = {
       lsp_completion = {
         source_func = "omnifunc",
       },
+      window = {
+        info = { border = 'rounded' },
+        signature = { border = 'rounded' },
+      },
+      set_vim_settings = false,
     },
   },
   require("user.colors"),
