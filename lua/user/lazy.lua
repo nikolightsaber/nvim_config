@@ -35,11 +35,24 @@ require("lazy").setup({
     "folke/lazydev.nvim",
     lazy = true,
   },
+  {
+    "echasnovski/mini.completion",
+    opts = {
+      lsp_completion = {
+        source_func = "omnifunc",
+      },
+    },
+  },
   require("user.colors"),
   require("user.harpoon"),
   require("user.telescope"),
-  require("user.lsp"),
-  require("user.cmp"),
+  {
+    "neovim/nvim-lspconfig",
+    event = "VeryLazy",
+    config = function()
+      require("user.lsp").setup()
+    end,
+  },
   require("user.gitsigns"),
   require("user.lualine"),
   {

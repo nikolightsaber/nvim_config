@@ -21,5 +21,7 @@ vim.o.cursorline = true
 vim.o.laststatus = 3
 vim.o.mouse = ''
 vim.o.wrap = false
+vim.o.completeopt = "menuone,popup,noinsert,fuzzy"
+vim.o.pumheight = 20
 
 vim.api.nvim_create_user_command("DotNetBuildDiag", require("user.utils").dotnet_build_diag, {})

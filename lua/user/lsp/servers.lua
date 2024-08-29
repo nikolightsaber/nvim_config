@@ -1,6 +1,6 @@
 local base_opts = {
-  on_attach = require("user.lsp.base").on_attach,
-  capabilities = require("user.lsp.base").capabilities,
+  on_attach = require("user.lsp").on_attach,
+  capabilities = vim.lsp.protocol.make_client_capabilities(),
 }
 
 local lspconfig = require("lspconfig")
@@ -16,7 +16,8 @@ local lspconfig = require("lspconfig")
 local lua_ls_opts = {
   on_init = function(client)
     local path = client.workspace_folders[1].name
-    if not vim.loop.fs_stat(path .. '/.luarc.json') and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
+    ---@diagnostic disable-next-line: undefined-field
+    if not vim.uv.fs_stat(path .. '/.luarc.json') and not vim.uv.fs_stat(path .. '/.luarc.jsonc') then
       client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
         Lua = {
           runtime = {
@@ -32,7 +33,7 @@ local lua_ls_opts = {
     end
     return true
   end,
-  on_attach = require("user.lsp.base").on_attach_format,
+  on_attach = require("user.lsp").on_attach_format,
 }
 lspconfig.lua_ls.setup(vim.tbl_deep_extend("force", base_opts, lua_ls_opts))
 
@@ -92,7 +93,7 @@ local rust_analyzer_opts = {
     build_on_save = false,
     all_features = true,
   },
-  on_attach = require("user.lsp.base").on_attach_format,
+  on_attach = require("user.lsp").on_attach_format,
 }
 lspconfig.rust_analyzer.setup(vim.tbl_deep_extend("force", base_opts, rust_analyzer_opts))
 
