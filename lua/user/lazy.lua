@@ -71,7 +71,6 @@ require("lazy").setup({
       vim.g.mkdp_theme = "light"
     end
   },
-  require("user.formatting")
 }, {
   ui = { border = "rounded", },
 })

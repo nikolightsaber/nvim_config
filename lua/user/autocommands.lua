@@ -51,3 +51,17 @@ vim.api.nvim_create_autocmd("InsertLeave", { group = group, pattern = "*", comma
 group = vim.api.nvim_create_augroup("yankhighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost",
   { group = group, callback = function() vim.highlight.on_yank({ hlgroup = "Visual", timeout = 200 }) end })
+
+vim.api.nvim_create_autocmd("BufWritePost",
+  {
+    group = vim.api.nvim_create_augroup("formatter", { clear = true }),
+    pattern = { "*/cockpit-app/*.ts", "*/cockpit-app/*.html", "*/cockpit-app/*.css", "*/cockpit-app/*.css" },
+    callback = function()
+      vim.fn.jobstart({ "npx", "prettier", "--write", vim.api.nvim_buf_get_name(0) }, {
+        stdout_buffered = true,
+        on_stdout = function(_, _)
+          vim.schedule(vim.cmd.edit);
+        end
+      })
+    end,
+  })
