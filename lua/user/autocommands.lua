@@ -59,7 +59,7 @@ vim.api.nvim_create_autocmd("BufWritePost",
     callback = function()
       vim.fn.jobstart({ "npx", "prettier", "--write", vim.api.nvim_buf_get_name(0) }, {
         stdout_buffered = true,
-        on_stdout = function(_, _)
+        on_exit = function(_, _)
           vim.schedule(vim.cmd.edit);
         end
       })
