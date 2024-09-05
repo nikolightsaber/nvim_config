@@ -49,7 +49,14 @@ require("lazy").setup({
       set_vim_settings = false,
     },
   },
-  require("user.colors"),
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme("tokyonight-storm")
+    end,
+  },
   require("user.harpoon"),
   require("user.telescope"),
   {
