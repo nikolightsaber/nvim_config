@@ -70,9 +70,9 @@ lspconfig.csharp_ls.setup(vim.tbl_deep_extend("force", csharp_ls_opts, base_opts
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tsserver
 -- install
 -- npm install -g typescript-language-server typescript
-local tsserver_opts = {
+local ts_ls_opts = {
 }
-lspconfig.tsserver.setup(vim.tbl_deep_extend("force", tsserver_opts, base_opts))
+lspconfig.ts_ls.setup(vim.tbl_deep_extend("force", base_opts, ts_ls_opts))
 
 -- CLANGD
 -- sudo apt install clangd-18
