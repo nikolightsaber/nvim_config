@@ -60,7 +60,6 @@ require("lazy").setup({
     end,
   },
   require("user.gitsigns"),
-  require("user.lualine"),
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
