@@ -37,7 +37,7 @@ return {
     vim.keymap.set("n", "<leader>ts", require('gitsigns.actions').toggle_signs)
     vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = "#6c7993" })
     vim.keymap.set("n", "<leader>tb", require('gitsigns.actions').toggle_current_line_blame)
-    vim.keymap.set("n", "[h", function() require('gitsigns.actions').nav_hunk("next") end)
-    vim.keymap.set("n", "]h", function() require('gitsigns.actions').nav_hunk("prev") end)
+    vim.keymap.set("n", "]h", function() require('gitsigns.actions').nav_hunk("next") end)
+    vim.keymap.set("n", "[h", function() require('gitsigns.actions').nav_hunk("prev") end)
   end
 }

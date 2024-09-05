@@ -59,6 +59,7 @@ require("lazy").setup({
   },
   require("user.harpoon"),
   require("user.telescope"),
+  require("user.gitsigns"),
   {
     "neovim/nvim-lspconfig",
     event = "VeryLazy",
@@ -66,7 +67,6 @@ require("lazy").setup({
       require("user.lsp").setup()
     end,
   },
-  require("user.gitsigns"),
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
