@@ -37,6 +37,7 @@ require("lazy").setup({
   },
   {
     "echasnovski/mini.completion",
+    enabled = false,
     event = "InsertEnter",
     opts = {
       lsp_completion = {
