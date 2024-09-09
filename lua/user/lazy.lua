@@ -36,21 +36,6 @@ require("lazy").setup({
     lazy = true,
   },
   {
-    "echasnovski/mini.completion",
-    enabled = false,
-    event = "InsertEnter",
-    opts = {
-      lsp_completion = {
-        source_func = "omnifunc",
-      },
-      window = {
-        info = { border = 'rounded' },
-        signature = { border = 'rounded' },
-      },
-      set_vim_settings = false,
-    },
-  },
-  {
     "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
