@@ -62,7 +62,43 @@ require("lazy").setup({
     end,
   },
   require("user.telescope"),
-  require("user.gitsigns"),
+  {
+    "lewis6991/gitsigns.nvim",
+    event = "VeryLazy",
+    keys = {
+      { "<leader>w", function()
+        local actions = require("gitsigns").get_actions()
+        local blame_line = actions["blame_line"]
+        if (blame_line ~= nil) then
+          blame_line({ full = true, ignore_whitespace = true })
+          return;
+        end
+
+        local preview_hunk = actions["preview_hunk"]
+        if (preview_hunk ~= nil) then
+          preview_hunk({ full = true, ignore_whitespace = true })
+        end
+      end },
+      { "<leader>tb", function() require('gitsigns.actions').toggle_current_line_blame() end },
+      { "]h",         function() require('gitsigns.actions').nav_hunk("next") end },
+      { "[h",         function() require('gitsigns.actions').nav_hunk("prev") end },
+    },
+    opts = {
+      signs = {
+        add = { text = "▎" },
+        change = { text = "▎" },
+        delete = { text = "▶" },
+        topdelete = { text = "▶" },
+        changedelete = { text = "▎" },
+      },
+      current_line_blame_opts = {
+        virt_text = true,
+        virt_text_pos = "right_align",
+        delay = 0,
+        ignore_whitespace = false,
+      },
+    }
+  },
   {
     "neovim/nvim-lspconfig",
     event = "VeryLazy",
