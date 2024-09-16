@@ -57,9 +57,7 @@ require("lazy").setup({
       { "<C-'>",     function() require("harpoon"):list():select(5) end },
       { "<C-\\>",    function() require("harpoon"):list():select(6) end },
     },
-    config = function()
-      require("harpoon"):setup({ settings = { save_on_toggle = true, } })
-    end,
+    opts = { settings = { save_on_toggle = true, } },
   },
   require("user.telescope"),
   {
