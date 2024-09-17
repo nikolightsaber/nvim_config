@@ -50,11 +50,6 @@ return {
       return grep_word(word)
     end
 
-    local current_word_visual = function()
-      local word = vim.fn.getreg("x")
-      return grep_word(word)
-    end
-
     local grep_current_file = function()
       return builtin.current_buffer_fuzzy_find({ path_display = { "hidden" } })
     end
@@ -71,6 +66,5 @@ return {
     vim.keymap.set("n", "<leader>tr", builtin.resume)
     vim.keymap.set("n", "z=", builtin.spell_suggest)
     vim.keymap.set("n", "gt", current_word)
-    vim.keymap.set("v", "gt", current_word_visual)
   end,
 }
