@@ -7,8 +7,7 @@ return {
     "nvim-tree/nvim-web-devicons",
   },
   config = function()
-    local telescope = require("telescope")
-    telescope.setup({
+    require("telescope").setup({
       defaults = {
         mappings = {
           n = { ["<Up>"] = function() end, ["<Down>"] = function() end },
@@ -17,45 +16,38 @@ return {
       }
     })
 
-    local builtin = require("telescope.builtin")
-    local themes = require("telescope.themes")
-
-    vim.lsp.handlers["textDocument/references"] = function() builtin.lsp_references({ path_display = { "truncate" } }) end
-    vim.lsp.handlers["textDocument/definition"] = function() builtin.lsp_definitions({ path_display = { "truncate" } }) end
+    vim.lsp.handlers["textDocument/references"] = function() require("telescope.builtin").lsp_references({ path_display = { "truncate" } }) end
+    vim.lsp.handlers["textDocument/definition"] = function() require("telescope.builtin").lsp_definitions({ path_display = { "truncate" } }) end
 
     local files = function()
-      local opts = { previewer = false, path_display = { "absolute" }, no_ignore = true }
-      return builtin.find_files(opts)
+      return require("telescope.builtin").find_files({ previewer = false, path_display = { "absolute" }, no_ignore = true })
     end
 
     local grep_live = function()
-      return builtin.live_grep({ path_display = { "truncate" } })
+      return require("telescope.builtin").live_grep({ path_display = { "truncate" } })
     end
 
-    local grep_word = function(word)
+    local buffers = function()
+      return require("telescope.builtin").buffers(require("telescope.themes").get_dropdown({ previewer = false, path_display = { "absolute" } }))
+    end
+
+    local current_word = function()
+      local word = vim.fn.expand("<cword>")
       vim.fn.setreg("/", word, "c")
       vim.o.hlsearch = true
-      return builtin.grep_string({
+      return require("telescope.builtin").grep_string({
         prompt_title = "Search selection",
         search = word,
         path_display = { "truncate" },
       })
     end
 
-    local buffers = function()
-      return builtin.buffers(themes.get_dropdown({ previewer = false, path_display = { "absolute" } }))
-    end
-    local current_word = function()
-      local word = vim.fn.expand("<cword>")
-      return grep_word(word)
-    end
-
     local grep_current_file = function()
-      return builtin.current_buffer_fuzzy_find({ path_display = { "hidden" } })
+      return require("telescope.builtin").current_buffer_fuzzy_find({ path_display = { "hidden" } })
     end
 
     local help_tags = function()
-      return builtin.help_tags({ path_display = { "tail" } })
+      return require("telescope.builtin").help_tags({ path_display = { "tail" } })
     end
 
     vim.keymap.set("n", "<leader>f", files)
@@ -63,8 +55,8 @@ return {
     vim.keymap.set("n", "<leader>/", grep_current_file)
     vim.keymap.set("n", "<leader>sh", help_tags)
     vim.keymap.set("n", "<leader>b", buffers)
-    vim.keymap.set("n", "<leader>tr", builtin.resume)
-    vim.keymap.set("n", "z=", builtin.spell_suggest)
+    vim.keymap.set("n", "<leader>tr", require("telescope.builtin").resume)
+    vim.keymap.set("n", "z=", require("telescope.builtin").spell_suggest)
     vim.keymap.set("n", "gt", current_word)
   end,
 }
