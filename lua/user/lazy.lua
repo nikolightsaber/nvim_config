@@ -64,7 +64,8 @@ require("lazy").setup({
     "lewis6991/gitsigns.nvim",
     event = "VeryLazy",
     keys = {
-      { "<leader>w", function()
+      {
+        "<leader>w", function()
         local actions = require("gitsigns").get_actions()
         local blame_line = actions["blame_line"]
         if (blame_line ~= nil) then
@@ -76,7 +77,8 @@ require("lazy").setup({
         if (preview_hunk ~= nil) then
           preview_hunk({ full = true, ignore_whitespace = true })
         end
-      end },
+      end
+      },
       { "<leader>tb", function() require('gitsigns.actions').toggle_current_line_blame() end },
       { "]h",         function() require('gitsigns.actions').nav_hunk("next") end },
       { "[h",         function() require('gitsigns.actions').nav_hunk("prev") end },
