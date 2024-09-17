@@ -24,11 +24,7 @@ return {
     vim.lsp.handlers["textDocument/definition"] = function() builtin.lsp_definitions({ path_display = { "truncate" } }) end
 
     local files = function()
-      local current_repo = require("user.utils").current_repo()
-      local opts = { previewer = false, path_display = { "absolute" }, no_ignore = false }
-      if current_repo == "navigation" or current_repo == "dupnavi" then
-        opts.no_ignore = true
-      end
+      local opts = { previewer = false, path_display = { "absolute" }, no_ignore = true }
       return builtin.find_files(opts)
     end
 
