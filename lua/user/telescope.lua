@@ -5,10 +5,6 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons",
-    {
-      "nvim-telescope/telescope-fzf-native.nvim",
-      build = "make",
-    },
   },
   config = function()
     local telescope = require("telescope")
@@ -20,8 +16,6 @@ return {
         }
       }
     })
-
-    pcall(telescope.load_extension, "fzf")
 
     local builtin = require("telescope.builtin")
     local themes = require("telescope.themes")
