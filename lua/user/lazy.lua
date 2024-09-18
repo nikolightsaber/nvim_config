@@ -71,8 +71,7 @@ require("lazy").setup({
       { "<leader>tr", function() require("telescope.builtin").resume() end },
       { "z=",         function() require("telescope.builtin").spell_suggest() end },
       {
-        "gt",
-        function()
+        "gt", function()
           local word = vim.fn.expand("<cword>")
           vim.fn.setreg("/", word, "c")
           vim.o.hlsearch = true
@@ -114,7 +113,6 @@ require("lazy").setup({
           blame_line({ full = true, ignore_whitespace = true })
           return;
         end
-
         local preview_hunk = actions["preview_hunk"]
         if (preview_hunk ~= nil) then
           preview_hunk({ full = true, ignore_whitespace = true })
