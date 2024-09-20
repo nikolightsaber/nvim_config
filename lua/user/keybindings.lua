@@ -1,64 +1,55 @@
-local opts = { noremap = true }
-local keymap = vim.api.nvim_set_keymap
+local keymap = vim.keymap.set
 
 --Remap space as leader key
-keymap("", "<Space>", "<Nop>", opts)
+keymap("", "<Space>", "<Nop>")
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-keymap("n", "<Enter>", "o<Esc>", opts)
+keymap("n", "<Enter>", "o<Esc>")
 
-keymap("n", "n", "nzz", opts)
-keymap("n", "N", "Nzz", opts)
+keymap("n", "n", "nzz")
+keymap("n", "N", "Nzz")
 -- Don't go to next one yet
-keymap("n", "*", "*Nzz", opts)
+keymap("n", "*", "*Nzz")
 
-keymap("n", "<C-d>", "<C-d>zz", opts)
-keymap("n", "<C-u>", "<C-u>zz", opts)
+keymap("n", "<C-d>", "<C-d>zz")
+keymap("n", "<C-u>", "<C-u>zz")
 
-keymap("n", "<C-PageUp>", ":bp<CR>", opts)
-keymap("n", "<C-PageDown>", ":bn<CR>", opts)
+keymap("n", "<C-PageUp>", ":bp<CR>")
+keymap("n", "<C-PageDown>", ":bn<CR>")
 
-keymap("n", "<F6>", ":setlocal spell! spelllang=en_us<CR>", opts)
+keymap("n", "<F6>", ":setlocal spell! spelllang=en_us<CR>")
 --keymap("n", "<F6>", ":setlocal spell! spelllang=nl<CR>", opts)
 
 -- Resize with arrows
-keymap("n", "<C-Up>", ":resize +2<CR>", opts)
-keymap("n", "<C-Down>", ":resize -2<CR>", opts)
-keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
-keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
+keymap("n", "<C-Up>", ":resize +2<CR>")
+keymap("n", "<C-Down>", ":resize -2<CR>")
+keymap("n", "<C-Left>", ":vertical resize -2<CR>")
+keymap("n", "<C-Right>", ":vertical resize +2<CR>")
 
-keymap("v", "//", "y/\\V<C-R>=escape(@\",\'/\\\')<CR><CR>", opts)
+keymap("v", "//", "y/\\V<C-R>=escape(@\",\'/\\\')<CR><CR>")
 
 -- Stay in indent mode
-keymap("v", "<", "<gv", opts)
-keymap("v", ">", ">gv", opts)
+keymap("v", "<", "<gv")
+keymap("v", ">", ">gv")
 
-keymap("v", "p", '"_dP', opts)
+keymap("v", "p", '"_dP')
 
 -- Move text up and down
-keymap("x", "J", ":move '>+1<CR>gv=gv", opts)
-keymap("x", "K", ":move '<-2<CR>gv=gv", opts)
+keymap("x", "J", ":move '>+1<CR>gv=gv")
+keymap("x", "K", ":move '<-2<CR>gv=gv")
 
 -- stop scrolling
-keymap("n", "<Up>", "", opts)
-keymap("n", "<Down>", "", opts)
+keymap("n", "<Up>", "")
+keymap("n", "<Down>", "")
 
-keymap("n", "<leader>y", "\"+y", opts)
-keymap("n", "<leader>Y", "\"+y$", opts)
-keymap("n", "<leader>p", "\"+p", opts)
-keymap("n", "<leader>P", "\"+P", opts)
+keymap({ "n", "x", "o" }, "<leader>y", "\"+y")
+keymap({ "n", "x", "o" }, "<leader>Y", "\"+y$")
+keymap({ "n", "x", "o" }, "<leader>p", "\"+p")
+keymap({ "n", "x", "o" }, "<leader>P", "\"+P")
 
-keymap("v", "<leader>y", "\"+y", opts)
-keymap("v", "<leader>p", "\"+p", opts)
-keymap("v", "<leader>P", "\"+P", opts)
-
-keymap("x", "<leader>y", "\"+y", opts)
-keymap("x", "<leader>p", "\"+p", opts)
-keymap("x", "<leader>P", "\"+P", opts)
-
-keymap("n", "]q", ":cnext<CR>", opts)
-keymap("n", "[q", ":cprev<CR>", opts)
+keymap("n", "]q", ":cnext<CR>")
+keymap("n", "[q", ":cprev<CR>")
 
 local _reg = ""
 function _G.ReplaceWithRegister(type, reg)
@@ -88,12 +79,9 @@ function _G.ReplaceWithRegister(type, reg)
   vim.api.nvim_set_current_line(line)
 end
 
-keymap("n", "gr", "v:lua.ReplaceWithRegister(\"\", \"\")", { noremap = true, expr = true })
-keymap("n", "<leader>gr", "v:lua.ReplaceWithRegister(\"\", \"+\")", { noremap = true, expr = true })
+keymap("n", "gr", "v:lua.ReplaceWithRegister(\"\", \"\")", { expr = true })
+keymap("n", "<leader>gr", "v:lua.ReplaceWithRegister(\"\", \"+\")", { expr = true })
 
-keymap("n", "<F7>", '', { noremap = true, callback = require("user.utils").highlight_log })
-
--- Remove help key (to close to escape
-keymap("n", "<F1>", '', {})
+keymap("n", "<F7>", require("user.utils").highlight_log)
 
 keymap("n", "<leader> ", ":Ex<CR>", opts)
