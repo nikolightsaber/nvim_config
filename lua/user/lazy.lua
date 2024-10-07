@@ -74,15 +74,15 @@ require("lazy").setup({
       { "z=",         function() require("telescope.builtin").spell_suggest() end },
       {
         "gt", function()
-          local word = vim.fn.expand("<cword>")
-          vim.fn.setreg("/", word, "c")
-          vim.o.hlsearch = true
-          return require("telescope.builtin").grep_string({
-            prompt_title = "Search selection",
-            search = word,
-            path_display = { "truncate" },
-          })
-        end
+        local word = vim.fn.expand("<cword>")
+        vim.fn.setreg("/", word, "c")
+        vim.o.hlsearch = true
+        return require("telescope.builtin").grep_string({
+          prompt_title = "Search selection",
+          search = word,
+          path_display = { "truncate" },
+        })
+      end
       },
     },
     dependencies = {
