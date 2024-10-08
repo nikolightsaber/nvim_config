@@ -18,11 +18,10 @@ require("lazy").setup({
     build = ":TSUpdate",
     event = "VeryLazy",
     config = function()
+      ---@diagnostic disable-next-line: missing-fields
       require("nvim-treesitter.configs").setup({
         ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
-        sync_install = false,
         auto_install = true,
-        ignore_install = {},
         highlight = { enable = true },
         indent = { enable = true },
       })
