@@ -43,14 +43,6 @@ keymap("x", "K", ":move '<-2<CR>gv=gv")
 keymap("n", "<Up>", "")
 keymap("n", "<Down>", "")
 
--- keymap({ "n", "x", "o" }, "<leader>y", "\"+y")
--- keymap({ "n", "x", "o" }, "<leader>Y", "\"+y$")
--- keymap({ "n", "x", "o" }, "<leader>p", "\"+p")
--- keymap({ "n", "x", "o" }, "<leader>P", "\"+P")
-
-keymap("n", "]q", ":cnext<CR>")
-keymap("n", "[q", ":cprev<CR>")
-
 local _reg = ""
 function _G.ReplaceWithRegister(type, reg)
   if (type == "") then
@@ -84,4 +76,4 @@ keymap("n", "<leader>gr", "v:lua.ReplaceWithRegister(\"\", \"+\")", { expr = tru
 
 keymap("n", "<F7>", require("user.utils").highlight_log)
 
-keymap("n", "<leader> ", ":Ex<CR>", opts)
+keymap("n", "<leader> ", ":Ex<CR>")
