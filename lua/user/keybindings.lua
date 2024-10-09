@@ -43,10 +43,8 @@ keymap("x", "K", ":move '<-2<CR>gv=gv")
 keymap("n", "<Up>", "")
 keymap("n", "<Down>", "")
 
-local _reg = ""
-function _G.ReplaceWithRegister(type, reg)
+function _G.ReplaceWithRegister(type)
   if (type == "") then
-    _reg = reg;
     vim.o.operatorfunc = "v:lua.ReplaceWithRegister"
     return "g@"
   end
@@ -62,7 +60,7 @@ function _G.ReplaceWithRegister(type, reg)
     return;
   end
   local line = vim.api.nvim_get_current_line()
-  local new = vim.fn.getreg(_reg)
+  local new = vim.fn.getreg("+")
   if (string.find(new, "\n")) then
     vim.notify("Multiline operation not supported");
     return;
@@ -71,8 +69,7 @@ function _G.ReplaceWithRegister(type, reg)
   vim.api.nvim_set_current_line(line)
 end
 
-keymap("n", "gr", "v:lua.ReplaceWithRegister(\"\", \"\")", { expr = true })
-keymap("n", "<leader>gr", "v:lua.ReplaceWithRegister(\"\", \"+\")", { expr = true })
+keymap("n", "gr", "v:lua.ReplaceWithRegister(\"\")", { expr = true })
 
 keymap("n", "<F7>", require("user.utils").highlight_log)
 
