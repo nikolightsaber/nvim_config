@@ -62,7 +62,6 @@ local csharp_ls_opts = {
   AutomaticWorkspaceInit = true
 }
 
-vim.lsp.set_log_level(vim.log.levels.DEBUG)
 lspconfig.csharp_ls.setup(vim.tbl_deep_extend("force", csharp_ls_opts, base_opts))
 
 --------------------------------------------------------------------------
