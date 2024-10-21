@@ -4,8 +4,8 @@ M = {};
 ---@param i integer
 ---@param char string
 ---@param hi string
-local highlight_line = function(line, i, char, hi)
-  local s, _, _ = string.find(line, " " .. char .. " MainTask ->", 1, true)
+local highlight_line = function(line, i, match, hi)
+  local s, _, _ = string.find(line, match, 1, true)
   if (s ~= nil) then
     vim.api.nvim_buf_add_highlight(0, -1, hi, i, 0, -1)
   end
@@ -20,10 +20,10 @@ M.highlight_log = function()
   local lines = vim.api.nvim_buf_line_count(0)
   for i = 0, lines - 1 do
     local line = vim.api.nvim_buf_get_lines(0, i, i + 1, false)
-    highlight_line(line[1], i, "+", "AddTask")
-    highlight_line(line[1], i, "-", "RemoveTask")
-    highlight_line(line[1], i, "+A", "AddAsyncTask")
-    highlight_line(line[1], i, "~", "SuspendTask")
+    highlight_line(line[1], i, " + MainTask ->", "AddTask")
+    highlight_line(line[1], i, " - MainTask ->", "RemoveTask")
+    highlight_line(line[1], i, " +A MainTask ->", "AddAsyncTask")
+    highlight_line(line[1], i, " ~ MainTask ->", "SuspendTask")
   end
 end
 
