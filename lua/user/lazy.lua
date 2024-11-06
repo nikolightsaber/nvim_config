@@ -97,9 +97,6 @@ require("lazy").setup({
           }
         }
       })
-
-      vim.lsp.handlers["textDocument/references"] = function() require("telescope.builtin").lsp_references({ path_display = { "truncate" } }) end
-      vim.lsp.handlers["textDocument/definition"] = function() require("telescope.builtin").lsp_definitions({ path_display = { "truncate" } }) end
     end,
   },
   {
@@ -108,7 +105,7 @@ require("lazy").setup({
     keys = {
       {
         "<leader>w", function()
-        local actions = require("gitsigns").get_actions()
+        local actions = require("gitsigns").get_actions() or {}
         local blame_line = actions["blame_line"]
         if (blame_line ~= nil) then
           blame_line({ full = true, ignore_whitespace = true })
@@ -138,6 +135,7 @@ require("lazy").setup({
         delay = 0,
         ignore_whitespace = false,
       },
+      preview_config = { border = "rounded" },
     }
   },
   {

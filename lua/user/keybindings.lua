@@ -43,6 +43,8 @@ keymap("x", "K", ":move '<-2<CR>gv=gv")
 keymap("n", "<Up>", "")
 keymap("n", "<Down>", "")
 
+keymap("n", "<F1>", "")
+
 function _G.ReplaceWithRegister(type)
   if (type == "") then
     vim.o.operatorfunc = "v:lua.ReplaceWithRegister"

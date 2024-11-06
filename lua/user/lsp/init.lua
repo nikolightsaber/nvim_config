@@ -16,14 +16,45 @@ local function lsp_highlight_document(client)
   end
 end
 
+--- @param t (vim.lsp.LocationOpts.OnList)
+local function on_list_telescope(t)
+  local opts = {}
+  if #t.items == 1 then
+    local item = t.items[1]
+    local b = item.bufnr or vim.fn.bufadd(item.filename)
+    vim.bo[b].buflisted = true
+    vim.api.nvim_win_set_buf(0, b)
+    vim.api.nvim_win_set_cursor(0, { item.lnum, item.col - 1 })
+    vim._with({ win = 0 }, function()
+      -- Open folds under the cursor
+      vim.cmd("normal! zv")
+    end)
+    return
+  end
+  require("telescope.pickers")
+      .new(opts, {
+        finder = require("telescope.finders").new_table {
+          results = t.items,
+          entry_maker = require("telescope.make_entry").gen_from_quickfix(opts),
+        },
+        previewer = require("telescope.config").values.qflist_previewer(opts),
+        sorter = require("telescope.config").values.generic_sorter(opts),
+        push_cursor_on_edit = true,
+        push_tagstack_on_edit = true,
+      })
+      :find()
+end
+
 --- @param bufnr (number)
 local function lsp_keymaps(bufnr)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "", { noremap = true, callback = vim.lsp.buf.declaration })
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "", { noremap = true, callback = vim.lsp.buf.definition })
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "", { noremap = true, callback = vim.lsp.buf.implementation })
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>e", "", { noremap = true, callback = vim.diagnostic.open_float })
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>th", "",
-    { noremap = true, callback = function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({})) end })
+  vim.keymap.set("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end, { buffer = bufnr })
+  vim.keymap.set("i", "<C-s>", function() vim.lsp.buf.signature_help({ border = "rounded" }) end, { buffer = bufnr })
+  vim.keymap.set("n", "grr", function() vim.lsp.buf.references(nil, { on_list = on_list_telescope }) end,
+    { buffer = bufnr })
+  vim.keymap.set("n", "gd", function() vim.lsp.buf.definition({ on_list = on_list_telescope }) end, { buffer = bufnr })
+  vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { buffer = bufnr })
+  vim.keymap.set("n", "<leader>th", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({})) end,
+    { buffer = bufnr })
 end
 
 --- @param client (vim.lsp.Client)
@@ -102,15 +133,6 @@ M.setup = function()
   }
 
   vim.diagnostic.config(config)
-
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = "rounded",
-  })
-  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = "rounded",
-  })
-
-  require("lspconfig.ui.windows").default_options.border = "rounded";
 
   -- lazy therefore start
   vim.cmd.LspStart();
