@@ -43,7 +43,7 @@ keymap("x", "K", ":move '<-2<CR>gv=gv")
 keymap("n", "<Up>", "")
 keymap("n", "<Down>", "")
 
-keymap("n", "<F1>", "")
+keymap({ "n", "i", "v", "x" }, "<F1>", "")
 
 function _G.ReplaceWithRegister(type)
   if (type == "") then
