@@ -43,7 +43,7 @@ M.current_branch = function()
   if f_head then
     local HEAD = f_head:read()
     f_head:close()
-    local branch = HEAD:match('ref: refs/heads/(.+)$')
+    local branch = HEAD:match("ref: refs/heads/(.+)$")
     if branch then
       current_git_branch = branch
     end

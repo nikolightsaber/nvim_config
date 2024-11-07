@@ -74,7 +74,7 @@ M.on_attach = function(client, bufnr)
   --       local item = vim.v.event.completed_item;
   --       local params = item.user_data.nvim.lsp.completion_item;
   --       if vim.tbl_isempty(params) then return end
-  --       local cancel_fun = client.request('completionItem/resolve', params,
+  --       local cancel_fun = client.request("completionItem/resolve", params,
   --         function(err, result)
   --           local doc = result.documentation.value
   --           if doc then

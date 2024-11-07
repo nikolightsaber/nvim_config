@@ -33,7 +33,7 @@ keymap("v", "//", "y/\\V<C-R>=escape(@\",\'/\\\')<CR><CR>")
 keymap("v", "<", "<gv")
 keymap("v", ">", ">gv")
 
-keymap("v", "p", '"_dP')
+keymap("v", "p", "\"_dP")
 
 -- Move text up and down
 keymap("x", "J", ":move '>+1<CR>gv=gv")
