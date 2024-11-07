@@ -28,3 +28,6 @@ vim.opt.shortmess:append('C')
 vim.o.clipboard = "unnamedplus"
 
 vim.api.nvim_create_user_command("DotNetBuildDiag", require("user.utils").dotnet_build_diag, {})
+
+vim.api.nvim_set_hl(0, "ExtraWhitespace", { fg = "darkgreen", bg = "darkgreen" })
+vim.fn.matchadd("ExtraWhitespace", "\\s\\+\\%#\\@<!$")

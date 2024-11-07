@@ -29,25 +29,6 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = set_spel
 })
 
-vim.cmd [[
-  highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-  " Show trailing whitespace and spaces before a tab:
-  match ExtraWhitespace /\s\+$\| \+\ze\t/
-  " Show tabs that are not at the start of a line:
-  match ExtraWhitespace /[^\t]\zs\t\+/
-  " Show trailing whitespaces when not in insert mode:
-]]
-
-group = vim.api.nvim_create_augroup("whitespace", { clear = true })
-vim.api.nvim_create_autocmd("ColorScheme",
-  { group = group, pattern = "*", command = [[highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen]] })
-vim.api.nvim_create_autocmd("InsertEnter", {
-  group = group,
-  pattern = "*",
-  command = [[match ExtraWhitespace /\s\+\%#\@<!$/]]
-})
-vim.api.nvim_create_autocmd("InsertLeave", { group = group, pattern = "*", command = [[match ExtraWhitespace /\s\+$/]] })
-
 group = vim.api.nvim_create_augroup("yankhighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost",
   { group = group, callback = function() vim.highlight.on_yank({ hlgroup = "Visual", timeout = 200 }) end })
