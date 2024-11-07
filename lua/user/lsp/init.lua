@@ -25,10 +25,6 @@ local function on_list_telescope(t)
     vim.bo[b].buflisted = true
     vim.api.nvim_win_set_buf(0, b)
     vim.api.nvim_win_set_cursor(0, { item.lnum, item.col - 1 })
-    vim._with({ win = 0 }, function()
-      -- Open folds under the cursor
-      vim.cmd("normal! zv")
-    end)
     return
   end
   require("telescope.pickers")
