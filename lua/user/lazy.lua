@@ -76,11 +76,7 @@ require("lazy").setup({
         local word = vim.fn.expand("<cword>")
         vim.fn.setreg("/", word, "c")
         vim.o.hlsearch = true
-        return require("telescope.builtin").grep_string({
-          prompt_title = "Search selection",
-          search = word,
-          path_display = { "truncate" },
-        })
+        return require("telescope.builtin").grep_string({ prompt_title = "Search selection", search = word, path_display = { "truncate" }, })
       end
       },
     },
