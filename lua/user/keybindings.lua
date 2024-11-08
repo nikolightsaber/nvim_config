@@ -71,7 +71,7 @@ function _G.ReplaceWithRegister(type)
   vim.api.nvim_set_current_line(line)
 end
 
-keymap("n", "gr", "v:lua.ReplaceWithRegister(\"\")", { expr = true })
+keymap("n", "<leader>r", "v:lua.ReplaceWithRegister(\"\")", { expr = true })
 
 keymap("n", "<F7>", require("user.utils").highlight_log)
 
