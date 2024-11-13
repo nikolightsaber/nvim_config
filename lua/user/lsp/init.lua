@@ -58,31 +58,30 @@ end
 M.on_attach = function(client, bufnr)
   lsp_keymaps(bufnr)
   lsp_highlight_document(client)
-  vim.lsp.completion.enable(true, client.id, bufnr, {
-    autotrigger = true,
-    -- convert = function(item)
-    --   vim.notify(vim.inspect(item), vim.log.levels.WARN)
-    --   return item
-    -- end
-  });
-  -- vim.api.nvim_create_autocmd("CompleteChanged",
-  --   {
-  --     group = vim.api.nvim_create_augroup("testttt", { clear = true }),
-  --     callback = function()
-  --       if vim.tbl_isempty(vim.v.event.completed_item) then return end
-  --       local e = vim.v.event;
-  --       local item = vim.v.event.completed_item;
-  --       local params = item.user_data.nvim.lsp.completion_item;
-  --       if vim.tbl_isempty(params) then return end
-  --       local cancel_fun = client.request("completionItem/resolve", params,
-  --         function(err, result)
-  --           local doc = result.documentation.value
-  --           if doc then
-  --             e.completed_item.info = doc
-  --           end
-  --         end, vim.api.nvim_get_current_buf())
-  --     end
-  --   })
+  vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true, });
+  vim.api.nvim_create_autocmd("CompleteChanged",
+    {
+      group = vim.api.nvim_create_augroup("completion_info", { clear = true }),
+      callback = function()
+        if vim.tbl_isempty(vim.v.event.completed_item) then return end
+        local item = vim.v.event.completed_item;
+        if type(item.user_data) ~= "table" or vim.tbl_isempty(item.user_data) then return end
+        if vim.tbl_isempty(item.user_data.nvim) then return end
+        if vim.tbl_isempty(item.user_data.nvim.lsp) then return end
+        local params = item.user_data.nvim.lsp.completion_item;
+        if vim.tbl_isempty(params) then return end
+        local id = vim.fn.complete_info().selected;
+        -- TODO manage cancel
+        client.request("completionItem/resolve", params,
+          -- TODO manage err
+          function(_, result)
+            local doc = result.documentation.value
+            if not doc then return end
+            -- TODO manage markdown pretty
+            local _ = vim.api.nvim__complete_set(id, { info = doc });
+          end, vim.api.nvim_get_current_buf())
+      end
+    })
 end
 
 --- @param client (vim.lsp.Client)
