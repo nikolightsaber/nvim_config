@@ -29,10 +29,10 @@ local function on_list_telescope(t)
   end
   require("telescope.pickers")
       .new(opts, {
-        finder = require("telescope.finders").new_table {
+        finder = require("telescope.finders").new_table({
           results = t.items,
           entry_maker = require("telescope.make_entry").gen_from_quickfix(opts),
-        },
+        }),
         previewer = require("telescope.config").values.qflist_previewer(opts),
         sorter = require("telescope.config").values.generic_sorter(opts),
         push_cursor_on_edit = true,
@@ -63,22 +63,33 @@ M.on_attach = function(client, bufnr)
     {
       group = vim.api.nvim_create_augroup("completion_info", { clear = true }),
       callback = function()
-        if vim.tbl_isempty(vim.v.event.completed_item) then return end
-        local item = vim.v.event.completed_item;
-        if type(item.user_data) ~= "table" or vim.tbl_isempty(item.user_data) then return end
-        if vim.tbl_isempty(item.user_data.nvim) then return end
-        if vim.tbl_isempty(item.user_data.nvim.lsp) then return end
-        local params = item.user_data.nvim.lsp.completion_item;
-        if vim.tbl_isempty(params) then return end
-        local id = vim.fn.complete_info().selected;
+        local completion = vim.tbl_get(vim.v.completed_item, "user_data", "nvim", "lsp", "completion_item")
+        if not completion then
+          return
+        end
+        local id = vim.fn.complete_info({ "selected" }).selected;
         -- TODO manage cancel
-        client.request("completionItem/resolve", params,
+        client.request("completionItem/resolve", completion,
           -- TODO manage err
           function(_, result)
-            local doc = result.documentation.value
-            if not doc then return end
+            local doc = vim.tbl_get(result, "documentation", "value")
+            if not doc then
+              return
+            end
             -- TODO manage markdown pretty
-            local _ = vim.api.nvim__complete_set(id, { info = doc });
+            local mark = vim.lsp.util.convert_input_to_markdown_lines(doc)
+            local ret = vim.api.nvim__complete_set(id,
+              { info = table.concat(vim.lsp.util._normalize_markdown(mark), '\n') });
+            vim.bo[ret.bufnr].filetype = "markdown"
+            vim.bo[ret.bufnr].bufhidden = "wipe"
+            vim.wo[ret.winid].spell = false
+            vim.wo[ret.winid].foldenable = false
+            vim.wo[ret.winid].breakindent = true
+            vim.wo[ret.winid].smoothscroll = true
+            vim.wo[ret.winid].conceallevel = 2
+            vim.treesitter.start(ret.bufnr)
+            vim.api.nvim_win_set_config(ret.winid, { border = "rounded" })
+            -- vim.lsp.util.stylize_markdown
           end, vim.api.nvim_get_current_buf())
       end
     })
