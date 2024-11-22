@@ -69,7 +69,7 @@ M.on_attach = function(client, bufnr)
         end
         local id = vim.fn.complete_info({ "selected" }).selected;
         -- TODO manage cancel
-        client.request("completionItem/resolve", completion,
+        client:request("completionItem/resolve", completion,
           -- TODO manage err
           function(_, result)
             local doc = vim.tbl_get(result, "documentation", "value")
