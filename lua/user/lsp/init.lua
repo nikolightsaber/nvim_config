@@ -18,7 +18,6 @@ end
 
 --- @param t (vim.lsp.LocationOpts.OnList)
 local function on_list_telescope(t)
-  local opts = {}
   if #t.items == 1 then
     local item = t.items[1]
     local b = item.bufnr or vim.fn.bufadd(item.filename)
@@ -27,6 +26,7 @@ local function on_list_telescope(t)
     vim.api.nvim_win_set_cursor(0, { item.lnum, item.col - 1 })
     return
   end
+  local opts = {}
   require("telescope.pickers")
       .new(opts, {
         finder = require("telescope.finders").new_table({

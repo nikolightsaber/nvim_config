@@ -30,7 +30,7 @@ require("lazy").setup({
   {
     "nvim-treesitter/nvim-treesitter-context",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    event = "VeryLazy",
+    event = "WinScrolled",
   },
   {
     "folke/lazydev.nvim",
