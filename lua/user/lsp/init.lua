@@ -21,6 +21,7 @@ local function on_list_telescope(t)
   if #t.items == 1 then
     local item = t.items[1]
     local b = item.bufnr or vim.fn.bufadd(item.filename)
+    vim.cmd("normal! m'")
     vim.bo[b].buflisted = true
     vim.api.nvim_win_set_buf(0, b)
     vim.api.nvim_win_set_cursor(0, { item.lnum, item.col - 1 })
@@ -68,6 +69,7 @@ M.on_attach = function(client, bufnr)
           return
         end
         local id = vim.fn.complete_info({ "selected" }).selected;
+        -- print(vim.inspect(vim.v.completed_item))
         -- TODO manage cancel
         client:request("completionItem/resolve", completion,
           -- TODO manage err
