@@ -38,6 +38,7 @@ local function on_list_telescope(t)
         sorter = require("telescope.config").values.generic_sorter(opts),
         push_cursor_on_edit = true,
         push_tagstack_on_edit = true,
+        prompt_title = t.title,
       })
       :find()
 end
@@ -50,7 +51,7 @@ local function lsp_keymaps(bufnr)
     { buffer = bufnr })
   vim.keymap.set("n", "gd", function() vim.lsp.buf.definition({ on_list = on_list_telescope }) end, { buffer = bufnr })
   vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { buffer = bufnr })
-  vim.keymap.set("n", "<leader>th", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({})) end,
+  vim.keymap.set("n", "<leader>th", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end,
     { buffer = bufnr })
 end
 
@@ -102,10 +103,11 @@ end
 M.on_attach_format = function(client, bufnr)
   M.on_attach(client, bufnr)
   local group = vim.api.nvim_create_augroup("lsp_formatter", { clear = true })
-  vim.api.nvim_create_autocmd("BufWritePost",
+  vim.api.nvim_create_autocmd("BufWritePre",
     {
+      buffer = bufnr,
       group = group,
-      callback = function() vim.lsp.buf.format() end
+      callback = function() vim.lsp.buf.format({ bufnr = bufnr, id = client.id }) end
     })
 end
 
