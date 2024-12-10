@@ -57,32 +57,42 @@ end
 
 --- @param client (vim.lsp.Client)
 --- @param bufnr (number)
-M.on_attach = function(client, bufnr)
-  lsp_keymaps(bufnr)
-  lsp_highlight_document(client)
+local function lsp_completion_info(client, bufnr)
   vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true, });
+
+  local compl_info_req_id = nil;
   vim.api.nvim_create_autocmd("CompleteChanged",
     {
+      buffer = bufnr,
       group = vim.api.nvim_create_augroup("completion_info", { clear = true }),
       callback = function()
-        local completion = vim.tbl_get(vim.v.completed_item, "user_data", "nvim", "lsp", "completion_item")
-        if not completion then
+        local compl_item = vim.tbl_get(vim.v.completed_item, "user_data", "nvim", "lsp", "completion_item")
+        if not compl_item then
           return
         end
+        if compl_info_req_id then
+          client:cancel_request(compl_info_req_id);
+        end
+
         local id = vim.fn.complete_info({ "selected" }).selected;
-        -- print(vim.inspect(vim.v.completed_item))
-        -- TODO manage cancel
-        client:request("completionItem/resolve", completion,
-          -- TODO manage err
-          function(_, result)
+        _, compl_info_req_id = client:request("completionItem/resolve", compl_item,
+          function(err, result)
+            compl_info_req_id = nil;
             local doc = vim.tbl_get(result, "documentation", "value")
-            if not doc then
+            if err or not doc then
               return
             end
-            -- TODO manage markdown pretty
+
             local mark = vim.lsp.util.convert_input_to_markdown_lines(doc)
             local ret = vim.api.nvim__complete_set(id,
               { info = table.concat(vim.lsp.util._normalize_markdown(mark), '\n') });
+            if not ret.bufnr or
+                not ret.winid or
+                not vim.api.nvim_buf_is_valid(ret.bufnr) or
+                not vim.api.nvim_win_is_valid(ret.winid) then
+              return;
+            end
+
             vim.bo[ret.bufnr].filetype = "markdown"
             vim.bo[ret.bufnr].bufhidden = "wipe"
             vim.wo[ret.winid].spell = false
@@ -92,10 +102,17 @@ M.on_attach = function(client, bufnr)
             vim.wo[ret.winid].conceallevel = 2
             vim.treesitter.start(ret.bufnr)
             vim.api.nvim_win_set_config(ret.winid, { border = "rounded" })
-            -- vim.lsp.util.stylize_markdown
           end, vim.api.nvim_get_current_buf())
       end
     })
+end
+
+--- @param client (vim.lsp.Client)
+--- @param bufnr (number)
+M.on_attach = function(client, bufnr)
+  lsp_keymaps(bufnr)
+  lsp_highlight_document(client)
+  lsp_completion_info(client, bufnr)
 end
 
 --- @param client (vim.lsp.Client)
