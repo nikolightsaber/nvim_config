@@ -117,8 +117,7 @@ end
 
 --- @param client (vim.lsp.Client)
 --- @param bufnr (number)
-M.on_attach_format = function(client, bufnr)
-  M.on_attach(client, bufnr)
+local function lsp_format(client, bufnr)
   local group = vim.api.nvim_create_augroup("lsp_formatter", { clear = true })
   vim.api.nvim_create_autocmd("BufWritePre",
     {
@@ -126,6 +125,13 @@ M.on_attach_format = function(client, bufnr)
       group = group,
       callback = function() vim.lsp.buf.format({ bufnr = bufnr, id = client.id }) end
     })
+end
+
+--- @param client (vim.lsp.Client)
+--- @param bufnr (number)
+M.on_attach_format = function(client, bufnr)
+  M.on_attach(client, bufnr)
+  lsp_format(client, bufnr)
 end
 
 M.setup = function()
