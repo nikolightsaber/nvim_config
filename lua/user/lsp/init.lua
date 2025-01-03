@@ -78,8 +78,11 @@ local function lsp_completion_info(client, bufnr)
         _, compl_info_req_id = client:request("completionItem/resolve", compl_item,
           function(err, result)
             compl_info_req_id = nil;
+            if err or not result then
+              return
+            end
             local doc = vim.tbl_get(result, "documentation", "value")
-            if err or not doc then
+            if not doc then
               return
             end
 
