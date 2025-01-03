@@ -135,7 +135,7 @@ M.on_attach_format = function(client, bufnr)
 end
 
 M.setup = function()
-  local cwd = vim.fn.getcwd() or "";
+  local cwd = (vim.fn.getcwd() or "") .. "/" .. (vim.fn.bufname() or "");
   if string.find(cwd, "nvim") ~= nil then
     require("lazydev").setup({ integrations = { cmp = false } })
   end
