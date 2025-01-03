@@ -9,14 +9,6 @@ vim.api.nvim_create_autocmd("FileType",
   { group = group, pattern = { "lua", "typescript", "html", "css" }, callback = set_2_tab })
 
 
-local set_tabexpand_off = function()
-  vim.o.expandtab = false
-end
-
-group = vim.api.nvim_create_augroup("tabexpand", { clear = true })
-vim.api.nvim_create_autocmd("BufEnter",
-  { group = group, pattern = { "odintomqtt.c", "brsysglue.sh", "rc.main", "rc.ublox" }, callback = set_tabexpand_off })
-
 local set_spel = function()
   vim.b.wrap = true
   vim.o.spell = true
