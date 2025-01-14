@@ -1,14 +1,22 @@
 M = {}
 
 --- @param client (vim.lsp.Client)
-local function lsp_highlight_document(client)
+--- @param bufnr (number)
+local function lsp_highlight_document(client, bufnr)
   -- Set autocommands conditional on server_capabilities
   if client.server_capabilities.documentHighlightProvider then
     local group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
-    vim.api.nvim_create_autocmd("CursorHold",
-      { group = group, pattern = "<buffer>", callback = vim.lsp.buf.document_highlight })
-    vim.api.nvim_create_autocmd({ "CursorMoved", "InsertEnter" },
-      { group = group, pattern = "<buffer>", callback = vim.lsp.buf.clear_references })
+    vim.api.nvim_create_autocmd("CursorHold", {
+      buffer = bufnr,
+      group = group,
+      callback = vim.lsp.buf.document_highlight
+    })
+    vim.api.nvim_create_autocmd({ "CursorMoved", "InsertEnter" }, {
+      buffer = bufnr,
+      group = group,
+      callback = vim.lsp.buf.clear_references
+    })
+
     local list = { "LspReferenceText", "LspReferenceRead", "LspReferenceWrite" }
     for _, hi in ipairs(list) do
       vim.api.nvim_set_hl(0, hi, { bold = true })
@@ -114,7 +122,7 @@ end
 --- @param bufnr (number)
 M.on_attach = function(client, bufnr)
   lsp_keymaps(bufnr)
-  lsp_highlight_document(client)
+  lsp_highlight_document(client, bufnr)
   lsp_completion_info(client, bufnr)
 end
 
