@@ -58,56 +58,56 @@ end
 --- @param client (vim.lsp.Client)
 --- @param bufnr (number)
 local function lsp_completion_info(client, bufnr)
-  vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true, });
+  vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true, })
 
-  local compl_info_req_id = nil;
-  vim.api.nvim_create_autocmd("CompleteChanged",
-    {
-      buffer = bufnr,
-      group = vim.api.nvim_create_augroup("completion_info", { clear = true }),
-      callback = function()
-        local compl_item = vim.tbl_get(vim.v.completed_item, "user_data", "nvim", "lsp", "completion_item")
-        if not compl_item then
-          return
-        end
-        if compl_info_req_id then
-          client:cancel_request(compl_info_req_id);
-        end
-
-        local id = vim.fn.complete_info({ "selected" }).selected;
-        _, compl_info_req_id = client:request("completionItem/resolve", compl_item,
-          function(err, result)
-            compl_info_req_id = nil;
-            if err or not result then
-              return
-            end
-            local doc = vim.tbl_get(result, "documentation", "value")
-            if not doc then
-              return
-            end
-
-            local mark = vim.lsp.util.convert_input_to_markdown_lines(doc)
-            local ret = vim.api.nvim__complete_set(id,
-              { info = table.concat(vim.lsp.util._normalize_markdown(mark), '\n') });
-            if not ret.bufnr or
-                not ret.winid or
-                not vim.api.nvim_buf_is_valid(ret.bufnr) or
-                not vim.api.nvim_win_is_valid(ret.winid) then
-              return;
-            end
-
-            vim.bo[ret.bufnr].filetype = "markdown"
-            vim.bo[ret.bufnr].bufhidden = "wipe"
-            vim.wo[ret.winid].spell = false
-            vim.wo[ret.winid].foldenable = false
-            vim.wo[ret.winid].breakindent = true
-            vim.wo[ret.winid].smoothscroll = true
-            vim.wo[ret.winid].conceallevel = 2
-            vim.treesitter.start(ret.bufnr)
-            vim.api.nvim_win_set_config(ret.winid, { border = "rounded" })
-          end, vim.api.nvim_get_current_buf())
+  local compl_info_req_id = nil
+  vim.api.nvim_create_autocmd("CompleteChanged", {
+    buffer = bufnr,
+    group = vim.api.nvim_create_augroup("completion_info", { clear = true }),
+    callback = function()
+      local compl_item = vim.tbl_get(vim.v.completed_item, "user_data", "nvim", "lsp", "completion_item")
+      if not compl_item then
+        return
       end
-    })
+      if compl_info_req_id then
+        print("canceling")
+        client:cancel_request(compl_info_req_id)
+      end
+
+      local id = vim.fn.complete_info({ "selected" }).selected
+      _, compl_info_req_id = client:request("completionItem/resolve", compl_item,
+        function(err, result)
+          compl_info_req_id = nil
+          if err or not result then
+            return
+          end
+          local doc = vim.tbl_get(result, "documentation", "value")
+          if not doc then
+            return
+          end
+
+          local mark = vim.lsp.util.convert_input_to_markdown_lines(doc)
+          local ret = vim.api.nvim__complete_set(id,
+            { info = table.concat(vim.lsp.util._normalize_markdown(mark), '\n') })
+          if not ret.bufnr or
+              not ret.winid or
+              not vim.api.nvim_buf_is_valid(ret.bufnr) or
+              not vim.api.nvim_win_is_valid(ret.winid) then
+            return
+          end
+          vim.bo[ret.bufnr].filetype = "markdown"
+          vim.bo[ret.bufnr].bufhidden = "wipe"
+          vim.wo[ret.winid].spell = false
+          vim.wo[ret.winid].foldenable = false
+          vim.wo[ret.winid].breakindent = true
+          vim.wo[ret.winid].smoothscroll = true
+          vim.wo[ret.winid].conceallevel = 2
+          vim.treesitter.start(ret.bufnr)
+          vim.api.nvim_win_set_config(ret.winid, { border = "rounded" })
+        end,
+        vim.api.nvim_get_current_buf())
+    end
+  })
 end
 
 --- @param client (vim.lsp.Client)
@@ -121,13 +121,11 @@ end
 --- @param client (vim.lsp.Client)
 --- @param bufnr (number)
 local function lsp_format(client, bufnr)
-  local group = vim.api.nvim_create_augroup("lsp_formatter", { clear = true })
-  vim.api.nvim_create_autocmd("BufWritePre",
-    {
-      buffer = bufnr,
-      group = group,
-      callback = function() vim.lsp.buf.format({ bufnr = bufnr, id = client.id }) end
-    })
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    buffer = bufnr,
+    group = vim.api.nvim_create_augroup("lsp_formatter", { clear = true }),
+    callback = function() vim.lsp.buf.format({ bufnr = bufnr, id = client.id }) end
+  })
 end
 
 --- @param client (vim.lsp.Client)
@@ -138,7 +136,7 @@ M.on_attach_format = function(client, bufnr)
 end
 
 M.setup = function()
-  local cwd = (vim.fn.getcwd() or "") .. "/" .. (vim.fn.bufname() or "");
+  local cwd = (vim.fn.getcwd() or "") .. "/" .. (vim.fn.bufname() or "")
   if string.find(cwd, "nvim") ~= nil then
     require("lazydev").setup({ integrations = { cmp = false } })
   end
@@ -171,7 +169,7 @@ M.setup = function()
   vim.diagnostic.config(config)
 
   -- lazy therefore start
-  vim.cmd.LspStart();
+  vim.cmd.LspStart()
 end
 
 return M

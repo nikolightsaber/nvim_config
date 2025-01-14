@@ -113,9 +113,9 @@ require("lazy").setup({
         end
       end
       },
-      { "<leader>tb", function() require('gitsigns.actions').toggle_current_line_blame() end },
-      { "]h",         function() require('gitsigns.actions').nav_hunk("next") end },
-      { "[h",         function() require('gitsigns.actions').nav_hunk("prev") end },
+      { "<leader>tb", function() require("gitsigns.actions").toggle_current_line_blame() end },
+      { "]h",         function() require("gitsigns.actions").nav_hunk("next") end },
+      { "[h",         function() require("gitsigns.actions").nav_hunk("prev") end },
     },
     opts = {
       signs = {
