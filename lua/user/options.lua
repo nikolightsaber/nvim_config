@@ -26,6 +26,7 @@ vim.o.pumheight = 20
 vim.opt.shortmess:append("c")
 vim.opt.shortmess:append("C")
 vim.o.clipboard = "unnamedplus"
+vim.g.health = { style = "float" }
 
 vim.api.nvim_create_user_command("DotNetBuildDiag", require("user.utils").dotnet_build_diag, {})
 
