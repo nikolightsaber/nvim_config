@@ -142,14 +142,11 @@ require("lazy").setup({
     end,
   },
   {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    lazy = true,
-    ft = { "markdown" },
-    config = function()
-      vim.g.mkdp_auto_close = 0
-      vim.g.mkdp_theme = "light"
-    end
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
+    ---@module "render-markdown"
+    ---@type render.md.UserConfig
+    opts = {},
   },
 }, {
   ui = { border = "rounded", },
