@@ -124,7 +124,7 @@ lspconfig.html.setup(vim.tbl_deep_extend("force", base_opts, html_opts))
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#angularls
 -- install
 -- npm install -g @angular/language-server
-local project_library_path = "/home/nikolai/.nvm/versions/node/v20.15.0/lib/node_modules/@angular/language-server"
+local project_library_path = "/home/nikolai/.nvm/versions/node/v20.16.0/lib/node_modules/@angular/language-server"
 local cmd = { "ngserver", "--stdio", "--tsProbeLocations", project_library_path, "--ngProbeLocations",
   project_library_path }
 local angularls_opts = {
