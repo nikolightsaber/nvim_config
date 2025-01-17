@@ -51,7 +51,7 @@ local pyright_opts = {
     }
   },
 }
-lspconfig.pyright.setup(vim.tbl_deep_extend("force", pyright_opts, base_opts))
+lspconfig.pyright.setup(vim.tbl_deep_extend("force", base_opts, pyright_opts))
 
 --------------------------------------------------------------------------
 -- CSHARP_LS
@@ -59,10 +59,10 @@ lspconfig.pyright.setup(vim.tbl_deep_extend("force", pyright_opts, base_opts))
 -- normal install
 -- dotnet tool install --global csharp-ls
 local csharp_ls_opts = {
-  AutomaticWorkspaceInit = true
+  AutomaticWorkspaceInit = true,
 }
 
-lspconfig.csharp_ls.setup(vim.tbl_deep_extend("force", csharp_ls_opts, base_opts))
+lspconfig.csharp_ls.setup(vim.tbl_deep_extend("force", base_opts, csharp_ls_opts))
 
 --------------------------------------------------------------------------
 -- TSSERVER
@@ -78,7 +78,7 @@ lspconfig.ts_ls.setup(vim.tbl_deep_extend("force", base_opts, ts_ls_opts))
 local clangd_opts = {
   cmd = { "clangd-18", "--enable-config", "--clang-tidy" }
 }
-lspconfig.clangd.setup(vim.tbl_deep_extend("force", clangd_opts, base_opts))
+lspconfig.clangd.setup(vim.tbl_deep_extend("force", base_opts, clangd_opts))
 
 --------------------------------------------------------------------------
 -- RUST_ANALYZER
@@ -102,7 +102,7 @@ lspconfig.rust_analyzer.setup(vim.tbl_deep_extend("force", base_opts, rust_analy
 -- install
 -- npm i -g bash-language-server
 local bashls_opts = {}
-lspconfig.bashls.setup(vim.tbl_deep_extend("force", bashls_opts, base_opts))
+lspconfig.bashls.setup(vim.tbl_deep_extend("force", base_opts, bashls_opts))
 
 --------------------------------------------------------------------------
 -- ESLINT
@@ -110,7 +110,7 @@ lspconfig.bashls.setup(vim.tbl_deep_extend("force", bashls_opts, base_opts))
 -- install
 -- npm i -g vscode-langservers-extracted
 local eslint_opts = {}
-lspconfig.eslint.setup(vim.tbl_deep_extend("force", eslint_opts, base_opts))
+lspconfig.eslint.setup(vim.tbl_deep_extend("force", base_opts, eslint_opts))
 
 --------------------------------------------------------------------------
 -- HTML
@@ -118,7 +118,7 @@ lspconfig.eslint.setup(vim.tbl_deep_extend("force", eslint_opts, base_opts))
 -- install
 -- npm i -g vscode-langservers-extracted
 local html_opts = {}
-lspconfig.html.setup(vim.tbl_deep_extend("force", html_opts, base_opts))
+lspconfig.html.setup(vim.tbl_deep_extend("force", base_opts, html_opts))
 --------------------------------------------------------------------------
 -- Anguarls
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#angularls
@@ -133,4 +133,4 @@ local angularls_opts = {
     new_config.cmd = cmd
   end,
 }
-lspconfig.angularls.setup(vim.tbl_deep_extend("force", angularls_opts, base_opts))
+lspconfig.angularls.setup(vim.tbl_deep_extend("force", base_opts, angularls_opts))
