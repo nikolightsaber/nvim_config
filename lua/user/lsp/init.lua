@@ -21,8 +21,36 @@ local function lsp_highlight_document(client, bufnr)
   end
 end
 
+--- @param items table[]
+--- @param client vim.lsp.Client
+local function get_cs_metadata(items, client)
+  for _, item in ipairs(items) do
+    local c = string.find(item.user_data.uri, "csharp:/metadata/")
+    if not c then
+      goto continue
+    end
+    --- @type any
+    local result, err = client:request_sync("csharp/metadata",
+      { textDocument = { uri = item.user_data.uri } }, 200, 0)
+
+    if result == nil or err ~= nil then
+      goto continue
+    end
+    local b = vim.fn.bufadd(item.filename)
+    local source_lines = vim.split(result.result.source, "\n")
+    vim.bo[b].buftype = "nofile"
+    vim.api.nvim_buf_set_lines(b, 0, -1, true, source_lines)
+    vim.bo[b].filetype = "cs"
+    vim.treesitter.start(b)
+    ::continue::
+  end
+end
+
 --- @param t (vim.lsp.LocationOpts.OnList)
 local function on_list_telescope(t)
+  if vim.bo[t.context.bufnr].ft == "cs" then
+    get_cs_metadata(t.items, vim.lsp.get_clients({ buffer = t.context.bufnr })[1])
+  end
   if #t.items == 1 then
     local item = t.items[1]
     local b = item.bufnr or vim.fn.bufadd(item.filename)
