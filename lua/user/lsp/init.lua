@@ -5,15 +5,12 @@ M = {}
 local function lsp_highlight_document(client, bufnr)
   -- Set autocommands conditional on server_capabilities
   if client.server_capabilities.documentHighlightProvider then
-    local group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
     vim.api.nvim_create_autocmd("CursorHold", {
       buffer = bufnr,
-      group = group,
       callback = vim.lsp.buf.document_highlight
     })
     vim.api.nvim_create_autocmd({ "CursorMoved", "InsertEnter" }, {
       buffer = bufnr,
-      group = group,
       callback = vim.lsp.buf.clear_references
     })
 
