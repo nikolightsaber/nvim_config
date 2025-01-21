@@ -103,7 +103,6 @@ local function lsp_completion_info(client, bufnr)
         return
       end
       if compl_info_req_id then
-        print("canceling")
         client:cancel_request(compl_info_req_id)
       end
 
