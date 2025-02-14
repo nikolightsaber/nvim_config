@@ -2,12 +2,13 @@ M = {};
 
 ---@param line string
 ---@param i integer
----@param char string
+---@param match string
+---@param ns integer
 ---@param hi string
-local highlight_line = function(line, i, match, hi)
+local highlight_line = function(line, i, match, ns, hi)
   local s, _, _ = string.find(line, match, 1, true)
   if (s ~= nil) then
-    vim.api.nvim_buf_add_highlight(0, -1, hi, i, 0, -1)
+    vim.hl.range(0, ns, hi, { i, 0 }, { i, -1 })
   end
 end
 
@@ -18,12 +19,13 @@ M.highlight_log = function()
   vim.api.nvim_set_hl(0, "AddAsyncTask", { fg = "#CDCD00" })
   vim.api.nvim_set_hl(0, "SuspendTask", { fg = "#FF0000" })
   local lines = vim.api.nvim_buf_line_count(0)
+  local ns = vim.api.nvim_create_namespace("tasktree")
   for i = 0, lines - 1 do
     local line = vim.api.nvim_buf_get_lines(0, i, i + 1, false)
-    highlight_line(line[1], i, " + MainTask ->", "AddTask")
-    highlight_line(line[1], i, " - MainTask ->", "RemoveTask")
-    highlight_line(line[1], i, " +A MainTask ->", "AddAsyncTask")
-    highlight_line(line[1], i, " ~ MainTask ->", "SuspendTask")
+    highlight_line(line[1], i, " + MainTask ->", ns, "AddTask")
+    highlight_line(line[1], i, " - MainTask ->", ns, "RemoveTask")
+    highlight_line(line[1], i, " +A MainTask ->", ns, "AddAsyncTask")
+    highlight_line(line[1], i, " ~ MainTask ->", ns, "SuspendTask")
   end
 end
 
