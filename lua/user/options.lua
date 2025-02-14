@@ -21,7 +21,7 @@ vim.o.cursorline = true
 vim.o.laststatus = 3
 vim.o.mouse = ""
 vim.o.wrap = false
-vim.o.completeopt = "menuone,noselect,fuzzy,popup"
+vim.o.completeopt = "menuone,noselect,fuzzy,popup,preinsert"
 vim.o.pumheight = 20
 vim.opt.shortmess:append("c")
 vim.opt.shortmess:append("C")
