@@ -5,15 +5,17 @@ end
 local user = arg[1]
 local pid = arg[2]
 if not user or not pid or pid == "" then
-  return;
+  return
 end
-print(vim.inspect(arg))
 local pipe = "/run/user/" .. user .. "/nvim." .. pid .. ".0"
-print(pipe)
-local chan = vim.fn.sockconnect("pipe", pipe, { rpc = true });
-for i = 3, #arg, 1 do
-  vim.rpcrequest(chan, "nvim_input", ":e " .. arg[i] .. "<CR>");
+local chan = vim.fn.sockconnect("pipe", pipe, { rpc = true })
+if chan == 0 then
+  return
 end
+for i = 3, #arg, 1 do
+  vim.rpcrequest(chan, "nvim_input", ":e " .. arg[i] .. "<CR>")
+end
+-- ```sh
 -- mynvim()
 -- {
 --     NVIM_PID=`pgrep nvim -P $$ | xargs pgrep -P 2>/dev/null`
@@ -25,3 +27,4 @@ end
 --         nvim $@;
 --     fi
 -- }
+-- ```
