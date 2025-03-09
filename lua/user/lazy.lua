@@ -142,6 +142,15 @@ require("lazy").setup({
     end,
   },
   {
+    "mfussenegger/nvim-dap",
+    lazy = true,
+    cmd = "DebugCurrentCSTestFile",
+    keys = { "<leader>dbn", },
+    config = function()
+      require("user.dap")
+    end,
+  },
+  {
     "MeanderingProgrammer/render-markdown.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
     ---@module "render-markdown"
