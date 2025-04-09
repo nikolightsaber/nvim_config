@@ -54,6 +54,25 @@ M.current_branch = function()
   return nil
 end
 
+---@param type string
+---@return TSNode?
+M.get_ts_ansestor = function(type)
+  local node = vim.treesitter.get_node()
+  while node ~= nil and node:type() ~= type do
+    node = node:parent()
+  end
+  return node
+end
+
+---@param node TSNode?
+---@return string?
+M.get_ts_text = function(node)
+  if not node then
+    return nil
+  end
+  return vim.treesitter.get_node_text(node, 0)
+end
+
 M.dotnet_build_diag = function()
   print("Build Start")
   vim.fn.jobstart({ "dotnet", "build", "Libraries/BR.Mower/", "-o", "bin", "--nologo", "-v", "q" }, {

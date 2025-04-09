@@ -25,6 +25,25 @@ dap.configurations.cs = {
   },
 }
 
+---@return string?
+local get_cs_test_name_if_test = function()
+  local method = require("user.utils").get_ts_ansestor("method_declaration")
+  if not method then
+    return nil
+  end
+  local first_child = method:child(0)
+  if not first_child or first_child:type() ~= "attribute_list" then
+    return nil
+  end
+  local atribute = require("user.utils").get_ts_text(first_child:named_child(0))
+
+  if atribute ~= "Fact" and atribute ~= "Theory" then
+    return nil
+  end
+
+  return require("user.utils").get_ts_text(method:field("name")[1])
+end
+
 ---@param dir string
 local start_deubgging_cs_proj = function(dir)
   local dirs = vim.split(dir, "/")
@@ -36,9 +55,16 @@ local start_deubgging_cs_proj = function(dir)
   end
   local dll = dlls[1]
 
-  print("Starting test on " .. dll)
   local pid = nil ---@type number?
-  vim.system({ "dotnet", "test", dll, "--environment=VSTEST_HOST_DEBUG=1" }, {
+  local cmd = { "dotnet", "test", dll, "--environment=VSTEST_HOST_DEBUG=1" };
+
+  local test_name = get_cs_test_name_if_test()
+  print("Starting test on " .. dll .. " and test " .. (test_name or "whole file"))
+  if test_name then
+    table.insert(cmd, #cmd + 1, "--filter");
+    table.insert(cmd, #cmd + 1, test_name);
+  end
+  vim.system(cmd, {
     stdout = function(err, line)
       if err ~= nil or line == nil then
         return
@@ -54,7 +80,6 @@ local start_deubgging_cs_proj = function(dir)
     while pid == nil do
       vim.cmd.sleep("10m")
     end
-    print("Starting debugger")
     dap.run({
       type = "coreclr",
       name = "launch - netcoredbg",
@@ -69,7 +94,7 @@ local build_and_debug_curr_cs_test_file = function()
   local dir = vim.fs.dirname(buf)
   print("Building  " .. dir)
   vim.system({ "dotnet", "build", dir }, {}, function()
-    start_deubgging_cs_proj(dir)
+    vim.schedule(function() start_deubgging_cs_proj(dir) end)
   end)
 end
 
