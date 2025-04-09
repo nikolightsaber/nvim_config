@@ -16,7 +16,6 @@ local lspconfig = require("lspconfig")
 local lua_ls_opts = {
   on_init = function(client)
     local path = client.workspace_folders[1].name
-    ---@diagnostic disable-next-line: undefined-field
     if not vim.uv.fs_stat(path .. "/.luarc.json") and not vim.uv.fs_stat(path .. "/.luarc.jsonc") then
       client.config.settings = vim.tbl_deep_extend("force", client.config.settings, {
         Lua = {
