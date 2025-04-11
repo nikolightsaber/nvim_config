@@ -205,7 +205,7 @@ M.setup = function()
     on_attach = on_attach,
     capabilities = vim.lsp.protocol.make_client_capabilities(),
   })
-  vim.lsp.enable({ "csharp_ls" });
+  vim.lsp.enable({ "csharp_ls", "lua_ls" });
 end
 
 return M
