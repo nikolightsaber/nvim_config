@@ -53,22 +53,6 @@ local pyright_opts = {
 lspconfig.pyright.setup(vim.tbl_deep_extend("force", base_opts, pyright_opts))
 
 --------------------------------------------------------------------------
--- CSHARP_LS
--- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#csharp_ls
--- normal install
--- dotnet tool install --global csharp-ls
-local cmd = nil
-if #vim.fs.find("BR.Navigation.Linux.sln", {}) == 1 then
-  cmd = { "csharp-ls", "--solution", "BR.Navigation.Linux.sln" }
-end
-local csharp_ls_opts = {
-  cmd = cmd,
-  AutomaticWorkspaceInit = true,
-}
-
-lspconfig.csharp_ls.setup(vim.tbl_deep_extend("force", base_opts, csharp_ls_opts))
-
---------------------------------------------------------------------------
 -- TSSERVER
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tsserver
 -- install

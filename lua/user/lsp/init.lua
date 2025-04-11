@@ -144,7 +144,7 @@ end
 
 --- @param client (vim.lsp.Client)
 --- @param bufnr (number)
-M.on_attach = function(client, bufnr)
+local on_attach = function(client, bufnr)
   lsp_keymaps(bufnr)
   lsp_highlight_document(client, bufnr)
   lsp_completion_info(client, bufnr)
@@ -163,7 +163,7 @@ end
 --- @param client (vim.lsp.Client)
 --- @param bufnr (number)
 M.on_attach_format = function(client, bufnr)
-  M.on_attach(client, bufnr)
+  on_attach(client, bufnr)
   lsp_format(client, bufnr)
 end
 
@@ -172,7 +172,7 @@ M.setup = function()
   if string.find(cwd, "nvim") ~= nil then
     require("lazydev").setup({ integrations = { cmp = false } })
   end
-  require("user.lsp.servers")
+  -- require("user.lsp.servers")
 
   local config = {
     virtual_text = false,
@@ -201,7 +201,11 @@ M.setup = function()
   vim.diagnostic.config(config)
 
   -- lazy therefore start
-  vim.cmd.LspStart()
+  vim.lsp.config("*", {
+    on_attach = on_attach,
+    capabilities = vim.lsp.protocol.make_client_capabilities(),
+  })
+  vim.lsp.enable({ "csharp_ls" });
 end
 
 return M
