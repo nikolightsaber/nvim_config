@@ -6,22 +6,6 @@ local base_opts = {
 local lspconfig = require("lspconfig")
 
 --------------------------------------------------------------------------
--- PYRIGHT
--- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pyright
--- install
--- pipx install pyright
-local pyright_opts = {
-  settings = {
-    python = {
-      analysis = {
-        typeCheckingMode = "off"
-      }
-    }
-  },
-}
-lspconfig.pyright.setup(vim.tbl_deep_extend("force", base_opts, pyright_opts))
-
---------------------------------------------------------------------------
 -- TSSERVER
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tsserver
 -- install
