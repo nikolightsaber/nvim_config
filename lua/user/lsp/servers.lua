@@ -22,14 +22,6 @@ local rust_analyzer_opts = {
 lspconfig.rust_analyzer.setup(vim.tbl_deep_extend("force", base_opts, rust_analyzer_opts))
 
 --------------------------------------------------------------------------
--- ESLINT
--- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#eslint
--- install
--- npm i -g vscode-langservers-extracted
-local eslint_opts = {}
-lspconfig.eslint.setup(vim.tbl_deep_extend("force", base_opts, eslint_opts))
-
---------------------------------------------------------------------------
 -- HTML
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#html
 -- install

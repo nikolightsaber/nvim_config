@@ -210,6 +210,7 @@ M.setup = function()
     "bashls",
     "clangd",
     "csharp_ls",
+    "eslint",
     "lua_ls",
     "pyright",
     "ts_ls",
