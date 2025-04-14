@@ -20,11 +20,3 @@ local rust_analyzer_opts = {
   on_attach = require("user.lsp").on_attach_format,
 }
 lspconfig.rust_analyzer.setup(vim.tbl_deep_extend("force", base_opts, rust_analyzer_opts))
-
---------------------------------------------------------------------------
--- HTML
--- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#html
--- install
--- npm i -g vscode-langservers-extracted
-local html_opts = {}
-lspconfig.html.setup(vim.tbl_deep_extend("force", base_opts, html_opts))

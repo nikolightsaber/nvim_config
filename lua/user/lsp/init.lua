@@ -211,6 +211,7 @@ M.setup = function()
     "clangd",
     "csharp_ls",
     "eslint",
+    "html",
     "lua_ls",
     "pyright",
     "ts_ls",
