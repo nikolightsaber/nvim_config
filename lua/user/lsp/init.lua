@@ -203,9 +203,17 @@ M.setup = function()
   -- lazy therefore start
   vim.lsp.config("*", {
     on_attach = on_attach,
-    capabilities = vim.lsp.protocol.make_client_capabilities(),
   })
-  vim.lsp.enable({ "csharp_ls", "lua_ls", "pyright" });
+
+  vim.lsp.enable({
+    "angularls",
+    "bashls",
+    "clangd",
+    "csharp_ls",
+    "lua_ls",
+    "pyright",
+    "ts_ls",
+  })
 end
 
 return M

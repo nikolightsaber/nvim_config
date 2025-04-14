@@ -6,22 +6,6 @@ local base_opts = {
 local lspconfig = require("lspconfig")
 
 --------------------------------------------------------------------------
--- TSSERVER
--- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tsserver
--- install
--- npm install -g typescript-language-server typescript
-local ts_ls_opts = {
-}
-lspconfig.ts_ls.setup(vim.tbl_deep_extend("force", base_opts, ts_ls_opts))
-
--- CLANGD
--- sudo apt install clangd-18
-local clangd_opts = {
-  cmd = { "clangd-18", "--enable-config", "--clang-tidy" }
-}
-lspconfig.clangd.setup(vim.tbl_deep_extend("force", base_opts, clangd_opts))
-
---------------------------------------------------------------------------
 -- RUST_ANALYZER
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 -- install
@@ -38,14 +22,6 @@ local rust_analyzer_opts = {
 lspconfig.rust_analyzer.setup(vim.tbl_deep_extend("force", base_opts, rust_analyzer_opts))
 
 --------------------------------------------------------------------------
--- BASHLS
--- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
--- install
--- npm i -g bash-language-server
-local bashls_opts = {}
-lspconfig.bashls.setup(vim.tbl_deep_extend("force", base_opts, bashls_opts))
-
---------------------------------------------------------------------------
 -- ESLINT
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#eslint
 -- install
@@ -60,33 +36,3 @@ lspconfig.eslint.setup(vim.tbl_deep_extend("force", base_opts, eslint_opts))
 -- npm i -g vscode-langservers-extracted
 local html_opts = {}
 lspconfig.html.setup(vim.tbl_deep_extend("force", base_opts, html_opts))
---------------------------------------------------------------------------
--- Anguarls
--- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#angularls
--- install
--- npm install -g @angular/language-server
--- local node_modules need language server installed
---
-local function get_angular_cmd(root_dir)
-  local project_root = vim.fs.find("node_modules", { path = root_dir, upward = true })[1]
-
-  local default_probe_dir = project_root and (project_root .. "/node_modules") or ""
-
-  return {
-    "npx",
-    "ngserver",
-    "--stdio",
-    "--tsProbeLocations",
-    default_probe_dir,
-    "--ngProbeLocations",
-    default_probe_dir,
-  }
-end
-
-local angularls_opts = {
-  cmd = get_angular_cmd(),
-  on_new_config = function(new_config, _)
-    new_config.cmd = get_angular_cmd()
-  end,
-}
-lspconfig.angularls.setup(vim.tbl_deep_extend("force", base_opts, angularls_opts))
