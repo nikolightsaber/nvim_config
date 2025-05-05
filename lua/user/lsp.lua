@@ -118,9 +118,7 @@ local function lsp_completion_info(client, bufnr)
             return
           end
 
-          local mark = vim.lsp.util.convert_input_to_markdown_lines(doc)
-          local ret = vim.api.nvim__complete_set(id,
-            { info = table.concat(vim.lsp.util._normalize_markdown(mark), '\n') })
+          local ret = vim.api.nvim__complete_set(id, { info = doc })
           if not ret.bufnr or
               not ret.winid or
               not vim.api.nvim_buf_is_valid(ret.bufnr) or
