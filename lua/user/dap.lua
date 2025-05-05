@@ -45,7 +45,7 @@ local get_cs_test_name_if_test = function()
 end
 
 ---@param dir string
-local start_deubgging_cs_proj = function(dir)
+local start_debugging_cs_proj = function(dir)
   local dirs = vim.split(dir, "/")
   local dirname = dirs[#dirs]
   local dlls = vim.fs.find(dirname .. ".dll", { path = dir .. "/bin/Debug/net6.0/" })
@@ -94,7 +94,7 @@ local build_and_debug_curr_cs_test_file = function()
   local dir = vim.fs.dirname(buf)
   print("Building  " .. dir)
   vim.system({ "dotnet", "build", dir }, {}, function()
-    vim.schedule(function() start_deubgging_cs_proj(dir) end)
+    vim.schedule(function() start_debugging_cs_proj(dir) end)
   end)
 end
 
