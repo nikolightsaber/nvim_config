@@ -29,7 +29,7 @@ local function get_cs_metadata(items, client)
     if not c then
       goto continue
     end
-    --- @type any
+    ---@diagnostic disable-next-line: param-type-mismatch
     local result, err = client:request_sync("csharp/metadata",
       { textDocument = { uri = item.user_data.uri } }, 200, 0)
 
