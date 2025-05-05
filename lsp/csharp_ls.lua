@@ -4,7 +4,7 @@
 -- dotnet tool install --global csharp-ls
 
 local cmd = { 'csharp-ls' }
-if #vim.fs.find("BR.Navigation.Linux.sln", {}) == 1 then
+if vim.uv.fs_stat("BR.Navigation.Linux.sln") then
   cmd = { "csharp-ls", "--solution", "BR.Navigation.Linux.sln" }
 end
 
@@ -16,7 +16,7 @@ return {
   },
   filetypes = { 'cs' },
   root_dir = function(bufnr, cb)
-    -- prefer sln as
+    -- prefer sln as root dir
     local dir =
         vim.fs.root(bufnr, function(file) return file:match("%.sln$") ~= nil end) or
         vim.fs.root(bufnr, function(file) return file:match("%.csproj$") ~= nil end)
