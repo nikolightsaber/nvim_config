@@ -44,22 +44,15 @@ local get_cs_test_name_if_test = function()
   return require("user.utils").get_ts_text(method:field("name")[1])
 end
 
----@param dir string
-local start_debugging_cs_proj = function(dir)
-  local dirs = vim.split(dir, "/")
-  local dirname = dirs[#dirs]
-  local dlls = vim.fs.find(dirname .. ".dll", { path = dir .. "/bin/Debug/net6.0/" })
-  if #dlls ~= 1 then
-    print("No DLL found")
-    return
-  end
-  local dll = dlls[1]
-
+local build_and_debug_curr_cs_test_file = function()
+  local buf = vim.fn.bufname()
+  local dir = vim.fs.dirname(buf)
   local pid = nil ---@type number?
-  local cmd = { "dotnet", "test", dll, "--environment=VSTEST_HOST_DEBUG=1" };
+
+  local cmd = { "dotnet", "test", dir, "--environment=VSTEST_HOST_DEBUG=1" };
 
   local test_name = get_cs_test_name_if_test()
-  print("Starting test on " .. dll .. " and test " .. (test_name or "whole file"))
+  print("Starting test on " .. dir .. " and test " .. (test_name or "whole file"))
   if test_name then
     table.insert(cmd, #cmd + 1, "--filter");
     table.insert(cmd, #cmd + 1, test_name);
@@ -69,33 +62,24 @@ local start_debugging_cs_proj = function(dir)
       if err ~= nil or line == nil then
         return
       end
+      if pid then
+        return
+      end
       local match = string.match(line, "Process Id: (%d+)")
       if match then
         pid = tonumber(match)
+        vim.schedule(function()
+          print("DapStarting " .. pid)
+          dap.run({
+            type = "coreclr",
+            name = "launch - netcoredbg",
+            request = "attach",
+            processId = pid,
+          })
+        end)
       end
     end
   })
-
-  vim.schedule(function()
-    while pid == nil do
-      vim.cmd.sleep("10m")
-    end
-    dap.run({
-      type = "coreclr",
-      name = "launch - netcoredbg",
-      request = "attach",
-      processId = pid,
-    })
-  end)
-end
-
-local build_and_debug_curr_cs_test_file = function()
-  local buf = vim.fn.bufname()
-  local dir = vim.fs.dirname(buf)
-  print("Building  " .. dir)
-  vim.system({ "dotnet", "build", dir }, {}, function()
-    vim.schedule(function() start_debugging_cs_proj(dir) end)
-  end)
 end
 
 vim.api.nvim_create_user_command("DebugCurrentCSTestFile", build_and_debug_curr_cs_test_file, {
