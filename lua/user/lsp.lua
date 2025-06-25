@@ -158,7 +158,7 @@ local function lsp_format(client, bufnr)
   })
 end
 
-M.esp_lsp = function()
+local function esp_lsp()
   vim.lsp.enable("clangd", false);
   vim.lsp.enable("esp-clangd", true);
 end
@@ -175,7 +175,11 @@ M.setup = function()
   if string.find(cwd, "nvim") ~= nil then
     require("lazydev").setup({ integrations = { cmp = false } })
   end
-  -- require("user.lsp.servers")
+  vim.api.nvim_create_user_command("EspLsp", esp_lsp, {
+    nargs = "*",
+    complete = function(_, _)
+    end,
+  })
 
   local config = {
     virtual_text = false,
