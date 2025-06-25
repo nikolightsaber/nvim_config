@@ -158,6 +158,11 @@ local function lsp_format(client, bufnr)
   })
 end
 
+M.esp_lsp = function()
+  vim.lsp.enable("clangd", false);
+  vim.lsp.enable("esp-clangd", true);
+end
+
 --- @param client (vim.lsp.Client)
 --- @param bufnr (number)
 M.on_attach_format = function(client, bufnr)
