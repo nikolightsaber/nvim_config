@@ -8,6 +8,7 @@ vim.pack.add({
   { name = 'treesitter',         src = 'https://github.com/nvim-treesitter/nvim-treesitter' },
   { name = 'treesitter-context', src = 'https://github.com/nvim-treesitter/nvim-treesitter-context' },
   { name = 'gitsigns',           src = 'https://github.com/lewis6991/gitsigns.nvim' },
+  { name = 'dap',                src = 'https://github.com/mfussenegger/nvim-dap' },
 }, { load = true })
 
 vim.cmd.colorscheme('tokyonight-storm')
@@ -90,3 +91,5 @@ end
 vim.keymap.set("n", "<leader>tb", function() require("gitsigns.actions").toggle_current_line_blame() end)
 vim.keymap.set("n", "]h", function() require("gitsigns.actions").nav_hunk("next") end)
 vim.keymap.set("n", "[h", function() require("gitsigns.actions").nav_hunk("prev") end)
+
+require("user.dap")
