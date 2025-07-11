@@ -1,12 +1,13 @@
 vim.pack.add({
-  { name = 'tokyonight',        src = 'https://github.com/folke/tokyonight.nvim' },
-  { name = 'telescope',         src = 'https://github.com/nvim-telescope/telescope.nvim' },
-  { name = 'plenary',           src = 'https://github.com/nvim-lua/plenary.nvim' },
-  { name = 'nvim-web-devicons', src = 'https://github.com/nvim-tree/nvim-web-devicons' },
-  { name = 'lazydev',           src = 'https://github.com/folke/lazydev.nvim' },
-  { name = 'harpoon',           src = 'https://github.com/ThePrimeagen/harpoon',         version = "harpoon2" },
-  { name = 'treesitter',        src = 'https://github.com/nvim-treesitter/nvim-treesitter' },
-  { name = 'treesitter-context',        src = 'https://github.com/nvim-treesitter/nvim-treesitter-context' },
+  { name = 'tokyonight',         src = 'https://github.com/folke/tokyonight.nvim' },
+  { name = 'telescope',          src = 'https://github.com/nvim-telescope/telescope.nvim' },
+  { name = 'plenary',            src = 'https://github.com/nvim-lua/plenary.nvim' },
+  { name = 'nvim-web-devicons',  src = 'https://github.com/nvim-tree/nvim-web-devicons' },
+  { name = 'lazydev',            src = 'https://github.com/folke/lazydev.nvim' },
+  { name = 'harpoon',            src = 'https://github.com/ThePrimeagen/harpoon',                   version = "harpoon2" },
+  { name = 'treesitter',         src = 'https://github.com/nvim-treesitter/nvim-treesitter' },
+  { name = 'treesitter-context', src = 'https://github.com/nvim-treesitter/nvim-treesitter-context' },
+  { name = 'gitsigns',           src = 'https://github.com/lewis6991/gitsigns.nvim' },
 }, { load = true })
 
 vim.cmd.colorscheme('tokyonight-storm')
@@ -55,3 +56,37 @@ require("nvim-treesitter.configs").setup({
   highlight = { enable = true },
   indent = { enable = true },
 })
+
+require("gitsigns").setup({
+  signs = {
+    add = { text = "▎" },
+    change = { text = "▎" },
+    delete = { text = "▶" },
+    topdelete = { text = "▶" },
+    changedelete = { text = "▎" },
+  },
+  current_line_blame_opts = {
+    virt_text = true,
+    virt_text_pos = "right_align",
+    delay = 0,
+    ignore_whitespace = false,
+  },
+  preview_config = { border = "rounded" },
+})
+
+vim.keymap.set("n", "<leader>w", function()
+  local actions = require("gitsigns").get_actions() or {}
+  local blame_line = actions["blame_line"]
+  if (blame_line ~= nil) then
+    blame_line({ full = true, ignore_whitespace = true })
+    return;
+  end
+  local preview_hunk = actions["preview_hunk"]
+  if (preview_hunk ~= nil) then
+    preview_hunk({ full = true, ignore_whitespace = true })
+  end
+end
+)
+vim.keymap.set("n", "<leader>tb", function() require("gitsigns.actions").toggle_current_line_blame() end)
+vim.keymap.set("n", "]h", function() require("gitsigns.actions").nav_hunk("next") end)
+vim.keymap.set("n", "[h", function() require("gitsigns.actions").nav_hunk("prev") end)
