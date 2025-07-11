@@ -5,10 +5,20 @@ vim.pack.add({
   { name = 'nvim-web-devicons', src = 'https://github.com/nvim-tree/nvim-web-devicons' },
   { name = 'lazydev',           src = 'https://github.com/folke/lazydev.nvim' },
   { name = 'harpoon',           src = 'https://github.com/ThePrimeagen/harpoon',         version = "harpoon2" },
-}, { load = false })
+  { name = 'treesitter',        src = 'https://github.com/nvim-treesitter/nvim-treesitter' },
+  { name = 'treesitter-context',        src = 'https://github.com/nvim-treesitter/nvim-treesitter-context' },
+}, { load = true })
 
 vim.cmd.colorscheme('tokyonight-storm')
 
+require("telescope").setup({
+  defaults = {
+    mappings = {
+      n = { ["<Up>"] = function() end, ["<Down>"] = function() end },
+      i = { ["<Up>"] = function() end, ["<Down>"] = function() end, ["<C-y>"] = require("telescope.actions").select_default },
+    }
+  }
+})
 vim.keymap.set("n", "<leader>f",
   function() require("telescope.builtin").find_files({ previewer = false, path_display = { "absolute" }, no_ignore = true }) end)
 vim.keymap.set("n", "<leader>g", function() require("telescope.builtin").live_grep({ path_display = { "truncate" } }) end)
@@ -37,3 +47,11 @@ vim.keymap.set("n", "<C-l>", function() require("harpoon"):list():select(3) end)
 vim.keymap.set("n", "<C-;>", function() require("harpoon"):list():select(4) end)
 vim.keymap.set("n", "<C-'>", function() require("harpoon"):list():select(5) end)
 vim.keymap.set("n", "<C-\\>", function() require("harpoon"):list():select(6) end)
+
+---@diagnostic disable-next-line: missing-fields
+require("nvim-treesitter.configs").setup({
+  ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
+  auto_install = true,
+  highlight = { enable = true },
+  indent = { enable = true },
+})
