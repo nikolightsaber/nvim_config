@@ -27,6 +27,8 @@ vim.opt.shortmess:append("c")
 vim.opt.shortmess:append("C")
 vim.o.clipboard = "unnamedplus"
 vim.g.health = { style = "float" }
+-- don' fold
+vim.o.foldlevel = 1000
 
 vim.api.nvim_create_user_command("DotNetBuildDiag", require("user.utils").dotnet_build_diag, {})
 
