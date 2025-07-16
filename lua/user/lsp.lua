@@ -171,15 +171,7 @@ M.on_attach_format = function(client, bufnr)
 end
 
 M.setup = function()
-  local cwd = (vim.fn.getcwd() or "") .. "/" .. (vim.fn.bufname() or "")
-  if string.find(cwd, "nvim") ~= nil then
-    require("lazydev").setup({ integrations = { cmp = false } })
-  end
-  vim.api.nvim_create_user_command("EspLsp", esp_lsp, {
-    nargs = "*",
-    complete = function(_, _)
-    end,
-  })
+  vim.api.nvim_create_user_command("EspLsp", esp_lsp, {})
 
   local config = {
     virtual_text = false,
@@ -207,7 +199,6 @@ M.setup = function()
 
   vim.diagnostic.config(config)
 
-  -- lazy therefore start
   vim.lsp.config("*", {
     on_attach = on_attach,
   })

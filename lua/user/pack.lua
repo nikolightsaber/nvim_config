@@ -3,14 +3,12 @@ vim.pack.add({
   { name = 'telescope',          src = 'https://github.com/nvim-telescope/telescope.nvim' },
   { name = 'plenary',            src = 'https://github.com/nvim-lua/plenary.nvim' },
   { name = 'nvim-web-devicons',  src = 'https://github.com/nvim-tree/nvim-web-devicons' },
-  { name = 'lazydev',            src = 'https://github.com/folke/lazydev.nvim' },
-  { name = 'harpoon',            src = 'https://github.com/ThePrimeagen/harpoon',                     version = "harpoon2" },
+  { name = 'harpoon',            src = 'https://github.com/ThePrimeagen/harpoon',                     version = 'harpoon2' },
   { name = 'treesitter',         src = 'https://github.com/nvim-treesitter/nvim-treesitter' },
   { name = 'treesitter-context', src = 'https://github.com/nvim-treesitter/nvim-treesitter-context' },
   { name = 'gitsigns',           src = 'https://github.com/lewis6991/gitsigns.nvim' },
   { name = 'dap',                src = 'https://github.com/mfussenegger/nvim-dap' },
   { name = 'render-markdown',    src = 'https://github.com/MeanderingProgrammer/render-markdown.nvim' },
-
 }, { load = true })
 
 vim.cmd.colorscheme('tokyonight-storm')

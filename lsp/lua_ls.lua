@@ -21,13 +21,19 @@ return {
 
     client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
       runtime = {
-        version = "LuaJIT"
+        version = "LuaJIT",
+        path = {
+          'lua/?.lua',
+          'lua/?/init.lua',
+        }
       },
       -- Make the server aware of Neovim runtime files
       workspace = {
         checkThirdParty = false,
         library = {
-          vim.env.VIMRUNTIME
+          vim.env.VIMRUNTIME,
+          ---@diagnostic disable-next-line: param-type-mismatch
+          vim.fs.joinpath(vim.fn.stdpath('data'), 'site', 'pack', 'core', 'opt'),
         }
       }
     })
