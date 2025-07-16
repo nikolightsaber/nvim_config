@@ -210,7 +210,7 @@ M.setup = function()
     "csharp_ls",
     "eslint",
     "html",
-    "gitlab-lsp",
+    -- "gitlab-lsp",
     "lua_ls",
     "pyright",
     "ts_ls",

@@ -15,6 +15,9 @@ local settings = {
     enabled = false,
     trackingUrl = nil,
   },
+  featureFlags = {
+    streamCodeGenerations = true,
+  },
 }
 return {
   cmd = { "gitlab-lsp", "--stdio" },
@@ -33,26 +36,20 @@ return {
       -- local checks_passed = true
       -- local feature_states = result and result[1]
       -- for _, feature_state in ipairs(feature_states) do
-      --   lsp.refresh_feature(feature_state.featureId, feature_state)
-      --   if feature_state.engagedChecks and #feature_state.engagedChecks > 0 then
-      --     checks_passed = false
-      --   end
-      -- end
-      --
-      -- if checks_passed then
-      --   statusline.update_status_line(globals.GCS_AVAILABLE)
-      -- else
-      --   statusline.update_status_line(globals.GCS_UNAVAILABLE)
+      --   print(vim.inspect(feature_state))
       -- end
     end,
-    ['textDocument/completion'] = function(_err, result)
-    end
+    ['streamingCompletionResponse'] = function(err, result)
+      print(vim.inspect(result))
+    end,
   },
   root_dir = vim.fn.getcwd(),
   settings = settings,
   --- @param client vim.lsp.Client
   on_init = function(client, _)
     client.offset_encoding = 'utf-16'
+    client.server_capabilities.completionProvider = nil
+    client.server_capabilities.inlineCompletionProvider = false
 
     local new_settings = vim.deepcopy(settings)
     new_settings.token = vim.env.GITLAB_TOKEN
@@ -61,5 +58,12 @@ return {
     client:notify('workspace/didChangeConfiguration', {
       settings = new_settings,
     })
+
+    vim.api.nvim_create_user_command('GitlabDuo', function()
+      client:request('textDocument/inlineCompletion',
+        vim.tbl_extend('force', { context = {} }, vim.lsp.util.make_position_params(0, 'utf-16')), function(err, result)
+          print(vim.inspect(result))
+        end)
+    end, {})
   end,
 }
