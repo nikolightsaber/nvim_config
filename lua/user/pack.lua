@@ -76,7 +76,6 @@ gitsigns.setup({
     delay = 0,
     ignore_whitespace = false,
   },
-  preview_config = { border = 'rounded' },
 })
 
 vim.keymap.set('n', '<leader>w', function()

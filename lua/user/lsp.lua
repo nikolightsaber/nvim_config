@@ -78,8 +78,6 @@ end
 
 --- @param bufnr (number)
 local function lsp_keymaps(bufnr)
-  vim.keymap.set("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end, { buffer = bufnr })
-  vim.keymap.set("i", "<C-s>", function() vim.lsp.buf.signature_help({ border = "rounded" }) end, { buffer = bufnr })
   vim.keymap.set("n", "grr", function() vim.lsp.buf.references(nil, { on_list = on_list_telescope }) end,
     { buffer = bufnr })
   vim.keymap.set("n", "gd", function() vim.lsp.buf.definition({ on_list = on_list_telescope }) end, { buffer = bufnr })
@@ -182,7 +180,6 @@ M.setup = function()
     float = {
       focusable = false,
       style = "minimal",
-      border = "rounded",
       source = "always",
       header = "",
       prefix = "",
