@@ -13,11 +13,11 @@ vim.pack.add({
 
 vim.cmd.colorscheme('tokyonight-storm')
 
-require("telescope").setup({
+require('telescope').setup({
   defaults = {
     mappings = {
-      n = { ["<Up>"] = function() end, ["<Down>"] = function() end },
-      i = { ["<Up>"] = function() end, ["<Down>"] = function() end, ["<C-y>"] = require("telescope.actions").select_default },
+      n = { ['<Up>'] = function() end, ['<Down>'] = function() end },
+      i = { ['<Up>'] = function() end, ['<Down>'] = function() end, ['<C-y>'] = require('telescope.actions').select_default },
     }
   }
 })
@@ -54,8 +54,8 @@ vim.keymap.set('n', '<C-\'>', function() harpoon:list():select(5) end)
 vim.keymap.set('n', '<C-\\>', function() harpoon:list():select(6) end)
 
 ---@diagnostic disable-next-line: missing-fields
-require("nvim-treesitter.configs").setup({
-  ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
+require('nvim-treesitter.configs').setup({
+  ensure_installed = { 'c', 'lua', 'vim', 'vimdoc', 'query', 'markdown', 'markdown_inline' },
   auto_install = true,
   highlight = { enable = true },
   indent = { enable = true },
@@ -64,37 +64,37 @@ require("nvim-treesitter.configs").setup({
 local gitsigns = require('gitsigns')
 gitsigns.setup({
   signs = {
-    add = { text = "▎" },
-    change = { text = "▎" },
-    delete = { text = "▶" },
-    topdelete = { text = "▶" },
-    changedelete = { text = "▎" },
+    add = { text = '▎' },
+    change = { text = '▎' },
+    delete = { text = '▶' },
+    topdelete = { text = '▶' },
+    changedelete = { text = '▎' },
   },
   current_line_blame_opts = {
     virt_text = true,
-    virt_text_pos = "right_align",
+    virt_text_pos = 'right_align',
     delay = 0,
     ignore_whitespace = false,
   },
-  preview_config = { border = "rounded" },
+  preview_config = { border = 'rounded' },
 })
 
-vim.keymap.set("n", "<leader>w", function()
+vim.keymap.set('n', '<leader>w', function()
   local actions = gitsigns.get_actions() or {}
-  local blame_line = actions["blame_line"]
+  local blame_line = actions['blame_line']
   if (blame_line ~= nil) then
     blame_line({ full = true, ignore_whitespace = true })
     return;
   end
-  local preview_hunk = actions["preview_hunk"]
+  local preview_hunk = actions['preview_hunk']
   if (preview_hunk ~= nil) then
     preview_hunk({ full = true, ignore_whitespace = true })
   end
 end
 )
 local gitsigns_actions = require('gitsigns.actions')
-vim.keymap.set("n", "<leader>tb", function() gitsigns_actions.toggle_current_line_blame() end)
-vim.keymap.set("n", "]h", function() gitsigns_actions.nav_hunk("next") end)
-vim.keymap.set("n", "[h", function() gitsigns_actions.nav_hunk("prev") end)
+vim.keymap.set('n', '<leader>tb', function() gitsigns_actions.toggle_current_line_blame() end)
+vim.keymap.set('n', ']h', function() gitsigns_actions.nav_hunk('next') end)
+vim.keymap.set('n', '[h', function() gitsigns_actions.nav_hunk('prev') end)
 
-require("user.dap")
+require('user.dap')
