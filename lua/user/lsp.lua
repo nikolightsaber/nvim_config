@@ -213,6 +213,7 @@ M.setup = function()
     -- "gitlab-lsp",
     "lua_ls",
     "pyright",
+    "rust_analyzer",
     "ts_ls",
   })
 end
