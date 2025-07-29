@@ -21,34 +21,37 @@ require("telescope").setup({
     }
   }
 })
-vim.keymap.set("n", "<leader>f",
-  function() require("telescope.builtin").find_files({ previewer = false, path_display = { "absolute" }, no_ignore = true }) end)
-vim.keymap.set("n", "<leader>g", function() require("telescope.builtin").live_grep({ path_display = { "truncate" } }) end)
-vim.keymap.set("n", "<leader>/",
-  function() require("telescope.builtin").current_buffer_fuzzy_find({ path_display = { "hidden" } }) end)
-vim.keymap.set("n", "<leader>sh", function() require("telescope.builtin").help_tags({ path_display = { "tail" } }) end)
-vim.keymap.set("n", "<leader>b",
-  function() require("telescope.builtin").buffers(require("telescope.themes").get_dropdown({ previewer = false, path_display = { "absolute" } })) end)
-vim.keymap.set("n", "<leader>tr", function() require("telescope.builtin").resume() end)
-vim.keymap.set("n", "z=", function() require("telescope.builtin").spell_suggest() end)
-vim.keymap.set("n", "gt", function()
-  local word = vim.fn.expand("<cword>")
-  vim.fn.setreg("/", word, "c")
+local telescope_builltin = require('telescope.builtin');
+vim.keymap.set('n', '<leader>f',
+  function() telescope_builltin.find_files({ previewer = false, path_display = { 'absolute' }, no_ignore = true }) end)
+vim.keymap.set('n', '<leader>g', function() telescope_builltin.live_grep({ path_display = { 'truncate' } }) end)
+vim.keymap.set('n', '<leader>/',
+  function() telescope_builltin.current_buffer_fuzzy_find({ path_display = { 'hidden' } }) end)
+vim.keymap.set('n', '<leader>sh', function() telescope_builltin.help_tags({ path_display = { 'tail' } }) end)
+vim.keymap.set('n', '<leader>b',
+  function() telescope_builltin.buffers(require('telescope.themes').get_dropdown({ previewer = false, path_display = { 'absolute' } })) end)
+vim.keymap.set('n', '<leader>tr', function() telescope_builltin.resume() end)
+vim.keymap.set('n', 'z=', function() telescope_builltin.spell_suggest() end)
+vim.keymap.set('n', 'gt', function()
+  local word = vim.fn.expand('<cword>')
+  vim.fn.setreg('/', word, 'c')
   vim.o.hlsearch = true
-  return require("telescope.builtin").grep_string({ prompt_title = "Search selection", search = word, path_display = { "truncate" }, })
+  return telescope_builltin.grep_string({ prompt_title = 'Search selection', search = word, path_display = { 'truncate' }, })
 end)
 
 
-require("harpoon"):setup({ settings = { save_on_toggle = true, } })
 
-vim.keymap.set("n", "<leader>a", function() require("harpoon"):list():add() end)
-vim.keymap.set("n", "<C-h>", function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end)
-vim.keymap.set("n", "<C-j>", function() require("harpoon"):list():select(1) end)
-vim.keymap.set("n", "<C-k>", function() require("harpoon"):list():select(2) end)
-vim.keymap.set("n", "<C-l>", function() require("harpoon"):list():select(3) end)
-vim.keymap.set("n", "<C-;>", function() require("harpoon"):list():select(4) end)
-vim.keymap.set("n", "<C-'>", function() require("harpoon"):list():select(5) end)
-vim.keymap.set("n", "<C-\\>", function() require("harpoon"):list():select(6) end)
+local harpoon = require('harpoon')
+harpoon:setup({ settings = { save_on_toggle = true, } })
+
+vim.keymap.set('n', '<leader>a', function() harpoon:list():add() end)
+vim.keymap.set('n', '<C-h>', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+vim.keymap.set('n', '<C-j>', function() harpoon:list():select(1) end)
+vim.keymap.set('n', '<C-k>', function() harpoon:list():select(2) end)
+vim.keymap.set('n', '<C-l>', function() harpoon:list():select(3) end)
+vim.keymap.set('n', '<C-;>', function() harpoon:list():select(4) end)
+vim.keymap.set('n', '<C-\'>', function() harpoon:list():select(5) end)
+vim.keymap.set('n', '<C-\\>', function() harpoon:list():select(6) end)
 
 ---@diagnostic disable-next-line: missing-fields
 require("nvim-treesitter.configs").setup({
@@ -58,7 +61,8 @@ require("nvim-treesitter.configs").setup({
   indent = { enable = true },
 })
 
-require("gitsigns").setup({
+local gitsigns = require('gitsigns')
+gitsigns.setup({
   signs = {
     add = { text = "▎" },
     change = { text = "▎" },
@@ -76,7 +80,7 @@ require("gitsigns").setup({
 })
 
 vim.keymap.set("n", "<leader>w", function()
-  local actions = require("gitsigns").get_actions() or {}
+  local actions = gitsigns.get_actions() or {}
   local blame_line = actions["blame_line"]
   if (blame_line ~= nil) then
     blame_line({ full = true, ignore_whitespace = true })
@@ -88,8 +92,9 @@ vim.keymap.set("n", "<leader>w", function()
   end
 end
 )
-vim.keymap.set("n", "<leader>tb", function() require("gitsigns.actions").toggle_current_line_blame() end)
-vim.keymap.set("n", "]h", function() require("gitsigns.actions").nav_hunk("next") end)
-vim.keymap.set("n", "[h", function() require("gitsigns.actions").nav_hunk("prev") end)
+local gitsigns_actions = require('gitsigns.actions')
+vim.keymap.set("n", "<leader>tb", function() gitsigns_actions.toggle_current_line_blame() end)
+vim.keymap.set("n", "]h", function() gitsigns_actions.nav_hunk("next") end)
+vim.keymap.set("n", "[h", function() gitsigns_actions.nav_hunk("prev") end)
 
 require("user.dap")
