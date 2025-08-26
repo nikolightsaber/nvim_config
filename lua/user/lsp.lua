@@ -170,17 +170,19 @@ end
 
 M.setup = function()
   vim.api.nvim_create_user_command("EspLsp", esp_lsp, {})
-  vim.lsp.inline_completion.enable(true)
+
+  vim.keymap.set({ "n", "i" }, "<C- >", function()
+    vim.lsp.inline_completion.enable(not vim.lsp.inline_completion.is_enabled())
+  end)
 
   vim.keymap.set('i', '<Tab>', function()
     if not vim.lsp.inline_completion.get() then
       return '<Tab>'
     end
   end, {
-      expr = true,
-      replace_keycodes = true,
-      desc = 'Get the current inline completion',
-    })
+    expr = true,
+    replace_keycodes = true,
+  })
 
 
   local config = {
