@@ -49,7 +49,7 @@ local build_and_debug_curr_cs_test_file = function()
   local dir = vim.fs.dirname(buf)
   local pid = nil ---@type number?
 
-  local cmd = { "dotnet", "test", dir, "--environment=VSTEST_HOST_DEBUG=1" };
+  local cmd = { "dotnet", "test", "-c", "Debug", dir, "--environment=VSTEST_HOST_DEBUG=1" };
 
   local test_name = get_cs_test_name_if_test()
   print("Starting test on " .. dir .. " and test " .. (test_name or "whole file"))
@@ -83,6 +83,21 @@ local build_and_debug_curr_cs_test_file = function()
 end
 
 vim.api.nvim_create_user_command("DebugCurrentCSTestFile", build_and_debug_curr_cs_test_file, {
+  nargs = "*",
+  complete = function(_, _)
+  end,
+})
+
+local runsim = function()
+  print("DapStarting ")
+  dap.run({
+    type = "coreclr",
+    name = "launch - netcoredbg",
+    request = "launch",
+    program = "Apps/BR.Simulator.Linux/bin/Debug/net8/BR.Simulator.Linux.dll"
+  })
+end
+vim.api.nvim_create_user_command("DebugSim", runsim, {
   nargs = "*",
   complete = function(_, _)
   end,
