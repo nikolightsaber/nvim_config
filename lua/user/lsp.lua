@@ -170,6 +170,18 @@ end
 
 M.setup = function()
   vim.api.nvim_create_user_command("EspLsp", esp_lsp, {})
+  vim.lsp.inline_completion.enable(true)
+
+  vim.keymap.set('i', '<Tab>', function()
+    if not vim.lsp.inline_completion.get() then
+      return '<Tab>'
+    end
+  end, {
+      expr = true,
+      replace_keycodes = true,
+      desc = 'Get the current inline completion',
+    })
+
 
   local config = {
     virtual_text = false,
@@ -207,7 +219,7 @@ M.setup = function()
     "csharp_ls",
     "eslint",
     "html",
-    -- "gitlab-lsp",
+    "gitlab-lsp",
     "lua_ls",
     "pyright",
     "rust_analyzer",

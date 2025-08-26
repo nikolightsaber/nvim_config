@@ -16,7 +16,7 @@ local settings = {
     trackingUrl = nil,
   },
   featureFlags = {
-    streamCodeGenerations = true,
+    streamCodeGenerations = false,
   },
 }
 return {
@@ -49,7 +49,7 @@ return {
   on_init = function(client, _)
     client.offset_encoding = 'utf-16'
     client.server_capabilities.completionProvider = nil
-    client.server_capabilities.inlineCompletionProvider = false
+    client.server_capabilities.inlineCompletionProvider = true
 
     local new_settings = vim.deepcopy(settings)
     new_settings.token = vim.env.GITLAB_TOKEN
