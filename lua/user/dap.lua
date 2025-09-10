@@ -88,16 +88,39 @@ vim.api.nvim_create_user_command("DebugCurrentCSTestFile", build_and_debug_curr_
   end,
 })
 
-local runsim = function()
-  print("DapStarting ")
-  dap.run({
-    type = "coreclr",
-    name = "launch - netcoredbg",
-    request = "launch",
-    program = "Apps/BR.Simulator.Linux/bin/Debug/net8/BR.Simulator.Linux.dll"
-  })
+---@param args vim.api.keyset.create_user_command.command_args
+local runsim = function(args)
+  local buf = vim.fn.bufname()
+  local dir = vim.fs.dirname(buf)
+  local proj = vim.fs.basename(vim.fs.find(function(name)
+    return name:match("%.csproj$")
+  end, { path = dir, upward = true, type = "file", limit = 1 })[1])
+
+  local cmd = { "dotnet", "run", "-c", "Debug", "--project", dir, args.args };
+  local obj = vim.system(cmd, { })
+  local ppid = obj.pid
+  vim.schedule(function()
+    local pid = nil
+    while not pid do
+      local v = vim.api.nvim_get_proc_children(ppid)
+      for _, child_pid in ipairs(v) do
+        local child = vim.api.nvim_get_proc(child_pid)
+        if proj:sub(1, #child.name) == child.name then
+          pid = child.pid
+        end
+      end
+    end
+    print("DapStarting " .. pid)
+    dap.run({
+      type = "coreclr",
+      name = "launch - netcoredbg",
+      request = "attach",
+      processId = pid,
+    })
+  end)
 end
-vim.api.nvim_create_user_command("DebugSim", runsim, {
+
+vim.api.nvim_create_user_command("DebugSimCs", runsim, {
   nargs = "*",
   complete = function(_, _)
   end,
