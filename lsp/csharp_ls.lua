@@ -25,4 +25,7 @@ return {
       cb(dir)
     end
   end,
+  handlers = {
+    ['csharp/metadata'] = function() end,
+  },
 }

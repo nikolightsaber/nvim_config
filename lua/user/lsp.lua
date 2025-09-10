@@ -49,7 +49,7 @@ end
 --- @param t (vim.lsp.LocationOpts.OnList)
 local function on_list_telescope(t)
   if vim.bo[t.context.bufnr].ft == "cs" then
-    get_cs_metadata(t.items, vim.lsp.get_clients({ buffer = t.context.bufnr })[1])
+    get_cs_metadata(t.items, vim.lsp.get_clients({ buffer = t.context.bufnr, name = "csharp_ls" })[1])
   end
   if #t.items == 1 then
     local item = t.items[1]
@@ -175,9 +175,9 @@ M.setup = function()
     vim.lsp.inline_completion.enable(not vim.lsp.inline_completion.is_enabled())
   end)
 
-  vim.keymap.set('i', '<Tab>', function()
+  vim.keymap.set('i', '<C-y>', function()
     if not vim.lsp.inline_completion.get() then
-      return '<Tab>'
+      return '<C-y>'
     end
   end, {
     expr = true,
@@ -221,7 +221,7 @@ M.setup = function()
     "csharp_ls",
     "eslint",
     "html",
-    "gitlab-lsp",
+    -- "gitlab-lsp",
     "lua_ls",
     "pyright",
     "rust_analyzer",
