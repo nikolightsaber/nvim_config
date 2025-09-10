@@ -37,7 +37,7 @@ local get_cs_test_name_if_test = function()
   end
   local atribute = require("user.utils").get_ts_text(first_child:named_child(0))
 
-  if atribute ~= "Fact" and atribute ~= "Theory" then
+  if atribute ~= "Fact" and atribute ~= "Theory" and atribute ~= "TestMethod" then
     return nil
   end
 
@@ -47,9 +47,13 @@ end
 local build_and_debug_curr_cs_test_file = function()
   local buf = vim.fn.bufname()
   local dir = vim.fs.dirname(buf)
+  local proj = vim.fs.basename(vim.fs.find(function(name)
+    return name:match("%.csproj$")
+  end, { path = dir, upward = true, type = "file", limit = 2 })[1])
+
   local pid = nil ---@type number?
 
-  local cmd = { "dotnet", "test", "-c", "Debug", dir, "--environment=VSTEST_HOST_DEBUG=1" };
+  local cmd = { "dotnet", "test", "-c", "Debug", proj, "--environment=VSTEST_HOST_DEBUG=1" };
 
   local test_name = get_cs_test_name_if_test()
   print("Starting test on " .. dir .. " and test " .. (test_name or "whole file"))
@@ -96,8 +100,8 @@ local runsim = function(args)
     return name:match("%.csproj$")
   end, { path = dir, upward = true, type = "file", limit = 1 })[1])
 
-  local cmd = { "dotnet", "run", "-c", "Debug", "--project", dir, args.args };
-  local obj = vim.system(cmd, { })
+  local cmd = { "dotnet", "run", "-c", "Debug", "--project", proj, args.args };
+  local obj = vim.system(cmd, {})
   local ppid = obj.pid
   vim.schedule(function()
     local pid = nil
