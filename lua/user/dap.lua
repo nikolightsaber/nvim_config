@@ -47,7 +47,7 @@ end
 local build_and_debug_curr_cs_test_file = function()
   local buf = vim.fn.bufname()
   local dir = vim.fs.dirname(buf)
-  local proj = vim.fs.basename(vim.fs.find(function(name)
+  local proj = vim.fs.dirname(vim.fs.find(function(name)
     return name:match("%.csproj$")
   end, { path = dir, upward = true, type = "file", limit = 2 })[1])
 
@@ -56,7 +56,7 @@ local build_and_debug_curr_cs_test_file = function()
   local cmd = { "dotnet", "test", "-c", "Debug", proj, "--environment=VSTEST_HOST_DEBUG=1" };
 
   local test_name = get_cs_test_name_if_test()
-  print("Starting test on " .. dir .. " and test " .. (test_name or "whole file"))
+  print("Starting test on " .. proj .. " and test " .. (test_name or "whole file"))
   if test_name then
     table.insert(cmd, #cmd + 1, "--filter");
     table.insert(cmd, #cmd + 1, test_name);
@@ -96,11 +96,12 @@ vim.api.nvim_create_user_command("DebugCurrentCSTestFile", build_and_debug_curr_
 local runsim = function(args)
   local buf = vim.fn.bufname()
   local dir = vim.fs.dirname(buf)
-  local proj = vim.fs.basename(vim.fs.find(function(name)
+  local proj = vim.fs.dirname(vim.fs.find(function(name)
     return name:match("%.csproj$")
   end, { path = dir, upward = true, type = "file", limit = 1 })[1])
 
   local cmd = { "dotnet", "run", "-c", "Debug", "--project", proj, args.args };
+  print("Starting run on " .. proj)
   local obj = vim.system(cmd, {})
   local ppid = obj.pid
   vim.schedule(function()
