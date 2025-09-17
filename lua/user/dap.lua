@@ -108,9 +108,10 @@ local runsim = function(args)
     local pid = nil
     while not pid do
       local v = vim.api.nvim_get_proc_children(ppid)
+      local projname = vim.fs.basename(proj)
       for _, child_pid in ipairs(v) do
         local child = vim.api.nvim_get_proc(child_pid)
-        if proj:sub(1, #child.name) == child.name then
+        if projname:sub(1, #child.name) == child.name then
           pid = child.pid
         end
       end
