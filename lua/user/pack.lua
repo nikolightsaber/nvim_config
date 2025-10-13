@@ -12,6 +12,7 @@ vim.pack.add({
 }, { load = true })
 
 vim.cmd.colorscheme('tokyonight-storm')
+vim.cmd.packadd('nvim.undotree')
 
 require('telescope').setup({
   defaults = {
