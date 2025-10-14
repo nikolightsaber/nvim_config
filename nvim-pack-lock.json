@@ -22,7 +22,7 @@
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "render-markdown": {
-      "rev": "d538564",
+      "rev": "691651d",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
     "telescope": {
