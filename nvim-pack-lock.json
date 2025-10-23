@@ -30,7 +30,7 @@
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "tokyonight": {
-      "rev": "d14614c",
+      "rev": "8734a4e",
       "src": "https://github.com/folke/tokyonight.nvim"
     },
     "treesitter": {
@@ -38,7 +38,7 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "treesitter-context": {
-      "rev": "41847d3",
+      "rev": "ec308c7",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-context"
     }
   }
