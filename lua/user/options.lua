@@ -32,7 +32,5 @@ vim.o.foldlevel = 1000
 vim.o.winborder = "rounded"
 vim.o.pumborder = "rounded"
 
-vim.api.nvim_create_user_command("DotNetBuildDiag", require("user.utils").dotnet_build_diag, {})
-
 vim.api.nvim_set_hl(0, "ExtraWhitespace", { fg = "darkgreen", bg = "darkgreen" })
 vim.fn.matchadd("ExtraWhitespace", "\\s\\+\\%#\\@<!$")
