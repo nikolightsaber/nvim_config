@@ -13,6 +13,12 @@ dap.adapters.coreclr = {
   args = { "--interpreter=vscode" }
 }
 
+dap.adapters.gdb = {
+  type = "executable",
+  command = "gdb",
+  args = { "--interpreter=dap", "--eval-command", "set print pretty on" }
+}
+
 -- C#
 dap.configurations.cs = {
   {
@@ -74,6 +80,12 @@ local build_and_debug_curr_cs_test_file = function()
         pid = tonumber(match)
         vim.schedule(function()
           print("DapStarting " .. pid)
+          -- dap.run({
+          --   type = "gdb",
+          --   name = "launch - gdb",
+          --   request = "attach",
+          --   pid = pid,
+          -- })
           dap.run({
             type = "coreclr",
             name = "launch - netcoredbg",
@@ -155,6 +167,10 @@ end)
 vim.keymap.set('n', '<Leader>ds', function()
   local widgets = require('dap.ui.widgets')
   widgets.sidebar(widgets.scopes, { width = 120 }, "belowright vsplit").open()
+end)
+vim.keymap.set('n', '<Leader>di', function()
+  local widgets = require('dap.ui.widgets')
+  widgets.sidebar(widgets.sessions, { width = 50 }, "belowright vsplit").open()
 end)
 vim.keymap.set('n', '<Leader>dt', function()
   local widgets = require('dap.ui.widgets')
