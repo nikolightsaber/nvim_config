@@ -16,6 +16,7 @@ return {
   },
   settings = {
     python = {
+      pythonPath = vim.fn.exepath("python3"),
       analysis = {
         autoSearchPaths = true,
         useLibraryCodeForTypes = true,
