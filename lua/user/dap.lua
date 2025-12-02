@@ -105,7 +105,7 @@ vim.api.nvim_create_user_command("DebugCurrentCSTestFile", build_and_debug_curr_
 })
 
 ---@param args vim.api.keyset.create_user_command.command_args
-local runsim = function(args)
+local run_cs_proj = function(args)
   local buf = vim.fn.bufname()
   local dir = vim.fs.dirname(buf)
   local proj = vim.fs.dirname(vim.fs.find(function(name)
@@ -138,7 +138,75 @@ local runsim = function(args)
   end)
 end
 
-vim.api.nvim_create_user_command("DebugSimCs", runsim, {
+
+---@return string?
+local get_cs_csproj_pid = function()
+  local buf = vim.fn.bufname()
+  local dir = vim.fs.dirname(buf)
+  local proj = vim.fs.basename(vim.fs.find(function(name)
+    return name:match("%.csproj$")
+  end, { path = dir, upward = true, type = "file", limit = 1 })[1])
+
+  local cmd = { "pgrep", proj:sub(1, 15)};
+  print("Searching for " .. proj)
+  local obj = vim.system(cmd, {}):wait(100);
+  if obj.code ~= 0 then
+    print("Process not found " .. obj.code .. " " .. obj.stdout)
+    return nil
+  end
+  return obj.stdout
+end
+
+local attach_cs_proj = function()
+  local pid = get_cs_csproj_pid()
+  if not pid then
+    return
+  end
+  print("DapStarting " .. pid)
+  dap.run({
+    type = "coreclr",
+    name = "launch - netcoredbg",
+    request = "attach",
+    processId = pid,
+  })
+end
+
+local attach_cs_proj_gdb = function()
+  local buf = vim.fn.bufname()
+  local dir = vim.fs.dirname(buf)
+  local proj = vim.fs.basename(vim.fs.find(function(name)
+    return name:match("%.csproj$")
+  end, { path = dir, upward = true, type = "file", limit = 1 })[1])
+
+  local cmd = { "pgrep", proj:sub(1, 15)};
+  print("Searching for " .. proj)
+  local obj = vim.system(cmd, {}):wait(100);
+  if obj.code ~= 0 then
+    print("Process not found " .. obj.code .. " " .. obj.stdout)
+    return
+  end
+  local pid = obj.stdout
+  print("DapStarting " .. pid)
+  dap.run({
+    type = "gdb",
+    name = "attach - gdb",
+    request = "attach",
+    pid = tonumber(pid),
+  })
+end
+
+vim.api.nvim_create_user_command("RunCsProj", run_cs_proj, {
+  nargs = "*",
+  complete = function(_, _)
+  end,
+})
+
+vim.api.nvim_create_user_command("AttachCsProj", attach_cs_proj, {
+  nargs = "*",
+  complete = function(_, _)
+  end,
+})
+vim.api.nvim_create_user_command("AttachCsProjGDB", attach_cs_proj_gdb, {
   nargs = "*",
   complete = function(_, _)
   end,
