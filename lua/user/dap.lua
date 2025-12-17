@@ -112,7 +112,7 @@ local run_cs_proj = function(args)
     return name:match("%.csproj$")
   end, { path = dir, upward = true, type = "file", limit = 1 })[1])
 
-  local cmd = { "dotnet", "run", "-c", "Debug", "--project", proj, args.args };
+  local cmd = { "dotnet", "run", "-c", "Debug", "--project", proj, "--", args.args };
   print("Starting run on " .. proj)
   local obj = vim.system(cmd, {})
   local ppid = obj.pid
@@ -140,12 +140,19 @@ end
 
 
 ---@return string?
-local get_cs_csproj_pid = function()
-  local buf = vim.fn.bufname()
-  local dir = vim.fs.dirname(buf)
-  local proj = vim.fs.basename(vim.fs.find(function(name)
-    return name:match("%.csproj$")
-  end, { path = dir, upward = true, type = "file", limit = 1 })[1])
+---@param args vim.api.keyset.create_user_command.command_args
+local get_cs_csproj_pid = function(args)
+  local proj = ""
+  if #args.fargs > 0 then
+    proj = args.fargs[1]
+  else
+    local buf = vim.fn.bufname()
+    local dir = vim.fs.dirname(buf)
+    proj = vim.fs.basename(vim.fs.find(function(name)
+      return name:match("%.csproj$")
+    end, { path = dir, upward = true, type = "file", limit = 1 })[1])
+  end
+
 
   local cmd = { "pgrep", proj:sub(1, 15)};
   print("Searching for " .. proj)
@@ -157,8 +164,9 @@ local get_cs_csproj_pid = function()
   return obj.stdout
 end
 
-local attach_cs_proj = function()
-  local pid = get_cs_csproj_pid()
+---@param args vim.api.keyset.create_user_command.command_args
+local attach_cs_proj = function(args)
+  local pid = get_cs_csproj_pid(args)
   if not pid then
     return
   end
@@ -171,21 +179,12 @@ local attach_cs_proj = function()
   })
 end
 
-local attach_cs_proj_gdb = function()
-  local buf = vim.fn.bufname()
-  local dir = vim.fs.dirname(buf)
-  local proj = vim.fs.basename(vim.fs.find(function(name)
-    return name:match("%.csproj$")
-  end, { path = dir, upward = true, type = "file", limit = 1 })[1])
-
-  local cmd = { "pgrep", proj:sub(1, 15)};
-  print("Searching for " .. proj)
-  local obj = vim.system(cmd, {}):wait(100);
-  if obj.code ~= 0 then
-    print("Process not found " .. obj.code .. " " .. obj.stdout)
+---@param args vim.api.keyset.create_user_command.command_args
+local attach_cs_proj_gdb = function(args)
+  local pid = get_cs_csproj_pid(args)
+  if not pid then
     return
   end
-  local pid = obj.stdout
   print("DapStarting " .. pid)
   dap.run({
     type = "gdb",
