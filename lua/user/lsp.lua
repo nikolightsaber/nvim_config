@@ -25,7 +25,7 @@ end
 --- @param client vim.lsp.Client
 local function get_cs_metadata(items, client)
   for _, item in ipairs(items) do
-    local c = string.find(item.user_data.uri, "csharp:/metadata/")
+    local c = string.find(item.user_data.uri, "csharp://")
     if not c then
       goto continue
     end
