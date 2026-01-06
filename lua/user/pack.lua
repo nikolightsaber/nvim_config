@@ -57,12 +57,20 @@ vim.keymap.set('n', '<C-;>', function() harpoon:list():select(4) end)
 vim.keymap.set('n', '<C-\'>', function() harpoon:list():select(5) end)
 vim.keymap.set('n', '<C-\\>', function() harpoon:list():select(6) end)
 
----@diagnostic disable-next-line: missing-fields
-require('nvim-treesitter.configs').setup({
-  ensure_installed = { 'c', 'lua', 'vim', 'vimdoc', 'query', 'markdown', 'markdown_inline' },
-  auto_install = true,
-  highlight = { enable = true },
-  indent = { enable = true },
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("ts-auto-install", { clear = true }),
+  callback = function()
+    local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
+    if (vim.treesitter.get_parser(0, lang, { error = false }) ~= nil) then
+      vim.treesitter.start()
+      return
+    end
+    local ts = require("nvim-treesitter")
+    if (vim.list_contains(ts.get_available(), lang)) then
+      ts.install(lang):await(function() vim.treesitter.start() end)
+    end
+  end
 })
 
 local gitsigns = require('gitsigns')
