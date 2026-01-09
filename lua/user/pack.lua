@@ -62,7 +62,8 @@ vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("ts-auto-install", { clear = true }),
   callback = function()
     local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
-    if (vim.treesitter.get_parser(0, lang, { error = false }) ~= nil) then
+    local parser = vim.treesitter.get_parser(0, lang)
+    if parser then
       vim.treesitter.start()
       return
     end
