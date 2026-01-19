@@ -11,6 +11,16 @@ vim.pack.add({
   { name = 'render-markdown',    src = 'https://github.com/MeanderingProgrammer/render-markdown.nvim' },
 }, { load = true })
 
+vim.api.nvim_create_autocmd('PackChanged', {
+  group = vim.api.nvim_create_augroup('packchanged', { clear = true }),
+  callback = function(ev)
+    local name, kind = ev.data.spec.name, ev.data.kind
+    if name == 'treesitter' and (kind == 'install' or kind == 'update') then
+      require('nvim-treesitter').update()
+    end
+  end
+})
+
 vim.cmd.colorscheme('tokyonight-storm')
 vim.cmd.packadd('nvim.difftool')
 vim.cmd.packadd('nvim.undotree')
@@ -58,8 +68,8 @@ vim.keymap.set('n', '<C-\'>', function() harpoon:list():select(5) end)
 vim.keymap.set('n', '<C-\\>', function() harpoon:list():select(6) end)
 
 
-vim.api.nvim_create_autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("ts-auto-install", { clear = true }),
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('ts-auto-install', { clear = true }),
   callback = function()
     local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
     local parser = vim.treesitter.get_parser(0, lang)
@@ -67,7 +77,7 @@ vim.api.nvim_create_autocmd("FileType", {
       vim.treesitter.start()
       return
     end
-    local ts = require("nvim-treesitter")
+    local ts = require('nvim-treesitter')
     if (vim.list_contains(ts.get_available(), lang)) then
       ts.install(lang):await(function() vim.treesitter.start() end)
     end
