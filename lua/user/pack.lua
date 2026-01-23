@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd('PackChanged', {
   callback = function(ev)
     local name, kind = ev.data.spec.name, ev.data.kind
     if name == 'treesitter' and (kind == 'install' or kind == 'update') then
-      require('nvim-treesitter').update()
+      require('nvim-treesitter').update('all', { summary = true })
     end
   end
 })
