@@ -34,3 +34,4 @@ vim.o.pumborder = "rounded"
 
 vim.api.nvim_set_hl(0, "ExtraWhitespace", { fg = "darkgreen", bg = "darkgreen" })
 vim.fn.matchadd("ExtraWhitespace", "\\s\\+\\%#\\@<!$")
+require("vim._core.ui2").enable({})
