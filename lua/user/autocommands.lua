@@ -28,7 +28,10 @@ vim.api.nvim_create_autocmd("TextYankPost",
 vim.api.nvim_create_autocmd("BufWritePost",
   {
     group = vim.api.nvim_create_augroup("formatter", { clear = true }),
-    pattern = { "*/cockpit-app/*.ts", "*/cockpit-app/*.html", "*/cockpit-app/*.scss", "*/cockpit-app/*.css" },
+    pattern = {
+      "*/cockpit-app/*.ts", "*/cockpit-app/*.html", "*/cockpit-app/*.scss", "*/cockpit-app/*.css",
+      "*/mqttplot_angular/*.ts", "*/mqttplot_angular/*.html", "*/mqttplot_angular/*.scss", "*/mqttplot_angular/*.css",
+    },
     callback = function()
       vim.fn.jobstart({ "npx", "prettier", "--write", vim.api.nvim_buf_get_name(0) }, {
         stdout_buffered = true,
