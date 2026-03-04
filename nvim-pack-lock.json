@@ -1,11 +1,11 @@
 {
   "plugins": {
     "dap": {
-      "rev": "cdfd55a133f63228c55f91378f12908cb2a78ded",
+      "rev": "b516f20b487b0ac6a281e376dfac1d16b5040041",
       "src": "https://github.com/mfussenegger/nvim-dap"
     },
     "gitsigns": {
-      "rev": "42d6aed4e94e0f0bbced16bbdcc42f57673bd75e",
+      "rev": "9f3c6dd7868bcc116e9c1c1929ce063b978fa519",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "harpoon": {
@@ -14,7 +14,7 @@
       "version": "'harpoon2'"
     },
     "nvim-web-devicons": {
-      "rev": "803353450c374192393f5387b6a0176d0972b848",
+      "rev": "737cf6c657898d0c697311d79d361288a1343d50",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "plenary": {
@@ -22,11 +22,11 @@
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "render-markdown": {
-      "rev": "c54380dd4d8d1738b9691a7c349ecad7967ac12e",
+      "rev": "1641b434bda26e0f4e3610985b3357fc213cf834",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
     "telescope": {
-      "rev": "a8c2223ea6b185701090ccb1ebc7f4e41c4c9784",
+      "rev": "5255aa27c422de944791318024167ad5d40aad20",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "tokyonight": {
@@ -34,7 +34,7 @@
       "src": "https://github.com/folke/tokyonight.nvim"
     },
     "treesitter": {
-      "rev": "b9933f0e1386c7b63fe131d9979d9c2613da551a",
+      "rev": "972f378653c794b0ff82282a844732695064b70f",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "treesitter-context": {
