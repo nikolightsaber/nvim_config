@@ -23,8 +23,8 @@ vim.api.nvim_create_autocmd('PackChanged', {
 
 vim.cmd.colorscheme('tokyonight-storm')
 vim.cmd.packadd('nvim.difftool')
-vim.cmd.packadd('nvim.undotree')
 
+vim.cmd.packadd('nvim.undotree')
 vim.keymap.set('n', '<leader>u', require('undotree').open);
 
 require('telescope').setup({
@@ -52,8 +52,6 @@ vim.keymap.set('n', 'gt', function()
   vim.o.hlsearch = true
   return telescope_builltin.grep_string({ prompt_title = 'Search selection', search = word, path_display = { 'truncate' }, })
 end)
-
-
 
 local harpoon = require('harpoon')
 harpoon:setup({ settings = { save_on_toggle = true, } })

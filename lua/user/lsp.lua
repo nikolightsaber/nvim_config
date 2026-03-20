@@ -91,50 +91,15 @@ end
 local function lsp_completion_info(client, bufnr)
   vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true, })
 
-  local compl_info_req_id = nil
   vim.api.nvim_create_autocmd("CompleteChanged", {
     buffer = bufnr,
     group = vim.api.nvim_create_augroup("completion_info", { clear = true }),
     callback = function()
-      local compl_item = vim.tbl_get(vim.v.completed_item, "user_data", "nvim", "lsp", "completion_item")
-      if not compl_item then
-        return
+      local winid = vim.fn.complete_info({ "selected" }).preview_winid
+      if winid and vim.api.nvim_win_is_valid(winid) then
+        vim.api.nvim_win_set_config(winid, { border = "rounded" })
       end
-      if compl_info_req_id then
-        client:cancel_request(compl_info_req_id)
-      end
-
-      local id = vim.fn.complete_info({ "selected" }).selected
-      _, compl_info_req_id = client:request("completionItem/resolve", compl_item,
-        function(err, result)
-          compl_info_req_id = nil
-          if err or not result then
-            return
-          end
-          local doc = vim.tbl_get(result, "documentation", "value")
-          if not doc then
-            return
-          end
-
-          local ret = vim.api.nvim__complete_set(id, { info = doc })
-          if not ret.bufnr or
-              not ret.winid or
-              not vim.api.nvim_buf_is_valid(ret.bufnr) or
-              not vim.api.nvim_win_is_valid(ret.winid) then
-            return
-          end
-          vim.bo[ret.bufnr].filetype = "markdown"
-          vim.bo[ret.bufnr].bufhidden = "wipe"
-          vim.wo[ret.winid].spell = false
-          vim.wo[ret.winid].foldenable = false
-          vim.wo[ret.winid].breakindent = true
-          vim.wo[ret.winid].smoothscroll = true
-          vim.wo[ret.winid].conceallevel = 2
-          vim.treesitter.start(ret.bufnr)
-          vim.api.nvim_win_set_config(ret.winid, { border = "rounded" })
-        end,
-        vim.api.nvim_get_current_buf())
-    end
+    end,
   })
 end
 
