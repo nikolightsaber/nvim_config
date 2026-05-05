@@ -6,11 +6,11 @@ local function lsp_highlight_document(client, bufnr)
   -- Set autocommands conditional on server_capabilities
   if client.server_capabilities.documentHighlightProvider then
     vim.api.nvim_create_autocmd("CursorHold", {
-      buffer = bufnr,
+      buf = bufnr,
       callback = vim.lsp.buf.document_highlight
     })
     vim.api.nvim_create_autocmd({ "CursorMoved", "InsertEnter" }, {
-      buffer = bufnr,
+      buf = bufnr,
       callback = vim.lsp.buf.clear_references
     })
 
@@ -92,7 +92,7 @@ local function lsp_completion_info(client, bufnr)
   vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true, })
 
   vim.api.nvim_create_autocmd("CompleteChanged", {
-    buffer = bufnr,
+    buf = bufnr,
     group = vim.api.nvim_create_augroup("completion_info", { clear = true }),
     callback = function()
       local winid = vim.fn.complete_info({ "selected" }).preview_winid
@@ -115,7 +115,7 @@ end
 --- @param bufnr (number)
 local function lsp_format(client, bufnr)
   vim.api.nvim_create_autocmd("BufWritePre", {
-    buffer = bufnr,
+    buf = bufnr,
     group = vim.api.nvim_create_augroup("lsp_formatter", { clear = true }),
     callback = function() vim.lsp.buf.format({ bufnr = bufnr, id = client.id }) end
   })

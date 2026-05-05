@@ -42,7 +42,7 @@ return function(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)
 
   vim.api.nvim_create_autocmd("ModeChanged", {
     group = group,
-    buffer = term_buf,
+    buf = term_buf,
     callback = function()
       local mode = vim.fn.mode()
       if mode == "t" then
