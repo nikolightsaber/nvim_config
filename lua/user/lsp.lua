@@ -84,6 +84,8 @@ local function lsp_keymaps(bufnr)
   vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { buffer = bufnr })
   vim.keymap.set("n", "<leader>th", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end,
     { buffer = bufnr })
+  vim.keymap.set("n", "<leader>tx", function() vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled()) end,
+    { buffer = bufnr })
 end
 
 --- @param client (vim.lsp.Client)
