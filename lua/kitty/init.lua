@@ -44,7 +44,7 @@ return function(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)
     group = group,
     buf = term_buf,
     callback = function()
-      local mode = vim.fn.mode()
+      local mode = vim.api.nvim_get_mode()
       if mode == "t" then
         vim.cmd.stopinsert()
         vim.schedule(setCursor)
@@ -57,7 +57,7 @@ return function(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)
     pattern = "*",
     once = true,
     callback = function(ev)
-      local current_win = vim.fn.win_getid()
+      local current_win = vim.api.nvim_get_current_win()
       for _, line in ipairs(vim.api.nvim_buf_get_lines(ev.buf, 0, -2, false)) do
         vim.api.nvim_chan_send(term_io, line)
         vim.api.nvim_chan_send(term_io, "\r\n")

@@ -33,7 +33,7 @@ vim.api.nvim_create_autocmd("BufWritePost",
       "*/mqttplot_angular/*.ts", "*/mqttplot_angular/*.html", "*/mqttplot_angular/*.scss", "*/mqttplot_angular/*.css",
     },
     callback = function()
-      vim.fn.jobstart({ "npx", "prettier", "--write", vim.api.nvim_buf_get_name(0) }, {
+      vim.system({ "npx", "prettier", "--write", vim.api.nvim_buf_get_name(0) }, {
         stdout_buffered = true,
         on_exit = function(_, _)
           vim.schedule(vim.cmd.edit);

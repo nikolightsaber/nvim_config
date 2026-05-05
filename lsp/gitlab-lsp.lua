@@ -43,7 +43,7 @@ return {
       print(vim.inspect(result))
     end,
   },
-  root_dir = vim.fn.getcwd(),
+  root_dir = vim.uv.cwd(),
   settings = settings,
   --- @param client vim.lsp.Client
   on_init = function(client, _)

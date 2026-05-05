@@ -26,7 +26,7 @@ dap.configurations.cs = {
     name = "launch - netcoredbg",
     request = "launch",
     program = function()
-      return vim.fn.input('Path to dll ', vim.fn.getcwd() .. '/bin/Debug/', 'file')
+      return vim.ui.input('Path to dll ', vim.uv.cwd() .. '/bin/Debug/')
     end,
   },
 }
@@ -51,7 +51,7 @@ local get_cs_test_name_if_test = function()
 end
 
 local build_and_debug_curr_cs_test_file = function()
-  local buf = vim.fn.bufname()
+  local buf = vim.api.nvim_buf_get_name(0)
   local dir = vim.fs.dirname(buf)
   local proj = vim.fs.dirname(vim.fs.find(function(name)
     return name:match("%.csproj$")
@@ -106,7 +106,7 @@ vim.api.nvim_create_user_command("DebugCurrentCSTestFile", build_and_debug_curr_
 
 ---@param args vim.api.keyset.create_user_command.command_args
 local run_cs_proj = function(args)
-  local buf = vim.fn.bufname()
+  local buf = vim.api.nvim_buf_get_name(0)
   local dir = vim.fs.dirname(buf)
   local proj = vim.fs.dirname(vim.fs.find(function(name)
     return name:match("%.csproj$")
@@ -146,7 +146,7 @@ local get_cs_csproj_pid = function(args)
   if #args.fargs > 0 then
     proj = args.fargs[1]
   else
-    local buf = vim.fn.bufname()
+    local buf = vim.api.nvim_buf_get_name(0)
     local dir = vim.fs.dirname(buf)
     proj = vim.fs.basename(vim.fs.find(function(name)
       return name:match("%.csproj$")
@@ -217,8 +217,8 @@ vim.keymap.set("n", "<F11>", function() dap.step_into() end)
 vim.keymap.set("n", "<F12>", function() dap.step_out() end)
 vim.keymap.set("n", "<Leader>dc", function() dap.run_to_cursor() end)
 vim.keymap.set("n", "<Leader>dbn", function() dap.toggle_breakpoint() end)
-vim.keymap.set("n", "<Leader>dbc", function() dap.toggle_breakpoint(vim.fn.input("Condition: ")) end)
-vim.keymap.set("n", "<Leader>lp", function() dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: ")) end)
+vim.keymap.set("n", "<Leader>dbc", function() dap.toggle_breakpoint(vim.ui.input("Condition: ")) end)
+vim.keymap.set("n", "<Leader>lp", function() dap.set_breakpoint(nil, nil, vim.ui.input("Log point message: ")) end)
 vim.keymap.set("n", "<Leader>dr", function() dap.repl.open() end)
 vim.keymap.set("n", "<Leader>dl", function() dap.run_last() end)
 vim.keymap.set({ 'n', 'v' }, '<Leader>dh', function()
