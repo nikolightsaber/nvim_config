@@ -139,8 +139,8 @@ local function lsp_format(client, bufnr)
 end
 
 local function esp_lsp()
-  vim.lsp.enable("clangd", false);
-  vim.lsp.enable("esp-clangd", true);
+  vim.lsp.enable("clangd", false)
+  vim.lsp.enable("esp-clangd", true)
 end
 
 --- @param client (vim.lsp.Client)

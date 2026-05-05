@@ -25,7 +25,7 @@ vim.cmd.colorscheme('tokyonight-storm')
 vim.cmd.packadd('nvim.difftool')
 
 vim.cmd.packadd('nvim.undotree')
-vim.keymap.set('n', '<leader>u', require('undotree').open);
+vim.keymap.set('n', '<leader>u', require('undotree').open)
 
 require('telescope').setup({
   defaults = {
@@ -35,7 +35,7 @@ require('telescope').setup({
     }
   }
 })
-local telescope_builltin = require('telescope.builtin');
+local telescope_builltin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>f',
   function() telescope_builltin.find_files({ previewer = false, path_display = { 'absolute' }, no_ignore = true }) end)
 vim.keymap.set('n', '<leader>g', function() telescope_builltin.live_grep({ path_display = { 'truncate' } }) end)
@@ -104,8 +104,9 @@ vim.keymap.set('n', '<leader>w', function()
   local blame_line = actions['blame_line']
   if (blame_line ~= nil) then
     blame_line({ full = true, ignore_whitespace = true })
-    return;
+    return
   end
+
   local preview_hunk = actions['preview_hunk']
   if (preview_hunk ~= nil) then
     preview_hunk({ full = true, ignore_whitespace = true })
