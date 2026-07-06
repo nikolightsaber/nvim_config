@@ -7,7 +7,7 @@
 local function get_angular_cmd(root_dir)
   local project_root = vim.fs.find("node_modules", { path = root_dir, upward = true })[1]
 
-  local default_probe_dir = project_root and (project_root .. "/node_modules") or ""
+  local default_probe_dir = project_root or ""
 
   return {
     "npx",
