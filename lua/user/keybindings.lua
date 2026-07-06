@@ -45,6 +45,15 @@ keymap("n", "<Down>", "")
 
 keymap({ "n", "i", "v", "x" }, "<F1>", "")
 
+-- force ctrl-y in pum
+vim.keymap.set("i", "<C-n>", function()
+  return vim.fn.pumvisible() == 1 and "<Down>" or "<C-n>"
+end, { expr = true })
+
+vim.keymap.set("i", "<C-p>", function()
+  return vim.fn.pumvisible() == 1 and "<Up>" or "<C-p>"
+end, { expr = true })
+
 function _G.ReplaceWithRegister(type)
   if (type == "") then
     vim.o.operatorfunc = "v:lua.ReplaceWithRegister"
