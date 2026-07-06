@@ -97,6 +97,7 @@ end
 --- @param bufnr (number)
 local function lsp_completion_info(client, bufnr)
   vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true, })
+  vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
   vim.api.nvim_create_autocmd("CompleteChanged", {
     buf = bufnr,
