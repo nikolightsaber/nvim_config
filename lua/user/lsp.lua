@@ -36,8 +36,13 @@ local function get_cs_metadata(items, client)
     if result == nil or err ~= nil then
       goto continue
     end
+    local source = vim.tbl_get(result, "result", "source")
+    if not source then
+      goto continue
+    end
     local b = vim.fn.bufadd(item.filename)
-    local source_lines = vim.split(result.result.source, "\n")
+    item.bufnr = b
+    local source_lines = vim.split(source, "\n")
     vim.bo[b].buftype = "nofile"
     vim.api.nvim_buf_set_lines(b, 0, -1, true, source_lines)
     vim.bo[b].filetype = "cs"
