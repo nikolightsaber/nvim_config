@@ -51,7 +51,7 @@ local function get_cs_metadata(items, client)
   end
 end
 
---- @param t (vim.lsp.ListOpts.OnList)
+--- @param t (vim.fn.setqflist.what)
 local function on_list_telescope(t)
   if vim.bo[t.context.bufnr].ft == "cs" then
     get_cs_metadata(t.items, vim.lsp.get_clients({ buffer = t.context.bufnr, name = "csharp_ls" })[1])
