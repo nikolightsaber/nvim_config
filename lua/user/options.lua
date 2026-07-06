@@ -26,7 +26,7 @@ vim.o.pumheight = 20
 vim.opt.shortmess:append("c")
 vim.opt.shortmess:append("C")
 vim.o.clipboard = "unnamedplus"
-vim.g.health = { style = "float" }
+-- vim.g.health = { style = "float" }
 -- don't fold
 vim.o.foldlevel = 1000
 vim.o.winborder = "rounded"
