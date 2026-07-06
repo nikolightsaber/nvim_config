@@ -17,6 +17,10 @@
       "rev": "4fc505ac7bd7692824a142e96e5f529c133862f8",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
+    "opencode": {
+      "rev": "8cb752f295664ab0736ad4498f659324e506e074",
+      "src": "https://github.com/nickjvandyke/opencode.nvim"
+    },
     "plenary": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"

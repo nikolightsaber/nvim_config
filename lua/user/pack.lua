@@ -9,6 +9,7 @@ vim.pack.add({
   { name = 'gitsigns',           src = 'https://github.com/lewis6991/gitsigns.nvim' },
   { name = 'dap',                src = 'https://github.com/mfussenegger/nvim-dap' },
   { name = 'render-markdown',    src = 'https://github.com/MeanderingProgrammer/render-markdown.nvim' },
+  { name = 'opencode',           src = 'https://github.com/nickjvandyke/opencode.nvim' },
 }, { load = true })
 
 vim.api.nvim_create_autocmd('PackChanged', {
@@ -117,5 +118,12 @@ local gitsigns_actions = require('gitsigns.actions')
 vim.keymap.set('n', '<leader>tb', function() gitsigns_actions.toggle_current_line_blame() end)
 vim.keymap.set('n', ']h', function() gitsigns_actions.nav_hunk('next') end)
 vim.keymap.set('n', '[h', function() gitsigns_actions.nav_hunk('prev') end)
+
+---@type opencode.Opts
+vim.g.opencode_opts = {}
+vim.keymap.set({ 'n', 'x' }, '<leader>aa', function() require('opencode').ask('@this: ') end)
+vim.keymap.set({ 'n', 'x' }, '<leader>as', function() require('opencode').select() end)
+vim.keymap.set({ 'n', 'x' }, '<leader>ar', function() return require('opencode').operator('@this ') end, { expr = true })
+vim.keymap.set('n', '<leader>al', function() return require('opencode').operator('@this ') .. '_' end, { expr = true })
 
 require('user.dap')
