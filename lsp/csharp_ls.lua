@@ -25,7 +25,17 @@ return {
       cb(dir)
     end
   end,
-  handlers = {
-    ['csharp/metadata'] = function() end,
+  capabilities = {
+    experimental = {
+      csharp = {
+        metadataUris = true,
+      },
+    },
   },
+  get_language_id = function(_, ft)
+    if ft == 'cs' then
+      return 'csharp'
+    end
+    return ft
+  end,
 }
