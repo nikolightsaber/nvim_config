@@ -23,7 +23,9 @@ vim.api.nvim_create_autocmd("FileType", {
 
 group = vim.api.nvim_create_augroup("yankhighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost",
-  { group = group, callback = function() vim.hl.on_yank({ hlgroup = "Visual", timeout = 200 }) end })
+  { group = group, callback = function() vim.hl.hl_op({ hlgroup = "Visual", timeout = 200 }) end })
+vim.api.nvim_create_autocmd("TextPutPost",
+  { group = group, callback = function() vim.hl.hl_op({ hlgroup = "Visual", timeout = 200 }) end })
 
 vim.api.nvim_create_autocmd("BufWritePost",
   {
