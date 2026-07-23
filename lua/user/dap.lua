@@ -114,7 +114,7 @@ local run_cs_proj = function(args)
 
   local cmd = { "dotnet", "run", "-c", "Debug", "--project", proj, "--", args.args };
   print("Starting run on " .. proj)
-  local obj = vim.system(cmd, {})
+  local obj = vim.system(cmd)
   local ppid = obj.pid
   vim.schedule(function()
     local pid = nil
@@ -156,7 +156,7 @@ local get_cs_csproj_pid = function(args)
 
   local cmd = { "pgrep", proj:sub(1, 15)};
   print("Searching for " .. proj)
-  local obj = vim.system(cmd, {}):wait(100);
+  local obj = vim.system(cmd):wait(100);
   if obj.code ~= 0 then
     print("Process not found " .. obj.code .. " " .. obj.stdout)
     return nil

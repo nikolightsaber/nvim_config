@@ -157,7 +157,7 @@ M.on_attach_format = function(client, bufnr)
 end
 
 M.setup = function()
-  vim.api.nvim_create_user_command("EspLsp", esp_lsp, {})
+  vim.api.nvim_create_user_command("EspLsp", esp_lsp)
 
   vim.keymap.set({ "n", "i" }, "<C- >", function()
     vim.lsp.inline_completion.enable(not vim.lsp.inline_completion.is_enabled())

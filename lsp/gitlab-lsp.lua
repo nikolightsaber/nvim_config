@@ -64,6 +64,6 @@ return {
         vim.tbl_extend('force', { context = {} }, vim.lsp.util.make_position_params(0, 'utf-16')), function(err, result)
           print(vim.inspect(result))
         end)
-    end, {})
+    end)
   end,
 }
